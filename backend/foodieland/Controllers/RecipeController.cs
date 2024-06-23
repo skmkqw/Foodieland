@@ -1,4 +1,5 @@
 using foodieland.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace foodieland.Controllers;
@@ -13,6 +14,7 @@ public class RecipeController : ControllerBase
         _resository = repository;
     }
     
+    [Authorize]
     [HttpGet("/recipes")]
     public async Task<IActionResult> GetAll()
     {

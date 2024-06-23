@@ -29,6 +29,7 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
             {
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
+                UserName = registerDto.Email,
                 Email = registerDto.Email,
                 SecurityStamp = Guid.NewGuid().ToString()
             };

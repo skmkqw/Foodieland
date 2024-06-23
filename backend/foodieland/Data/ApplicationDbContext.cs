@@ -5,7 +5,7 @@ namespace foodieland.Data;
 
 public class ApplicationDbContext : DbContext
 {
-    public ApplicationDbContext(DbContextOptions contextOptions) : base(contextOptions)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> contextOptions) : base(contextOptions)
     {
     }
     
