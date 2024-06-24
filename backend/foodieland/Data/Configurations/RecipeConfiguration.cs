@@ -44,5 +44,9 @@ public class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
         builder.HasOne(r => r.NutritionInformation)
             .WithOne(ni => ni.Recipe)
             .HasForeignKey<NutritionInformation>(ni => ni.RecipeId);
+
+        builder.HasOne(r => r.Creator)
+            .WithMany(au => au.Recipes)
+            .HasForeignKey(r => r.CreatorId);
     }
 }

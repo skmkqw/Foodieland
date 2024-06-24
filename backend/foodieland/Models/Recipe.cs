@@ -31,4 +31,8 @@ public class Recipe
     public List<CookingDirection> Directions { get; set; } = new ();
 
     public NutritionInformation NutritionInformation { get; set; } = new ();
+
+    public string CreatorId { get; set; }
+
+    public AppUser Creator { get; set; }
 }
