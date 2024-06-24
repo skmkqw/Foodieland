@@ -36,5 +36,13 @@ public class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
         builder.HasMany(r => r.Ingredients)
             .WithOne(r => r.Recipe)
             .HasForeignKey(ri => ri.RecipeId);
+
+        builder.HasMany(r => r.Directions)
+            .WithOne(cd => cd.Recipe)
+            .HasForeignKey(cd => cd.RecipeId);
+
+        builder.HasOne(r => r.NutritionInformation)
+            .WithOne(ni => ni.Recipe)
+            .HasForeignKey<NutritionInformation>(ni => ni.RecipeId);
     }
 }

@@ -23,5 +23,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new RecipeConfiguration());
         modelBuilder.ApplyConfiguration(new IngredientQuantityConfiguration());
         modelBuilder.ApplyConfiguration(new IngredientConfiguration());
+        modelBuilder.ApplyConfiguration(new CookingDirectionConfiguration());
+        modelBuilder.ApplyConfiguration(new NutritionInformationConfiguration());
     }
 }
