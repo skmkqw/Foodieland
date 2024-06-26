@@ -1,3 +1,4 @@
+using foodieland.DTO.NutritionInformation;
 using foodieland.Models;
 
 namespace foodieland.DTO.Recipes;
@@ -12,4 +13,6 @@ public class RecipeDto
     public uint TimeToCook { get; set; }
     
     public RecipeCategories Category { get; set; }
+
+    public NutritionInformationDto? NutritionInformation { get; set; }
 }

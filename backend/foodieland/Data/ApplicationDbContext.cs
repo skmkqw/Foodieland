@@ -16,6 +16,8 @@ public class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid
     
     public DbSet<IngredientQuantity> IngredientQuantities { get; set; }
     
+    public DbSet<NutritionInformation> NutritionInformation { get; set; }
+    
     public DbSet<Ingredient> Ingredients { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

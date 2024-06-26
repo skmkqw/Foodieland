@@ -1,3 +1,4 @@
+using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Models;
 
@@ -17,7 +18,7 @@ public static class RecipeMapper
         };
     }
 
-    public static RecipeDto FromRecipeToDto(this Recipe recipe)
+    public static RecipeDto FromRecipeToDto(this Recipe recipe, NutritionInformationDto? nutritionInformation = null)
     {
         return new RecipeDto()
         {
@@ -25,7 +26,8 @@ public static class RecipeMapper
             Name = recipe.Name,
             Description = recipe.Description,
             Category = recipe.Category,
-            TimeToCook = recipe.TimeToCook
+            TimeToCook = recipe.TimeToCook,
+            NutritionInformation = nutritionInformation
         };
     }
 }

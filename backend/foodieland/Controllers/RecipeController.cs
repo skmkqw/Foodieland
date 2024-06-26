@@ -30,12 +30,18 @@ public class RecipeController : ControllerBase
     }
     
     [HttpGet("/recipes/{recipeId}")]
-    public async Task<IActionResult> GetById([FromRoute] Guid recipeId)
+    public async Task<IActionResult> GetById([FromRoute] Guid recipeId, [FromQuery] bool displayNutrition = false)
     {
         var recipe = await _repository.GetById(recipeId);
         if (recipe == null)
         {
             return NotFound("Recipe not found");
+        }
+
+        if (displayNutrition)
+        {
+            var nutritionInformation = await _repository.GetNutritionInformation(recipeId);
+            return Ok(recipe.FromRecipeToDto(nutritionInformation!.ToNutritionDto()));
         }
         return Ok(recipe.FromRecipeToDto());
     }

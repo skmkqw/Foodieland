@@ -44,6 +44,19 @@ public class RecipeRepository : IRecipeRepository
         return recipe;
     }
 
+    public async Task<NutritionInformation?> GetNutritionInformation(Guid recipeId)
+    {
+        var recipe = await _context.Recipes.FindAsync(recipeId);
+        if (recipe == null)
+        {
+            return null;
+        }
+
+        var nutritionInformation = await _context.NutritionInformation.FirstOrDefaultAsync(ni => ni.RecipeId == recipeId);
+
+        return nutritionInformation;
+    }
+
     public async Task<(NutritionInformation? nutritionInformation, string? error)> AddNutritionInformation(Guid recipeId, AddOrUpdateNutritionDto addNutritionInfoDto)
     {
         var recipe = await _context.Recipes.Include(ni => ni.NutritionInformation).FirstOrDefaultAsync(r => r.Id == recipeId);
