@@ -30,4 +30,17 @@ public class RecipeRepository : IRecipeRepository
         await _context.SaveChangesAsync();
         return createdRecipe.Entity;
     }
+
+    public async Task<bool> Delete(Guid recipeId)
+    {
+        var recipe = await _context.Recipes.FindAsync(recipeId);
+        if (recipe == null)
+        {
+            return false;
+        }
+
+        _context.Recipes.Remove(recipe);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

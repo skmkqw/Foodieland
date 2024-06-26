@@ -10,4 +10,6 @@ public interface IRecipeRepository
     public Task<Recipe?> GetById(Guid id);
 
     public Task<Recipe> Create(CreateRecipeDto createRecipeDto, string creatorId);
+
+    public Task<bool> Delete(Guid recipeId);
 }

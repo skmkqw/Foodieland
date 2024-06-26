@@ -77,4 +77,16 @@ public class RecipeController : ControllerBase
 
         return BadRequest(ModelState);
     }
+    
+    [Authorize]
+    [HttpDelete("/recipes/{recipeId}")]
+    public async Task<IActionResult> Delete([FromRoute] Guid recipeId)
+    {
+        bool isDeleted = await _repository.Delete(recipeId);
+        if (isDeleted)
+        {
+            return NoContent();
+        } 
+        return NotFound("Recipe not found");
+    }
 }
