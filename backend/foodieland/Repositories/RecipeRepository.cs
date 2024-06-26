@@ -1,4 +1,5 @@
 using foodieland.Data;
+using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Mappers;
 using foodieland.Models;
@@ -41,6 +42,25 @@ public class RecipeRepository : IRecipeRepository
         _context.Entry(recipe).CurrentValues.SetValues(recipeDto);
         await _context.SaveChangesAsync();
         return recipe;
+    }
+
+    public async Task<(NutritionInformation? nutritionInformation, string? error)> AddNutritionInformation(Guid recipeId, AddOrUpdateNutritionDto addNutritionInfoDto)
+    {
+        var recipe = await _context.Recipes.Include(ni => ni.NutritionInformation).FirstOrDefaultAsync(r => r.Id == recipeId);
+        if (recipe == null)
+        {
+            return (null, "Recipe not found");
+        }
+
+        if (recipe.NutritionInformation != null)
+        {
+            return (null, "Recipe already has nutrition information");
+        }
+
+        var createdInfo =
+            await _context.AddAsync(addNutritionInfoDto.FromAddOrUpdateDtoToNutritionInformation(recipeId));
+        await _context.SaveChangesAsync();
+        return (createdInfo.Entity, null);
     }
 
     public async Task<bool> Delete(Guid recipeId)

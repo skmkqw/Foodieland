@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Mappers;
 using foodieland.Models;
@@ -91,6 +92,25 @@ public class RecipeController : ControllerBase
             }
 
             return Ok(updatedRecipe.FromRecipeToDto());
+        }
+
+        return BadRequest(ModelState);
+    }
+
+    [Authorize]
+    [HttpPost("/recipes/{recipeId}/addNutrition")]
+    public async Task<IActionResult> AddNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto addNutritionDto)
+    {
+        if (ModelState.IsValid)
+        {
+            (NutritionInformation? nutrition, string? error) =
+                await _repository.AddNutritionInformation(recipeId, addNutritionDto);
+            if (error == null)
+            {
+                return CreatedAtAction(nameof(GetById), new { id = nutrition!.Id }, nutrition.ToNutritionDto());
+            }
+
+            return BadRequest(error);
         }
 
         return BadRequest(ModelState);
