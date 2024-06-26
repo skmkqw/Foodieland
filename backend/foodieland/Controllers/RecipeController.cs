@@ -28,10 +28,10 @@ public class RecipeController : ControllerBase
         return Ok(recipes.Select(r => r.FromRecipeToDto()));
     }
     
-    [HttpGet("/recipes/{id}")]
-    public async Task<IActionResult> GetById([FromRoute] Guid id)
+    [HttpGet("/recipes/{recipeId}")]
+    public async Task<IActionResult> GetById([FromRoute] Guid recipeId)
     {
-        var recipe = await _repository.GetById(id);
+        var recipe = await _repository.GetById(recipeId);
         if (recipe == null)
         {
             return NotFound("Recipe not found");
@@ -41,7 +41,7 @@ public class RecipeController : ControllerBase
 
     [Authorize]
     [HttpPost("/recipes")]
-    public async Task<IActionResult> Create([FromBody] CreateRecipeDto createRecipeDto)
+    public async Task<IActionResult> Create([FromBody] AddOrUpdateRecipeDto addOrUpdateRecipeDto)
     {
         if (ModelState.IsValid)
         {
@@ -66,13 +66,31 @@ public class RecipeController : ControllerBase
                             return BadRequest("Invalid user ID.");
                         }
 
-                        var createdRecipe = await _repository.Create(createRecipeDto, userId);
+                        var createdRecipe = await _repository.Create(addOrUpdateRecipeDto, userId);
                         return CreatedAtAction(nameof(GetById), new { createdRecipe.Id }, createdRecipe.FromRecipeToDto());
                     }
                 }
             }
 
             return Unauthorized("Failed to determine user's identity");
+        }
+
+        return BadRequest(ModelState);
+    }
+
+    [Authorize]
+    [HttpPut("/recipes/{recipeId}")]
+    public async Task<IActionResult> Update([FromRoute] Guid recipeId, [FromBody] AddOrUpdateRecipeDto updateRecipeDto)
+    {
+        if (ModelState.IsValid)
+        {
+            var updatedRecipe = await _repository.Update(recipeId, updateRecipeDto);
+            if (updatedRecipe == null)
+            {
+                return NotFound("Recipe not found");
+            }
+
+            return Ok(updatedRecipe.FromRecipeToDto());
         }
 
         return BadRequest(ModelState);

@@ -9,7 +9,9 @@ public interface IRecipeRepository
 
     public Task<Recipe?> GetById(Guid id);
 
-    public Task<Recipe> Create(CreateRecipeDto createRecipeDto, string creatorId);
+    public Task<Recipe> Create(AddOrUpdateRecipeDto recipeDto, string creatorId);
+
+    public Task<Recipe?> Update(Guid recipeId, AddOrUpdateRecipeDto recipeDto);
 
     public Task<bool> Delete(Guid recipeId);
 }

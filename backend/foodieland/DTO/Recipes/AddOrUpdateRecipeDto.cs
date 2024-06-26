@@ -2,7 +2,7 @@ using foodieland.Models;
 
 namespace foodieland.DTO.Recipes;
 
-public class CreateRecipeDto
+public class AddOrUpdateRecipeDto
 { 
     public string Name { get; set; } = string.Empty;
     

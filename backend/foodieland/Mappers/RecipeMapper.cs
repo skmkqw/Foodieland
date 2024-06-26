@@ -5,14 +5,14 @@ namespace foodieland.Mappers;
 
 public static class RecipeMapper
 {
-    public static Recipe FromCreateDtoToRecipe(this CreateRecipeDto createRecipeDto, Guid creatorId)
+    public static Recipe FromCreateDtoToRecipe(this AddOrUpdateRecipeDto addOrUpdateRecipeDto, Guid creatorId)
     {
         return new Recipe()
         {
-            Name = createRecipeDto.Name,
-            Description = createRecipeDto.Description,
-            TimeToCook = createRecipeDto.TimeToCook,
-            Category = createRecipeDto.Category,
+            Name = addOrUpdateRecipeDto.Name,
+            Description = addOrUpdateRecipeDto.Description,
+            TimeToCook = addOrUpdateRecipeDto.TimeToCook,
+            Category = addOrUpdateRecipeDto.Category,
             CreatorId = creatorId
         };
     }
