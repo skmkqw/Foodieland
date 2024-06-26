@@ -1,6 +1,5 @@
 using System.Text;
 using System.Text.Json.Serialization;
-using foodieland.Authentification;
 using foodieland.Data;
 using foodieland.Models;
 using foodieland.Repositories;
@@ -14,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
     });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -27,10 +27,9 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
-builder.Services.AddDbContext<AppAuthDbContext>();
 
 builder.Services.AddIdentityCore<AppUser>()
-    .AddEntityFrameworkStores<AppAuthDbContext>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 builder.Services.AddAuthentication(options =>
 { 

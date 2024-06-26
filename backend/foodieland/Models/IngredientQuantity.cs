@@ -4,6 +4,7 @@ namespace foodieland.Models;
 
 public class IngredientQuantity
 {
+    public Guid Id { get; set; }
     public Guid RecipeId { get; set; }
     
     [JsonIgnore]

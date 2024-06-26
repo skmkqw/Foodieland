@@ -26,13 +26,13 @@ public class Recipe
     
     public RecipeCategories Category { get; set; }
 
-    public List<IngredientQuantity> Ingredients { get; set; } = new ();
+    public List<IngredientQuantity>? Ingredients { get; set; } = null;
 
-    public List<CookingDirection> Directions { get; set; } = new ();
+    public List<CookingDirection>? Directions { get; set; } = null;
 
-    public NutritionInformation NutritionInformation { get; set; } = new ();
+    public NutritionInformation? NutritionInformation { get; set; } = null;
 
-    public string CreatorId { get; set; }
+    public Guid CreatorId { get; set; }
 
     public AppUser Creator { get; set; }
 }
