@@ -1,3 +1,4 @@
+using foodieland.DTO.CookingDirection;
 using foodieland.DTO.NutritionInformation;
 using foodieland.Models;
 
@@ -15,6 +16,8 @@ public class RecipeDto
     public RecipeCategories Category { get; set; }
 
     public NutritionInformationDto? NutritionInformation { get; set; }
+    
+    public List<CookingDirectionDto>? Directions { get; set; }
     
     public Guid CreatorId { get; set; }
     

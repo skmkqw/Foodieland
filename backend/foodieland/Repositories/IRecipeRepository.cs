@@ -20,6 +20,8 @@ public interface IRecipeRepository
 
     public Task<NutritionInformation> ChangeNutritionInformation(Guid nutritionId, AddOrUpdateNutritionDto addNutritionInfoDto);
 
+    public Task<List<CookingDirection>?> GetCookingDirections(Guid recipeId);
+
     public Task<List<CookingDirection>> AddCookingDirections(Guid recipeId, List<CookingDirection> cookingDirections);
     public Task<bool> Delete(Guid recipeId);
 }

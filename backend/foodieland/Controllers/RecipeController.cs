@@ -27,24 +27,25 @@ public class RecipeController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var recipes = await _repository.GetAll();
-        return Ok(recipes.Select(r => r.FromRecipeToDto()));
+        return Ok(recipes.Select(r => r.ToRecipeDto()));
     }
     
     [HttpGet("/recipes/{recipeId}")]
-    public async Task<IActionResult> GetById([FromRoute] Guid recipeId, [FromQuery] bool displayNutrition = false)
+    public async Task<IActionResult> GetById([FromRoute] Guid recipeId, [FromQuery] bool displayNutrition = false, [FromQuery] bool displayDirections = false)
     {
         var recipe = await _repository.GetById(recipeId);
         if (recipe == null)
         {
             return NotFound("Recipe not found");
         }
+        
+        var nutritionInformation = displayNutrition ? await _repository.GetNutritionInformation(recipeId) : null;
+        var directions = displayDirections ? await _repository.GetCookingDirections(recipeId) : null;
 
-        if (displayNutrition)
-        {
-            var nutritionInformation = await _repository.GetNutritionInformation(recipeId);
-            return Ok(recipe.FromRecipeToDto(nutritionInformation!.ToNutritionDto()));
-        }
-        return Ok(recipe.FromRecipeToDto());
+        var nutritionDto = nutritionInformation?.ToNutritionDto();
+        var directionsDto = directions?.Select(cd => cd.ToCookingDirectionDto()).OrderBy(cd => cd.StepNumber).ToList();
+
+        return Ok(recipe.ToRecipeDto(directionsDto, nutritionDto));
     }
 
     [Authorize]
@@ -74,7 +75,7 @@ public class RecipeController : ControllerBase
                         }
 
                         var createdRecipe = await _repository.Create(addOrUpdateRecipeDto, userId);
-                        return CreatedAtAction(nameof(GetById), new { createdRecipe.Id }, createdRecipe.FromRecipeToDto());
+                        return CreatedAtAction(nameof(GetById), new { recipeId = createdRecipe.Id }, createdRecipe.ToRecipeDto());
                     }
                 }
             }
@@ -97,7 +98,7 @@ public class RecipeController : ControllerBase
                 return NotFound("Recipe not found");
             }
 
-            return Ok(updatedRecipe.FromRecipeToDto());
+            return Ok(updatedRecipe.ToRecipeDto());
         }
 
         return BadRequest(ModelState);

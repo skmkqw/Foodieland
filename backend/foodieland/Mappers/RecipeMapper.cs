@@ -1,3 +1,4 @@
+using foodieland.DTO.CookingDirection;
 using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Models;
@@ -6,7 +7,7 @@ namespace foodieland.Mappers;
 
 public static class RecipeMapper
 {
-    public static Recipe FromCreateDtoToRecipe(this AddOrUpdateRecipeDto addOrUpdateRecipeDto, Guid creatorId)
+    public static Recipe ToRecipe(this AddOrUpdateRecipeDto addOrUpdateRecipeDto, Guid creatorId)
     {
         return new Recipe()
         {
@@ -18,7 +19,7 @@ public static class RecipeMapper
         };
     }
 
-    public static RecipeDto FromRecipeToDto(this Recipe recipe, NutritionInformationDto? nutritionInformation = null)
+    public static RecipeDto ToRecipeDto(this Recipe recipe, List<CookingDirectionDto>? cookingDirections = null, NutritionInformationDto? nutritionInformation = null)
     {
         return new RecipeDto()
         {
@@ -29,7 +30,8 @@ public static class RecipeMapper
             TimeToCook = recipe.TimeToCook,
             NutritionInformation = nutritionInformation,
             CreatorId = recipe.CreatorId,
-            CreationDate = recipe.CreationDate
+            CreationDate = recipe.CreationDate,
+            Directions = cookingDirections
         };
     }
 }

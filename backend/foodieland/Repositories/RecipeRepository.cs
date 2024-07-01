@@ -27,7 +27,7 @@ public class RecipeRepository : IRecipeRepository
 
     public async Task<Recipe> Create(AddOrUpdateRecipeDto addOrUpdateRecipeDto, string creatorId)
     {
-        var createdRecipe = await _context.Recipes.AddAsync(addOrUpdateRecipeDto.FromCreateDtoToRecipe(new Guid(creatorId)));
+        var createdRecipe = await _context.Recipes.AddAsync(addOrUpdateRecipeDto.ToRecipe(new Guid(creatorId)));
         await _context.SaveChangesAsync();
         return createdRecipe.Entity;
     }
@@ -83,8 +83,19 @@ public class RecipeRepository : IRecipeRepository
         await _context.SaveChangesAsync();
         return nutritionInformation!;
     }
-    
-    
+
+    public async Task<List<CookingDirection>?> GetCookingDirections(Guid recipeId)
+    {
+        var recipe = await _context.Recipes.Include(r => r.Directions).FirstOrDefaultAsync(r => r.Id == recipeId);
+        if (recipe == null)
+        {
+            return null;
+        }
+
+        return recipe.Directions;
+    }
+
+
     public async Task<List<CookingDirection>> AddCookingDirections(Guid recipeId, List<CookingDirection> directions)
     {
         await using var transaction = await _context.Database.BeginTransactionAsync();
@@ -95,6 +106,8 @@ public class RecipeRepository : IRecipeRepository
             {
                 throw new Exception("Recipe not found");
             }
+
+            recipe.Directions ??= new List<CookingDirection>();
 
             foreach (var direction in directions)
             {
