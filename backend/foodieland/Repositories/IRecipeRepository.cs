@@ -18,5 +18,6 @@ public interface IRecipeRepository
 
     public Task<(NutritionInformation? nutritionInformation, string? error)> AddNutritionInformation(Guid recipeId, AddOrUpdateNutritionDto addNutritionInfoDto);
 
+    public Task<NutritionInformation> ChangeNutritionInformation(Guid nutritionId, AddOrUpdateNutritionDto addNutritionInfoDto);
     public Task<bool> Delete(Guid recipeId);
 }

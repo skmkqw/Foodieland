@@ -76,6 +76,14 @@ public class RecipeRepository : IRecipeRepository
         return (createdInfo.Entity, null);
     }
 
+    public async Task<NutritionInformation> ChangeNutritionInformation(Guid nutritionId, AddOrUpdateNutritionDto updateNutritionInfoDto)
+    {
+        NutritionInformation nutritionInformation = (await _context.NutritionInformation.FindAsync(nutritionId))!;
+        _context.Entry(nutritionInformation).CurrentValues.SetValues(updateNutritionInfoDto);
+        await _context.SaveChangesAsync();
+        return nutritionInformation!;
+    }
+
     public async Task<bool> Delete(Guid recipeId)
     {
         var recipe = await _context.Recipes.FindAsync(recipeId);

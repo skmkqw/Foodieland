@@ -58,9 +58,8 @@ public class RecipeController : ControllerBase
             {
                 var token = authorizationHeader.Substring("Bearer ".Length).Trim();
                 var handler = new JwtSecurityTokenHandler();
-                var jwtToken = handler.ReadToken(token) as JwtSecurityToken;
 
-                if (jwtToken != null)
+                if (handler.ReadToken(token) is JwtSecurityToken jwtToken)
                 {
                     var userIdClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid");
                     if (userIdClaim != null)
@@ -117,6 +116,26 @@ public class RecipeController : ControllerBase
             }
 
             return BadRequest(error);
+        }
+
+        return BadRequest(ModelState);
+    }
+
+    [Authorize]
+    [HttpPut("/recipes/{recipeId}/changeNutrition")]
+    public async Task<IActionResult> ChangeNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto updateNutritionDto)
+    {
+        if (ModelState.IsValid)
+        {
+            var nutritionInformation = await _repository.GetNutritionInformation(recipeId);
+            if (nutritionInformation == null)
+            {
+                return BadRequest("Recipe has no nutrition information");
+            }
+
+            var updatedNutrition = await _repository.ChangeNutritionInformation(nutritionInformation.Id, updateNutritionDto);
+
+            return Ok(updatedNutrition.ToNutritionDto());
         }
 
         return BadRequest(ModelState);
