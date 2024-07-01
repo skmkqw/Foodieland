@@ -27,7 +27,9 @@ public static class RecipeMapper
             Description = recipe.Description,
             Category = recipe.Category,
             TimeToCook = recipe.TimeToCook,
-            NutritionInformation = nutritionInformation
+            NutritionInformation = nutritionInformation,
+            CreatorId = recipe.CreatorId,
+            CreationDate = recipe.CreationDate
         };
     }
 }

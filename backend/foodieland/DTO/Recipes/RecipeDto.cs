@@ -15,4 +15,8 @@ public class RecipeDto
     public RecipeCategories Category { get; set; }
 
     public NutritionInformationDto? NutritionInformation { get; set; }
+    
+    public Guid CreatorId { get; set; }
+    
+    public DateOnly CreationDate { get; set; } 
 }
