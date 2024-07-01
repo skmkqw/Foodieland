@@ -83,6 +83,35 @@ public class RecipeRepository : IRecipeRepository
         await _context.SaveChangesAsync();
         return nutritionInformation!;
     }
+    
+    
+    public async Task<List<CookingDirection>> AddCookingDirections(Guid recipeId, List<CookingDirection> directions)
+    {
+        await using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            var recipe = await _context.Recipes.Include(r => r.Directions).FirstOrDefaultAsync(r => r.Id == recipeId);
+            if (recipe == null)
+            {
+                throw new Exception("Recipe not found");
+            }
+
+            foreach (var direction in directions)
+            {
+                _context.CookingDirections.Add(direction);
+                recipe.Directions.Add(direction);
+            }
+
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+            return recipe.Directions;
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+    }
 
     public async Task<bool> Delete(Guid recipeId)
     {

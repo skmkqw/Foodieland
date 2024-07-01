@@ -28,7 +28,7 @@ public class Recipe
 
     public List<IngredientQuantity>? Ingredients { get; set; } = null;
 
-    public List<CookingDirection>? Directions { get; set; } = null;
+    public List<CookingDirection> Directions { get; set; } = new ();
 
     public NutritionInformation? NutritionInformation { get; set; } = null;
 
