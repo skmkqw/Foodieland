@@ -1,4 +1,5 @@
 using foodieland.Data;
+using foodieland.DTO.CookingDirection;
 using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Mappers;
@@ -81,7 +82,7 @@ public class RecipeRepository : IRecipeRepository
         NutritionInformation nutritionInformation = (await _context.NutritionInformation.FindAsync(nutritionId))!;
         _context.Entry(nutritionInformation).CurrentValues.SetValues(updateNutritionInfoDto);
         await _context.SaveChangesAsync();
-        return nutritionInformation!;
+        return nutritionInformation;
     }
 
     public async Task<List<CookingDirection>?> GetCookingDirections(Guid recipeId)
@@ -106,13 +107,66 @@ public class RecipeRepository : IRecipeRepository
             {
                 throw new Exception("Recipe not found");
             }
-
-            recipe.Directions ??= new List<CookingDirection>();
-
+            
             foreach (var direction in directions)
             {
                 _context.CookingDirections.Add(direction);
                 recipe.Directions.Add(direction);
+            }
+
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+            return recipe.Directions;
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+    }
+
+    public async Task<List<CookingDirection>> ChangeCookingDirections(Guid recipeId, List<AddOrUpdateCookingDirectionDto> changedCookingDirections)
+    {
+        await using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            if (changedCookingDirections.Count == 0)
+            {
+                throw new ArgumentException("New directions list must contain at least 1 direction");
+            }
+            var recipe = await _context.Recipes.Include(r => r.Directions).FirstOrDefaultAsync(r => r.Id == recipeId);
+            if (recipe == null)
+            {
+                throw new Exception("Recipe not found");
+            }
+
+            var directions = recipe.Directions;
+
+            if (recipe.Directions.Count == 0)
+            {
+                throw new Exception("Recipe has no cooking directions");
+            }
+            
+
+            for (int i = 0; i < changedCookingDirections.Count; i++)
+            {
+                if (i < directions!.Count)
+                {
+                    _context.Entry(directions[i]).CurrentValues.SetValues(changedCookingDirections[i]);
+                }
+                else
+                {
+                    var newDirection = changedCookingDirections[i].ToCookingDirection(recipeId);
+                    directions.Add(newDirection);
+                    _context.CookingDirections.Add(newDirection);
+                }
+            }
+            if (directions!.Count > changedCookingDirections.Count)
+            {
+                for (int i = directions.Count - 1; i >= changedCookingDirections.Count; i--)
+                {
+                    _context.CookingDirections.Remove(directions[i]);
+                }
             }
 
             await _context.SaveChangesAsync();

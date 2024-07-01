@@ -165,6 +165,26 @@ public class RecipeController : ControllerBase
     }
     
     [Authorize]
+    [HttpPut("/recipes/{recipeId}/changeDirections")]
+    public async Task<IActionResult> ChangeCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> changedCookingDirections)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var directions = await _repository.ChangeCookingDirections(recipeId, changedCookingDirections);
+                return Ok(directions.Select(cd => cd.ToCookingDirectionDto()));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        return BadRequest(ModelState);
+    }
+    
+    [Authorize]
     [HttpDelete("/recipes/{recipeId}")]
     public async Task<IActionResult> Delete([FromRoute] Guid recipeId)
     {
