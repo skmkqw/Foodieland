@@ -1,5 +1,6 @@
 using foodieland.Data;
 using foodieland.DTO.CookingDirection;
+using foodieland.DTO.IngredientQuantities;
 using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Mappers;
@@ -110,7 +111,7 @@ public class RecipeRepository : IRecipeRepository
             
             foreach (var direction in directions)
             {
-                _context.CookingDirections.Add(direction);
+                await _context.CookingDirections.AddAsync(direction);
                 recipe.Directions.Add(direction);
             }
 
@@ -150,7 +151,7 @@ public class RecipeRepository : IRecipeRepository
 
             for (int i = 0; i < changedCookingDirections.Count; i++)
             {
-                if (i < directions!.Count)
+                if (i < directions.Count)
                 {
                     _context.Entry(directions[i]).CurrentValues.SetValues(changedCookingDirections[i]);
                 }
@@ -158,10 +159,10 @@ public class RecipeRepository : IRecipeRepository
                 {
                     var newDirection = changedCookingDirections[i].ToCookingDirection(recipeId);
                     directions.Add(newDirection);
-                    _context.CookingDirections.Add(newDirection);
+                    await _context.CookingDirections.AddAsync(newDirection);
                 }
             }
-            if (directions!.Count > changedCookingDirections.Count)
+            if (directions.Count > changedCookingDirections.Count)
             {
                 for (int i = directions.Count - 1; i >= changedCookingDirections.Count; i--)
                 {
@@ -172,6 +173,66 @@ public class RecipeRepository : IRecipeRepository
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
             return recipe.Directions;
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+    }
+    
+
+    public async Task<List<IngredientQuantity>> AddIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> ingredients)
+    {
+        if (ingredients == null || !ingredients.Any())
+        {
+            throw new ArgumentException("Ingredients list must contain at least 1 ingredient");
+        }
+        
+        await using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            var recipe = await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(r => r.Id == recipeId);
+            if (recipe == null)
+            {
+                throw new Exception("Recipe not found");
+            }
+
+            foreach (AddOrUpdateIngredientDto ingredient in ingredients)
+            {
+                if (string.IsNullOrWhiteSpace(ingredient.IngredientName))
+                {
+                    throw new ArgumentException("Ingredient name cannot be null or empty");
+                }
+                
+                var existingIngredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Name.ToLower() == ingredient.IngredientName.ToLower());
+
+                IngredientQuantity ingredientQuantity;
+                if (existingIngredient != null)
+                {
+                    ingredientQuantity = ingredient.ToIngredientQuantity(recipeId, existingIngredient.Id);
+                }
+                else
+                {
+                    var newIngredient = new Ingredient
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = ingredient.IngredientName
+                    };
+                    await _context.Ingredients.AddAsync(newIngredient);
+                    ingredientQuantity = ingredient.ToIngredientQuantity(recipe, newIngredient);
+                }
+
+                await _context.IngredientQuantities.AddAsync(ingredientQuantity);
+                recipe.Ingredients.Add(ingredientQuantity);
+            }
+            
+
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+            
+            return recipe.Ingredients;
+
         }
         catch (Exception)
         {

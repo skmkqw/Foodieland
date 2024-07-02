@@ -9,7 +9,6 @@ public class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
     public void Configure(EntityTypeBuilder<Ingredient> builder)
     {
         builder.HasKey(e => e.Id);
-        builder.Property(e => e.Name).IsRequired();
         
         builder.Property(e => e.Name)
             .IsRequired()

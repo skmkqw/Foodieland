@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using foodieland.DTO.CookingDirection;
+using foodieland.DTO.IngredientQuantities;
 using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Mappers;
@@ -174,6 +175,26 @@ public class RecipeController : ControllerBase
             {
                 var directions = await _repository.ChangeCookingDirections(recipeId, changedCookingDirections);
                 return Ok(directions.Select(cd => cd.ToCookingDirectionDto()));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        return BadRequest(ModelState);
+    }
+    
+    [Authorize]
+    [HttpPost("/recipes/{recipeId}/addIngredients")]
+    public async Task<IActionResult> AddIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> ingredientDtos)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var ingredients = await _repository.AddIngredients(recipeId, ingredientDtos);
+                return Ok(ingredients.Select(i => i.ToIngredientDto()));
             }
             catch (Exception e)
             {

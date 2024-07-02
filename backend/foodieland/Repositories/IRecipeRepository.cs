@@ -1,4 +1,5 @@
 using foodieland.DTO.CookingDirection;
+using foodieland.DTO.IngredientQuantities;
 using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Models;
@@ -26,5 +27,7 @@ public interface IRecipeRepository
     public Task<List<CookingDirection>> AddCookingDirections(Guid recipeId, List<CookingDirection> cookingDirections);
 
     public Task<List<CookingDirection>> ChangeCookingDirections(Guid recipeId, List<AddOrUpdateCookingDirectionDto> changedCookingDirections);
+    
+    public Task<List<IngredientQuantity>> AddIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> ingredients);
     public Task<bool> Delete(Guid recipeId);
 }
