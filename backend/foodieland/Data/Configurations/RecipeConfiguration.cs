@@ -32,6 +32,8 @@ public class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
         builder.Property(r => r.Category)
             .IsRequired();
 
+        builder.Property(r => r.IsPublished)
+            .IsRequired();
 
         builder.HasMany(r => r.Ingredients)
             .WithOne(r => r.Recipe)

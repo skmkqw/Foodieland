@@ -8,6 +8,7 @@ public class CookingDirectionConfiguration : IEntityTypeConfiguration<CookingDir
 {
     public void Configure(EntityTypeBuilder<CookingDirection> builder)
     {
+        builder.ToTable("CookingDirections");
         builder.HasKey(cd => cd.Id);
     }
 }

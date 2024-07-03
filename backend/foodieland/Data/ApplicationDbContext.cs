@@ -1,18 +1,23 @@
 using foodieland.Data.Configurations;
 using foodieland.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace foodieland.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> contextOptions) : base(contextOptions)
+    public ApplicationDbContext(DbContextOptions contextOptions) : base(contextOptions)
     {
     }
     
     public DbSet<Recipe> Recipes { get; set; }
     
     public DbSet<IngredientQuantity> IngredientQuantities { get; set; }
+    
+    public DbSet<CookingDirection> CookingDirections { get; set; }
+    public DbSet<NutritionInformation> NutritionInformation { get; set; }
     
     public DbSet<Ingredient> Ingredients { get; set; }
     
