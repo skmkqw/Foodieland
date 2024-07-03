@@ -205,7 +205,9 @@ public class RecipeRepository : IRecipeRepository
         await using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            var recipe = await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(r => r.Id == recipeId);
+            var recipe = await _context.Recipes.Include(r => r.Ingredients)
+                .ThenInclude(iq => iq.Ingredient)
+                .FirstOrDefaultAsync(r => r.Id == recipeId);
             if (recipe == null)
             {
                 throw new Exception("Recipe not found");
@@ -227,17 +229,17 @@ public class RecipeRepository : IRecipeRepository
                 }
                 else
                 {
+                    string ingredientName = ingredient.IngredientName.Trim();
                     var newIngredient = new Ingredient
                     {
                         Id = Guid.NewGuid(),
-                        Name = ingredient.IngredientName
+                        Name = char.ToUpper(ingredientName[0]) + ingredientName.Substring(1).ToLower()
                     };
                     await _context.Ingredients.AddAsync(newIngredient);
                     ingredientQuantity = ingredient.ToIngredientQuantity(recipe, newIngredient);
                 }
 
                 await _context.IngredientQuantities.AddAsync(ingredientQuantity);
-                recipe.Ingredients.Add(ingredientQuantity);
             }
             
 

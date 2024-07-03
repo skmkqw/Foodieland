@@ -11,7 +11,7 @@ public static class IngredientQuantityMapper
         {
             Id = Guid.NewGuid(),
             Quantity = addOrUpdateIngredientDto.Quantity,
-            Unit = addOrUpdateIngredientDto.Unit,
+            Unit = addOrUpdateIngredientDto.Unit.Trim().ToLower(),
             RecipeId = recipe.Id,
             Recipe = recipe,
             IngredientId = ingredient.Id,
