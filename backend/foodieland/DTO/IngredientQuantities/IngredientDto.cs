@@ -1,3 +1,5 @@
+using foodieland.Models;
+
 namespace foodieland.DTO.IngredientQuantities;
 
 public class IngredientDto
@@ -8,5 +10,5 @@ public class IngredientDto
     
     public double Quantity { get; set; }
 
-    public string Unit { get; set; } = string.Empty;
+    public MeasurementUnit Unit { get; set; } = MeasurementUnit.Gram;
 }

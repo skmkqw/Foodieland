@@ -23,5 +23,10 @@ public class IngredientQuantityConfiguration : IEntityTypeConfiguration<Ingredie
         
         builder.Property(iq => iq.RecipeId)
             .ValueGeneratedNever();
+        
+        builder.Property(ri => ri.Unit)
+            .HasConversion(
+                v => v.ToString(),
+                v => (MeasurementUnit)Enum.Parse(typeof(MeasurementUnit), v));
     }
 }
