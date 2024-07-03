@@ -143,7 +143,7 @@ public class RecipeRepository : IRecipeRepository
 
             var directions = recipe.Directions;
 
-            if (recipe.Directions.Count == 0)
+            if (directions.Count == 0)
             {
                 throw new Exception("Recipe has no cooking directions");
             }
@@ -248,6 +248,108 @@ public class RecipeRepository : IRecipeRepository
             
             return recipe.Ingredients;
 
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+    }
+
+    public async Task<List<IngredientQuantity>> ChangeIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> changedIngredients)
+    {
+        if (changedIngredients.Count == 0)
+        {
+            throw new ArgumentException("New ingredients list must contain at least 1 direction");
+        }
+        await using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            var recipe = await _context.Recipes.Include(r => r.Ingredients)
+                .ThenInclude(iq => iq.Ingredient)
+                .FirstOrDefaultAsync(r => r.Id == recipeId);
+            
+            if (recipe == null)
+            {
+                throw new Exception("Recipe not found");
+            }
+
+            var ingredients = recipe.Ingredients;
+
+            if (ingredients.Count == 0)
+            {
+                throw new Exception("Recipe has no ingredients");
+            }
+            
+
+            for (int i = 0; i < changedIngredients.Count; i++)
+            {
+                if (i < ingredients.Count)
+                {
+                    //just create new IngredientQuantity and update instead of adding
+                    var existingIngredient = await _context.Ingredients.FirstOrDefaultAsync(iq => iq.Name.ToLower() == changedIngredients[i].IngredientName.ToLower());
+
+                    IngredientQuantity ingredientQuantity;
+                    if (existingIngredient != null)
+                    {
+                        ingredientQuantity = changedIngredients[i].ToIngredientQuantity(recipe, existingIngredient);
+                    }
+                    else
+                    {
+                        string ingredientName = changedIngredients[i].IngredientName.Trim();
+                        var newIngredient = new Ingredient
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = char.ToUpper(ingredientName[0]) + ingredientName.Substring(1).ToLower()
+                        };
+                        await _context.Ingredients.AddAsync(newIngredient);
+                        ingredientQuantity = changedIngredients[i].ToIngredientQuantity(recipe, newIngredient);
+                    }
+
+                    ingredients[i].IngredientId = ingredientQuantity.IngredientId;
+                    ingredients[i].Ingredient = ingredientQuantity.Ingredient;
+                    ingredients[i].Quantity = ingredientQuantity.Quantity;
+                    ingredients[i].Unit = ingredientQuantity.Unit;
+
+                    // _context.Entry(ingredients[i]).CurrentValues.SetValues(ingredientQuantity);
+                }
+                else
+                {
+                    //just create new IngredientQuantity and add them
+                    var existingIngredient = await _context.Ingredients.FirstOrDefaultAsync(iq => iq.Name.ToLower() == changedIngredients[i].IngredientName.ToLower());
+
+                    IngredientQuantity ingredientQuantity;
+                    if (existingIngredient != null)
+                    {
+                        ingredientQuantity = changedIngredients[i].ToIngredientQuantity(recipe, existingIngredient);
+                    }
+                    else
+                    {
+                        string ingredientName = changedIngredients[i].IngredientName.Trim();
+                        var newIngredient = new Ingredient
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = char.ToUpper(ingredientName[0]) + ingredientName.Substring(1).ToLower()
+                        };
+                        await _context.Ingredients.AddAsync(newIngredient);
+                        ingredientQuantity = changedIngredients[i].ToIngredientQuantity(recipe, newIngredient);
+                    }
+
+                    await _context.IngredientQuantities.AddAsync(ingredientQuantity);
+                }
+            }
+            if (ingredients.Count > changedIngredients.Count)
+            {
+                //delete 
+                for (int i = ingredients.Count - 1; i >= changedIngredients.Count; i--)
+                {
+                    _context.IngredientQuantities.Remove(ingredients[i]);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+            return recipe.Ingredients;
         }
         catch (Exception)
         {

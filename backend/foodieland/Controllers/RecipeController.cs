@@ -206,6 +206,26 @@ public class RecipeController : ControllerBase
 
         return BadRequest(ModelState);
     }
+
+    [Authorize]
+    [HttpPut("recipes/{recipeId}/changeIngredients")]
+    public async Task<IActionResult> ChangeIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> changedIngredients)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var ingredients = await _repository.ChangeIngredients(recipeId, changedIngredients);
+                return Ok(ingredients.Select(i => i.ToIngredientDto()));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        return BadRequest(ModelState);
+    }
     
     [Authorize]
     [HttpDelete("/recipes/{recipeId}")]

@@ -81,7 +81,7 @@ public class IngredientQuantity
     [JsonIgnore]
     public Recipe Recipe { get; set; } = new ();
     
-    public Guid IngredientId { get; init; }
+    public Guid IngredientId { get; set; }
     
     [JsonIgnore]
     public Ingredient Ingredient { get; set; } = new ();
