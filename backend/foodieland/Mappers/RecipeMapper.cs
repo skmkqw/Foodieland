@@ -33,7 +33,8 @@ public static class RecipeMapper
             CreatorId = recipe.CreatorId,
             CreationDate = recipe.CreationDate,
             Directions = cookingDirections,
-            Ingredients = ingredients
+            Ingredients = ingredients,
+            IsPublished = recipe.IsPublished
         };
     }
 }

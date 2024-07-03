@@ -25,4 +25,6 @@ public class RecipeDto
     public Guid CreatorId { get; set; }
     
     public DateOnly CreationDate { get; set; } 
+    
+    public bool IsPublished { get; set; } = false;
 }

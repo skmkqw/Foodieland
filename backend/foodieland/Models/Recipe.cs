@@ -35,4 +35,6 @@ public class Recipe
     public Guid CreatorId { get; set; }
 
     public AppUser Creator { get; set; }
+
+    public bool IsPublished { get; set; } = false;
 }

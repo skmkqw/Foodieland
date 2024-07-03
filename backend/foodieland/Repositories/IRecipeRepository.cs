@@ -33,5 +33,10 @@ public interface IRecipeRepository
     public Task<List<IngredientQuantity>> AddIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> ingredients);
 
     public Task<List<IngredientQuantity>> ChangeIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> changedIngredients);
+
+    public Task<(bool isPublished, string[]? errors)> Publish(Guid recipeId);
+    
+    public Task<(bool isHidden, string? error)> Hide(Guid recipeId);
+
     public Task<bool> Delete(Guid recipeId);
 }

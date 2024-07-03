@@ -117,7 +117,7 @@ public class RecipeController : ControllerBase
                 await _repository.AddNutritionInformation(recipeId, addNutritionDto);
             if (error == null)
             {
-                return CreatedAtAction(nameof(GetById), new { id = nutrition!.Id }, nutrition.ToNutritionDto());
+                return CreatedAtAction(nameof(GetById), new { recipeId = nutrition!.Id }, nutrition.ToNutritionDto());
             }
 
             return BadRequest(error);
@@ -225,6 +225,32 @@ public class RecipeController : ControllerBase
         }
 
         return BadRequest(ModelState);
+    }
+
+    [Authorize]
+    [HttpPatch("/recipes/{recipeId}/publish")]
+    public async Task<IActionResult> Publish([FromRoute] Guid recipeId)
+    {
+        (bool isPublished, string[]? errors) = await _repository.Publish(recipeId);
+        if (!isPublished)
+        {
+            return BadRequest(errors);
+        }
+
+        return NoContent();
+    }
+    
+    [Authorize]
+    [HttpPatch("/recipes/{recipeId}/hide")]
+    public async Task<IActionResult> Hide([FromRoute] Guid recipeId)
+    {
+        (bool isHidden, string? error) = await _repository.Hide(recipeId);
+        if (!isHidden)
+        {
+            return BadRequest(error);
+        }
+
+        return NoContent();
     }
     
     [Authorize]
