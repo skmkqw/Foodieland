@@ -5,18 +5,6 @@ namespace foodieland.Mappers;
 
 public static class IngredientQuantityMapper
 {
-    public static IngredientQuantity ToIngredientQuantity(this AddOrUpdateIngredientDto addOrUpdateIngredientDto, Guid recipeId, Guid ingredientId)
-    {
-        return new IngredientQuantity()
-        {
-            Id = Guid.NewGuid(),
-            Quantity = addOrUpdateIngredientDto.Quantity,
-            Unit = addOrUpdateIngredientDto.Unit,
-            RecipeId = recipeId,
-            IngredientId = ingredientId
-        };
-    }
-    
     public static IngredientQuantity ToIngredientQuantity(this AddOrUpdateIngredientDto addOrUpdateIngredientDto, Recipe recipe, Ingredient ingredient)
     {
         return new IngredientQuantity()
@@ -38,7 +26,6 @@ public static class IngredientQuantityMapper
             Id = ingredientQuantity.Id,
             IngredientName = ingredientQuantity.Ingredient.Name,
             Quantity = ingredientQuantity.Quantity,
-            RecipeId = ingredientQuantity.RecipeId,
             Unit = ingredientQuantity.Unit
         };
     }

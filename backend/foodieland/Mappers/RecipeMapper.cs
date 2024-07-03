@@ -1,4 +1,5 @@
 using foodieland.DTO.CookingDirection;
+using foodieland.DTO.IngredientQuantities;
 using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Models;
@@ -19,7 +20,7 @@ public static class RecipeMapper
         };
     }
 
-    public static RecipeDto ToRecipeDto(this Recipe recipe, List<CookingDirectionDto>? cookingDirections = null, NutritionInformationDto? nutritionInformation = null)
+    public static RecipeDto ToRecipeDto(this Recipe recipe, List<CookingDirectionDto>? cookingDirections = null, NutritionInformationDto? nutritionInformation = null, List<IngredientDto>? ingredients = null)
     {
         return new RecipeDto()
         {
@@ -31,7 +32,8 @@ public static class RecipeMapper
             NutritionInformation = nutritionInformation,
             CreatorId = recipe.CreatorId,
             CreationDate = recipe.CreationDate,
-            Directions = cookingDirections
+            Directions = cookingDirections,
+            Ingredients = ingredients
         };
     }
 }

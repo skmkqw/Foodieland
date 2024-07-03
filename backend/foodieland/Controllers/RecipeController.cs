@@ -32,7 +32,7 @@ public class RecipeController : ControllerBase
     }
     
     [HttpGet("/recipes/{recipeId}")]
-    public async Task<IActionResult> GetById([FromRoute] Guid recipeId, [FromQuery] bool displayNutrition = false, [FromQuery] bool displayDirections = false)
+    public async Task<IActionResult> GetById([FromRoute] Guid recipeId, [FromQuery] bool displayNutrition = false, [FromQuery] bool displayDirections = false, [FromQuery] bool displayIngredients = false)
     {
         var recipe = await _repository.GetById(recipeId);
         if (recipe == null)
@@ -42,11 +42,13 @@ public class RecipeController : ControllerBase
         
         var nutritionInformation = displayNutrition ? await _repository.GetNutritionInformation(recipeId) : null;
         var directions = displayDirections ? await _repository.GetCookingDirections(recipeId) : null;
+        var ingredients = displayIngredients ? await _repository.GetIngredients(recipeId) : null;
 
         var nutritionDto = nutritionInformation?.ToNutritionDto();
         var directionsDto = directions?.Select(cd => cd.ToCookingDirectionDto()).OrderBy(cd => cd.StepNumber).ToList();
+        var ingredientsDto = ingredients?.Select(iq => iq.ToIngredientDto()).ToList();
 
-        return Ok(recipe.ToRecipeDto(directionsDto, nutritionDto));
+        return Ok(recipe.ToRecipeDto(directionsDto, nutritionDto, ingredientsDto));
     }
 
     [Authorize]

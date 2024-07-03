@@ -11,7 +11,6 @@ public static class CookingDirectionMapper
         {
             Id = cookingDirection.Id,
             Description = cookingDirection.Descirption,
-            RecipeId = cookingDirection.RecipeId,
             StepNumber = cookingDirection.StepNumber,
             Title = cookingDirection.Title
         };

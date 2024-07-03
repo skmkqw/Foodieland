@@ -13,6 +13,4 @@ public class NutritionInformationDto
     public double Carbohydrate { get; set; }
     
     public double Cholesterol { get; set; }
-    
-    public Guid RecipeId { get; set; }
 }

@@ -29,7 +29,6 @@ public static class NutritionMapper
             Cholesterol = nutritionInformation.Cholesterol,
             Fat = nutritionInformation.Fat,
             Protein = nutritionInformation.Protein,
-            RecipeId = nutritionInformation.RecipeId
         };
     }
 }

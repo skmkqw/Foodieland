@@ -9,6 +9,4 @@ public class IngredientDto
     public double Quantity { get; set; }
 
     public string Unit { get; set; } = string.Empty;
-    
-    public Guid RecipeId { get; set; }
 }

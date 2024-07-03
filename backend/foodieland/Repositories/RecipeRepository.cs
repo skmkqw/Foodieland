@@ -180,7 +180,20 @@ public class RecipeRepository : IRecipeRepository
             throw;
         }
     }
-    
+
+    public async Task<List<IngredientQuantity>?> GetIngredients(Guid recipeId)
+    {
+        var recipe = await _context.Recipes.Include(r => r.Ingredients)
+            .ThenInclude(iq => iq.Ingredient)
+            .FirstOrDefaultAsync(r => r.Id == recipeId);
+        if (recipe == null)
+        {
+            return null;
+        }
+
+        return recipe.Ingredients;
+    }
+
 
     public async Task<List<IngredientQuantity>> AddIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> ingredients)
     {
@@ -210,7 +223,7 @@ public class RecipeRepository : IRecipeRepository
                 IngredientQuantity ingredientQuantity;
                 if (existingIngredient != null)
                 {
-                    ingredientQuantity = ingredient.ToIngredientQuantity(recipeId, existingIngredient.Id);
+                    ingredientQuantity = ingredient.ToIngredientQuantity(recipe, existingIngredient);
                 }
                 else
                 {
