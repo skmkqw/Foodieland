@@ -10,7 +10,7 @@ FoodieLand is a web application designed to help users find and share high-quali
 - **Chef Profiles**: Discover recipes from renowned chefs and follow their latest creations.
 - **User Accounts**: Create an account to save favorite recipes, post reviews, and upload your own recipes.
 - **Ratings and Reviews**: Rate recipes and read reviews from other users to find the best dishes.
-- 
+  
 ## Tech Stack
 - **Frontend**: React
 - **Backend**: .NET 8 Web API

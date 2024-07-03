@@ -1,10 +1,20 @@
+using System.Text;
+using System.Text.Json.Serialization;
 using foodieland.Data;
+using foodieland.Models;
 using foodieland.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -16,6 +26,36 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+
+
+builder.Services.AddIdentityCore<AppUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+builder.Services.AddAuthentication(options =>
+{ 
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; 
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; 
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{ 
+    var secret = builder.Configuration["JwtConfig:Secret"]; 
+    var issuer = builder.Configuration["JwtConfig:ValidIssuer"]; 
+    var audience = builder.Configuration["JwtConfig:ValidAudiences"]; 
+    if (secret is null || issuer is null || audience is null) 
+    { 
+        throw new ApplicationException("Jwt is not set in the configuration"); 
+    } 
+    options.SaveToken = true; 
+    options.RequireHttpsMetadata = false; 
+    options.TokenValidationParameters = new TokenValidationParameters() 
+    { 
+        ValidateIssuer = true, 
+        ValidateAudience = true, 
+        ValidAudience = audience, 
+        ValidIssuer = issuer, 
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)) 
+    };
+});
 
 var app = builder.Build();
 
