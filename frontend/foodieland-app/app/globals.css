@@ -14,6 +14,8 @@ ul li{list-style:none;}
 img{vertical-align:top;}
 h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}
 
+html
+
 main {
     display: flex;
     justify-content: center;
@@ -21,4 +23,24 @@ main {
 
 .container {
     max-width: 1280px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 40px 12px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+    text-align: left;
 }
