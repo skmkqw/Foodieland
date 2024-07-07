@@ -1,14 +1,25 @@
 'use client'
 
 import styles from '../page.module.css';
-import Logo from "@/app/ui/Logo";
 import Link from "next/link";
-import LoginForm from "@/app/(account)/login/LoginForm";
-import Promosection from "@/app/(account)/Promosection";
-import Button from "@/app/ui/Button";
-
+import { Logo, LoginForm, Promosection, Button } from '@/components'
+import { useEffect, useState } from "react";
 export default function Login()
 {
+    const [mobile, setMobile] = useState(true)
+
+    useEffect(() => {
+        const updateMobile = () => {
+            setMobile(window.innerWidth > 900)
+        }
+
+        updateMobile()
+        window.addEventListener('resize', updateMobile)
+        return () => {
+            window.removeEventListener('resize', updateMobile)
+        }
+    }, [])
+
     return (
         <main className={styles.login}>
             <div className={styles.loginLeft}>
@@ -34,11 +45,12 @@ export default function Login()
                     </div>
                 </div>
             </div>
-            <div className={styles.loginRight}>
-            <div className={styles.loginRightContainer}>
-                    <Promosection/>
+            {mobile ? <div className={styles.loginRight}>
+                    <div className={styles.loginRightContainer}>
+                        <Promosection/>
+                    </div>
                 </div>
-            </div>
+                : <></>}
         </main>
     );
 }

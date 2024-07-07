@@ -1,5 +1,5 @@
 import styles from './promo.module.css';
-import Logo from "@/app/ui/Logo";
+import Logo from "@/components/Logo";
 export default function Promosection()
 {
     return (

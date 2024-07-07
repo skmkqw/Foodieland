@@ -1,17 +1,8 @@
-import styles from '../form.module.css'
-export default function RegisterForm()
+import styles from './form.module.css'
+export default function LoginForm()
 {
     return (
         <form>
-            <div className={styles.inputGroup}>
-                <label htmlFor="fullName">Full name</label>
-                <input
-                    type="text"
-                    id="fullName"
-                    placeholder="John Doe"
-                    required
-                />
-            </div>
             <div className={styles.inputGroup}>
                 <label htmlFor="email">E-mail</label>
                 <input
@@ -30,7 +21,7 @@ export default function RegisterForm()
                     required
                 />
             </div>
-            <button type="submit" className={`${styles.submitButton} btnMain`}>Sign Up</button>
+            <button type="submit" className={`${styles.submitButton} btnMain`}>Log In</button>
         </form>
     );
 }

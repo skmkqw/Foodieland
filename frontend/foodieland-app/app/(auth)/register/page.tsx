@@ -1,11 +1,8 @@
 'use client'
 
 import styles from '../page.module.css';
-import Logo from "@/app/ui/Logo";
 import Link from "next/link";
-import Promosection from "@/app/(account)/Promosection";
-import Button from "@/app/ui/Button";
-import RegisterForm from "@/app/(account)/register/RegisterForm";
+import { Logo, RegisterForm, Promosection, Button } from '@/components'
 
 export default function Register()
 {

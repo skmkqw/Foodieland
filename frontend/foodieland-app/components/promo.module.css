@@ -11,7 +11,7 @@
     font-weight: bold;
     margin-bottom: 10px;
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     gap: 10px;
 }
 
