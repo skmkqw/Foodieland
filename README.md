@@ -12,7 +12,7 @@ FoodieLand is a web application designed to help users find and share high-quali
 - **Ratings and Reviews**: Rate recipes and read reviews from other users to find the best dishes.
   
 ## Tech Stack
-- **Frontend**: React
+- **Frontend**: Next.js
 - **Backend**: .NET 8 Web API
 - **Database**: MSSQL
 
