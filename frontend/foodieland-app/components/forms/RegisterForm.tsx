@@ -1,4 +1,5 @@
 import styles from './form.module.css'
+import {Button} from "@/components";
 export default function RegisterForm()
 {
     return (
@@ -30,7 +31,7 @@ export default function RegisterForm()
                     required
                 />
             </div>
-            <button type="submit" className={`${styles.submitButton} btnMain`}>Sign Up</button>
+            <Button type={'submit'} additionalStyles={styles.submitButton} text={'Sign up'}/>
         </form>
     );
 }

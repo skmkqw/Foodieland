@@ -2,8 +2,7 @@
 
 import styles from '../page.module.css';
 import Link from "next/link";
-import { Logo, LoginForm, Promosection, Button } from '@/components'
-import { useEffect, useState } from "react";
+import { Logo, LoginForm, Button } from '@/components'
 export default function Login()
 {
     return (
@@ -20,12 +19,12 @@ export default function Login()
             <div className={styles.loginFooter}>
                 <div>
                     <Link href={'/register'}>
-                        <Button onClick={() => console.log("Button clicked!")} text={'Sign up'}/>
+                        <Button type={'button'} text={'Sign up'}/>
                     </Link>
                 </div>
                 <div>
                     <Link href={'/'}>
-                        <Button onClick={() => console.log("Button clicked!")} text={'Skip'}/>
+                        <Button type={'button'} text={'Skip'}/>
                     </Link>
                 </div>
             </div>

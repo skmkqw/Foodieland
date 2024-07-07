@@ -2,7 +2,7 @@
 
 import styles from '../page.module.css';
 import Link from "next/link";
-import { Logo, RegisterForm, Promosection, Button } from '@/components'
+import { Logo, RegisterForm, Button } from '@/components'
 
 export default function Register()
 {
@@ -20,12 +20,12 @@ export default function Register()
             <div className={styles.loginFooter}>
                 <div>
                     <Link href={'/login'}>
-                        <Button onClick={() => console.log("Button clicked!")} text={'Log in'}/>
+                        <Button type={'button'} text={'Log in'}/>
                     </Link>
                 </div>
                 <div>
                     <Link href={'/'}>
-                        <Button onClick={() => console.log("Button clicked!")} text={'Skip'}/>
+                        <Button type={'button'} text={'Skip'}/>
                     </Link>
                 </div>
             </div>
