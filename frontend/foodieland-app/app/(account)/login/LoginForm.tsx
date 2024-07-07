@@ -1,4 +1,4 @@
-import styles from './login.module.css'
+import styles from '../form.module.css'
 export default function LoginForm()
 {
     return (
@@ -21,7 +21,7 @@ export default function LoginForm()
                     required
                 />
             </div>
-            <button type="submit" className={styles.submitButton}>Sign Up</button>
+            <button type="submit" className={`${styles.submitButton} btnMain`}>Log In</button>
         </form>
     );
 }

@@ -1,0 +1,9 @@
+.inputGroup {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.submitButton {
+    width: 100%;
+}

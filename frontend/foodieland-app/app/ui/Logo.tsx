@@ -15,8 +15,8 @@ export default function Logo({ fontsize }: { fontsize: number | string }) {
     };
 
     return (
-        <p className={lobster.className} style={textStyle}>
+        <h3 className={lobster.className} style={textStyle}>
             Foodieland<span style={dotStyle}>.</span>
-        </p>
+        </h3>
     );
 }
