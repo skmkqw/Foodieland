@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Foodieland",
-  description: "Explore hundreds of mind-blowing recipes"
+  description: "Explore hundreds of mind-blowing recipes",
+  icons: "/icon.png"
 };
 
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
