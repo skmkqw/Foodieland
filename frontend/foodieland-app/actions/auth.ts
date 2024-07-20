@@ -32,8 +32,6 @@ const loginSchema = z.object({
 
 export async function login (prevState: { errors: { firstName?: string[]; lastName?: string[]; email?: string[]; password?: string[]; general?: string }} | undefined, formData: FormData) {
     const parsedData = loginSchema.safeParse({
-            firstName: formData.get('firstName'),
-            lastName: formData.get('lastName'),
             email: formData.get('email'),
             password: formData.get('password')
     });
@@ -71,6 +69,8 @@ export async function login (prevState: { errors: { firstName?: string[]; lastNa
 
 export async function signup(prevState: { errors: { email?: string[]; password?: string[]; general?: string }} | undefined, formData: FormData) {
     const parsedData = signupSchema.safeParse({
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
         email: formData.get('email'),
         password: formData.get('password')
     });
@@ -81,9 +81,9 @@ export async function signup(prevState: { errors: { email?: string[]; password?:
             errors: parsedData.error.flatten().fieldErrors
         }
     }
-
+    let response;
     try {
-        const response = await axiosInstance.post('account/register');
+        response = await axiosInstance.post('account/register', parsedData.data);
 
         createSession(response.data.token);
     } catch (error) {
