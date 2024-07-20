@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { axiosInstance } from "@/lib/axios";
+import { createSession } from "@/lib/session";
 
 const signupSchema = z.object({
     email: z.string().email({ message: 'Invalid email address' }),
@@ -33,9 +34,7 @@ export async function login (prevState: { errors: { email?: string[]; password?:
     try {
         const response = await axiosInstance.post('/account/login', parsedData.data);
 
-        const data = await response.data;
-        const expires = new Date(Date.now() + 10 * 1000);
-        cookies().set("session", data.token, { httpOnly: true, secure: true, expires: expires });
+        createSession(response.data.token);
     } catch (error) {
         if (error.response && error.response.status === 400) {
             return {
@@ -72,9 +71,7 @@ export async function signup(prevState: { errors: { email?: string[]; password?:
     try {
         const response = await axiosInstance.post('account/register');
 
-        const data = response.data;
-        const expires = new Date(Date.now() + 10 * 1000);
-        cookies().set("session", data.token, { httpOnly: true, secure: true, expires: expires });
+        createSession(response.data.token);
     } catch (error) {
         if (error.response && error.response.status === 400) {
             return {
