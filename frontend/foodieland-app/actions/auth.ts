@@ -30,7 +30,7 @@ const loginSchema = z.object({
    password: z.string().min(8, { message: 'Password must be at least 8 characters long' })
 });
 
-export async function login (prevState: { errors: { email?: string[]; password?: string[]; general?: string }} | undefined, formData: FormData) {
+export async function login (prevState: { errors: { firstName?: string[]; lastName?: string[]; email?: string[]; password?: string[]; general?: string }} | undefined, formData: FormData) {
     const parsedData = loginSchema.safeParse({
             email: formData.get('email'),
             password: formData.get('password')
