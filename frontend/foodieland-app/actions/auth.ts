@@ -1,8 +1,9 @@
 'use server'
-import {z} from 'zod';
-import {cookies} from "next/headers";
-import {redirect} from "next/navigation";
 
+import { z } from 'zod';
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { axiosInstance } from "@/lib/axios";
 
 const signupSchema = z.object({
     email: z.string().email({ message: 'Invalid email address' }),
@@ -29,24 +30,27 @@ export async function login (prevState: { errors: { email?: string[]; password?:
         }
     }
 
-    const response = await fetch("http://localhost:5148/account/login", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify(parsedData.data),
-    });
+    try {
+        const response = await axiosInstance.post('/account/login', parsedData.data);
 
-    if (!response.ok) {
-        return {
-            errors: {
-                general: 'Invalid email or password'
-            }
+        const data = await response.data;
+        const expires = new Date(Date.now() + 10 * 1000);
+        cookies().set("session", data.token, { httpOnly: true, secure: true, expires: expires });
+    } catch (error) {
+        if (error.response && error.response.status === 400) {
+            return {
+                errors: {
+                    general: 'Invalid email or password'
+                }
+            };
+        } else {
+            return {
+                errors: {
+                    general: 'An unexpected error occurred. Please try again later.'
+                }
+            };
         }
     }
 
-    const data = await response.json();
-    const oneDay = 24 * 60 * 60 * 1000;
-    cookies().set("token", data.token, {httpOnly: true, secure: true, expires: Date.now() + oneDay});
     redirect('/');
 }
