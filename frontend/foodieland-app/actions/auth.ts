@@ -32,6 +32,8 @@ const loginSchema = z.object({
 
 export async function login (prevState: { errors: { firstName?: string[]; lastName?: string[]; email?: string[]; password?: string[]; general?: string }} | undefined, formData: FormData) {
     const parsedData = loginSchema.safeParse({
+            firstName: formData.get('firstName'),
+            lastName: formData.get('lastName'),
             email: formData.get('email'),
             password: formData.get('password')
     });
