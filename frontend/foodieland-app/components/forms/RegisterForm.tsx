@@ -13,6 +13,7 @@ export default function RegisterForm()
                 <input
                     type="text"
                     id="firstName"
+                    name="firstName"
                     placeholder="John"
                     required
                 />
@@ -25,6 +26,7 @@ export default function RegisterForm()
                 <input
                     type="text"
                     id="lastName"
+                    name="lastName"
                     placeholder="Doe"
                     required
                 />
@@ -37,6 +39,7 @@ export default function RegisterForm()
                 <input
                     type="email"
                     id="email"
+                    name="email"
                     placeholder="example@email.com"
                     required
                 />
@@ -49,6 +52,7 @@ export default function RegisterForm()
                 <input
                     type="password"
                     id="password"
+                    name="password"
                     placeholder="********"
                     required
                 />
