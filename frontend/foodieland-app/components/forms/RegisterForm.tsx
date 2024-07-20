@@ -8,6 +8,17 @@ export default function RegisterForm()
 {
     const [errorMessage, formAction, isPending] = useFormState(signup, undefined,);
 
+    const formatErrors = (errors: string[] | undefined) => {
+        if (!errors) return null;
+        return (
+            <ul className={styles.errorList}>
+                {errors.map((error, index) => (
+                    <li key={index} className={styles.errorMessage}>- {error}</li>
+                ))}
+            </ul>
+        );
+    };
+
     return (
         <form action={formAction}>
             <div className={styles.inputGroup}>
@@ -58,9 +69,7 @@ export default function RegisterForm()
                     placeholder="********"
                     required
                 />
-                {errorMessage?.errors.password && (
-                    <p className={styles.errorMessage}>{errorMessage.errors.password}</p>
-                )}
+                {errorMessage?.errors.password && formatErrors(errorMessage.errors.password)}
                 {errorMessage?.errors.general && (
                     <p className={styles.errorMessage}>{errorMessage.errors.general}</p>
                 )}
