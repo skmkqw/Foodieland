@@ -5,11 +5,20 @@ export default function RegisterForm()
     return (
         <form>
             <div className={styles.inputGroup}>
-                <label htmlFor="fullName">Full name</label>
+                <label htmlFor="firstName">Full name</label>
                 <input
                     type="text"
-                    id="fullName"
-                    placeholder="John Doe"
+                    id="firstName"
+                    placeholder="John"
+                    required
+                />
+            </div>
+            <div className={styles.inputGroup}>
+                <label htmlFor="lastName">Full name</label>
+                <input
+                    type="text"
+                    id="lastName"
+                    placeholder="Doe"
                     required
                 />
             </div>
