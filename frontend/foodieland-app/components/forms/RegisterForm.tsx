@@ -1,10 +1,12 @@
+'use client'
+
 import styles from './form.module.css'
 import {Button} from "@/components";
 import {useFormState} from "react-dom";
-import {login} from "@/actions/auth";
+import {signup} from "@/actions/auth";
 export default function RegisterForm()
 {
-    const [errorMessage, formAction, isPending] = useFormState(login, undefined,);
+    const [errorMessage, formAction, isPending] = useFormState(signup, undefined,);
 
     return (
         <form action={formAction}>
