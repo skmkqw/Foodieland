@@ -14,3 +14,13 @@
     color: red;
     margin-top: 6px;
 }
+
+.errorList {
+    list-style-type: none;
+    padding-left: 0;
+    color: red;
+}
+
+.errorList li {
+    margin-bottom: 5px; /* Add spacing between errors */
+}
