@@ -54,3 +54,42 @@ export async function login (prevState: { errors: { email?: string[]; password?:
 
     redirect('/');
 }
+
+
+export async function signup(prevState: { errors: { email?: string[]; password?: string[]; general?: string }} | undefined, formData: FormData) {
+    const parsedData = signupSchema.safeParse({
+        email: formData.get('email'),
+        password: formData.get('password')
+    });
+
+    if (!parsedData.success)
+    {
+        return {
+            errors: parsedData.error.flatten().fieldErrors
+        }
+    }
+
+    try {
+        const response = await axiosInstance.post('account/register');
+
+        const data = response.data;
+        const expires = new Date(Date.now() + 10 * 1000);
+        cookies().set("session", data.token, { httpOnly: true, secure: true, expires: expires });
+    } catch (error) {
+        if (error.response && error.response.status === 400) {
+            return {
+                errors: {
+                    general: 'This email address is already in use.'
+                }
+            };
+        } else {
+            return {
+                errors: {
+                    general: 'An unexpected error occurred. Please try again later.'
+                }
+            };
+        }
+    }
+
+    redirect('/');
+}
