@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Foodieland",
   description: "Explore hundreds of mind-blowing recipes",
+  icons: "/icon.png",
   keywords: "recipes, cooking, food, cuisine, easy recipes, gourmet",
   author: "Foodieland Team",
   openGraph: {

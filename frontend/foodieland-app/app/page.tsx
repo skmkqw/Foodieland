@@ -1,7 +1,6 @@
 import {getUserData} from "@/lib/authorization";
 import {Button} from "@/components";
 import {logout} from "@/actions/auth";
-import {redirect} from "next/navigation";
 import Link from "next/link";
 
 export default async function Home() {
