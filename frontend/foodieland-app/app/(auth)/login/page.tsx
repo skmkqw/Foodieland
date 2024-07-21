@@ -5,7 +5,7 @@ import { Logo, LoginForm, Button } from '@/components'
 export default function Login()
 {
     return (
-        <div className="flex-[0_1_50%] flex flex-col justify-between">
+        <div className="flex-[0_1_100%] md:flex-[0_1_50%] flex flex-col justify-between">
             <div className="p-5">
                 <Logo fontsize={24}/>
             </div>

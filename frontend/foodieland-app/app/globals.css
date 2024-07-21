@@ -34,6 +34,3 @@ input {
 label {
     @apply block text-lg text-[#666] text-left mb-[5px];
 }
-.btnMain {
-    @apply bg-black text-white font-medium text-lg transition-[background-color] duration-[0.3s] ease-[ease] cursor-pointer px-10 py-[15px] rounded-2xl hover:bg-[rgba(0,0,0,0.8)];
-}
