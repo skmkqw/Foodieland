@@ -38,7 +38,7 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
 
             if (result.Succeeded)
             {
-                var token = TokenGenerator.GenerateToken(registerDto.Email, user.Id.ToString(), configuration);
+                var token = TokenGenerator.GenerateToken(user, configuration);
                 return Ok(new { token });
             }
 
@@ -61,7 +61,7 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
             { 
                 if (await userManager.CheckPasswordAsync(user, loginDto.Password)) 
                 { 
-                    var token = TokenGenerator.GenerateToken(loginDto.Email, user.Id.ToString(), configuration); 
+                    var token = TokenGenerator.GenerateToken(user, configuration); 
                     return Ok(new { token }); 
                 } 
             }
@@ -73,7 +73,7 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
 
 public class TokenGenerator
 {
-    public static string? GenerateToken(string email, string userId, IConfiguration configuration)
+    public static string? GenerateToken(AppUser userData, IConfiguration configuration)
     {
         var secret = configuration["JwtConfig:Secret"];
         var issuer = configuration["JwtConfig:ValidIssuer"];
@@ -90,8 +90,9 @@ public class TokenGenerator
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Email, email),
-                new Claim(ClaimTypes.NameIdentifier, userId)
+                new Claim(ClaimTypes.Name, $"{userData.FirstName} {userData.LastName}"),
+                new Claim(ClaimTypes.Email, userData.Email!),
+                new Claim(ClaimTypes.NameIdentifier, userData.Id.ToString())
             }),
             Expires = DateTime.UtcNow.AddDays(1),
             Issuer = issuer,
