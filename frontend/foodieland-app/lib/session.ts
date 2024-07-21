@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import {NextRequest, NextResponse} from "next/server";
+import {date} from "zod";
 
 const SESSION_DURATION_MS = 10 * 1000;
 
@@ -23,4 +24,8 @@ export async function updateSession(request: NextRequest) {
     response.cookies.set('session', session, { httpOnly: true, secure: true, expires: expires });
 
     return response;
+}
+
+export async function deleteSession(){
+    cookies().set("session", "", { expires: new Date(0) });
 }
