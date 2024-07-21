@@ -34,3 +34,11 @@ input {
 label {
     @apply block text-lg text-[#666] text-left mb-[5px];
 }
+
+.inputGroup {
+    @apply relative w-full min-w-[300px] mb-5;
+}
+
+.errorMessage {
+    @apply text-red-500;
+}
