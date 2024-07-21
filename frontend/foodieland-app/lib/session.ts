@@ -5,6 +5,10 @@ import {NextRequest, NextResponse} from "next/server";
 
 const SESSION_DURATION_MS = 10 * 1000;
 
+export async function getSession() {
+    return cookies().get("session")?.value;
+}
+
 export async function createSession(token: string) {
     const expires = new Date(Date.now() + SESSION_DURATION_MS);
     cookies().set("session", token, { httpOnly: true, secure: true, expires: expires });
