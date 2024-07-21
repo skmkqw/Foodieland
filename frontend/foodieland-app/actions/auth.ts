@@ -3,7 +3,7 @@
 import { z } from 'zod';
 import { redirect } from "next/navigation";
 import { axiosInstance } from "@/lib/axios";
-import { createSession } from "@/lib/session";
+import { createSession, deleteSession } from "@/lib/session";
 
 
 const signupSchema = z.object({
@@ -46,7 +46,7 @@ export async function login (prevState: { errors: { firstName?: string[]; lastNa
     try {
         const response = await axiosInstance.post('/account/login', parsedData.data);
 
-        createSession(response.data.token);
+        await createSession(response.data.token);
     } catch (error) {
         if (error.response && error.response.status === 400) {
             return {
@@ -85,7 +85,7 @@ export async function signup(prevState: { errors: { email?: string[]; password?:
     try {
         response = await axiosInstance.post('account/register', parsedData.data);
 
-        createSession(response.data.token);
+        await createSession(response.data.token);
     } catch (error) {
         if (error.response && error.response.status === 400) {
             return {
@@ -103,4 +103,9 @@ export async function signup(prevState: { errors: { email?: string[]; password?:
     }
 
     redirect('/');
+}
+
+export async function logout() {
+    await deleteSession();
+    redirect('/login');
 }
