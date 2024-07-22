@@ -1,61 +1,44 @@
-*{padding:0;margin:0;border:0;}
-*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
-:focus,:active{outline:none;}
-a:focus,a:active{outline:none;}
-nav,footer,header,aside{display:block;}
-html,body{height:100%;width:100%;font-size:100%;line-height:1;font-size:14px;-ms-text-size-adjust:100%;-moz-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
-input,button,textarea{font-family:inherit;}
-input::-ms-clear{display:none;}
-button{cursor:pointer;}
-button::-moz-focus-inner{padding:0;border:0;}
-a,a:visited{text-decoration:none;}
-a:hover{text-decoration:none;}
-ul li{list-style:none;}
-img{vertical-align:top;}
-h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit;}
+* {@apply m-0 p-0 border-0;}
+*, *:before, *:after {@apply box-border; -moz-box-sizing: border-box;-webkit-box-sizing: border-box;}
+:focus, :active {outline: none;}
+a:focus, a:active {outline: none;}
+nav, footer, header, aside {@apply block;}
+html, body {@apply h-full w-full text-[100%] leading-none text-sm; -ms-text-size-adjust: 100%;-moz-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;}
+input, button,
+textarea {font-family: inherit;}
+input::-ms-clear {@apply hidden;}
+button {@apply cursor-pointer;}
+button::-moz-focus-inner {@apply p-0 border-0;}
+a, a:visited {@apply no-underline;}
+a:hover {@apply no-underline;}
+ul li {list-style: none;}
+img {@apply align-top;}
+h1, h2, h3, h4, h5, h6 {@apply text-[inherit] font-[inherit];}
 
-html
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 main {
-    display: flex;
-    justify-content: center;
+    @apply flex justify-center;
 }
-
 .container {
-    max-width: 1280px;
+    @apply max-w-screen-xl;
 }
-
 h1 {
-    font-size: 24px;
+    @apply text-3xl font-bold;
 }
-
 input {
-    width: 100%;
-    padding: 12px 40px 12px 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    @apply w-full text-lg border pl-3 pr-10 py-3 rounded-[10px] border-solid border-[#ccc];
 }
-
 label {
-    display: block;
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 5px;
-    text-align: left;
+    @apply block text-lg text-[#666] text-left mb-[5px];
 }
 
-.btnMain {
-    background-color: #000000;
-    border-radius: 16px;
-    color: #ffffff;
-    font-weight: 500;
-    font-size: 14px;
-    padding: 15px 40px;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
+.inputGroup {
+    @apply relative w-full min-w-[300px] mb-5;
 }
 
-.btnMain:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+.errorMessage {
+    @apply text-red-500;
 }
