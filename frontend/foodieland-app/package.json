@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.19",
     "axios": "^1.7.2",
+    "jwt-decode": "^4.0.0",
     "next": "latest",
+    "postcss": "^8.4.39",
     "react": "canary",
     "react-dom": "canary",
+    "tailwindcss": "^3.4.6",
     "zod": "^3.23.8"
   },
   "devDependencies": {

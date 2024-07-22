@@ -1,13 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import {updateSession} from "@/lib/session";
 
-export function middleware(request: NextRequest) {
-    const response = NextResponse.next();
-    const session = request.cookies.get("session")?.value;
-    if (session) {
-        const expires = new Date(Date.now() + 10 * 1000);
-        response.cookies.set('session', session, { httpOnly: true, secure: true, expires: expires });
-    }
-    return response;
+export async function middleware(request: NextRequest) {
+    return await updateSession(request);
 }
 export const config = {
     matcher: ['/((?!api|_next/static|favicon.ico).*)'],
