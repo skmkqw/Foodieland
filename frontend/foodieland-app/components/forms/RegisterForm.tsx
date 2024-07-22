@@ -73,7 +73,7 @@ export default function RegisterForm()
                     <p className="errorMessage">{errorMessage.errors.general}</p>
                 )}
             </div>
-            <Button type={'submit'} additionalStyles="w-full" text={'Sign up'}/>
+            <Button type={'submit'} additionalStyles="w-full mt-5" text={'Sign up'}/>
         </form>
     );
 }
