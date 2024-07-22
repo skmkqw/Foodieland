@@ -1,7 +1,6 @@
 'use client'
 
-import Link from "next/link";
-import { Logo, RegisterForm, Button } from '@/components'
+import {Logo, RegisterForm, LinkButton} from '@/components'
 
 export default function Register()
 {
@@ -17,16 +16,8 @@ export default function Register()
                 </div>
             </div>
             <div className="flex items-center justify-between p-5">
-                <div className="flex items-center gap-1.5">
-                    <Link href={'/login'}>
-                        <Button type={'button'} text={'Log in'}/>
-                    </Link>
-                </div>
-                <div className="flex items-center gap-1.5">
-                    <Link href={'/'}>
-                        <Button type={'button'} text={'Skip'}/>
-                    </Link>
-                </div>
+                <LinkButton url='/register' buttonText='Sign up' />
+                <LinkButton url='/' buttonText='Skip' />
             </div>
         </div>
     );
