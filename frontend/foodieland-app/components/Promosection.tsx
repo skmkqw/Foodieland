@@ -4,23 +4,26 @@ import Logo from "@/components/Logo";
 import {useEffect, useState} from "react";
 export default function Promosection()
 {
-    const [mobile, setMobile] = useState(false)
+    const [mobile, setMobile] = useState(false);
+    const [mobileHorizontal, setMobileHorizontal] = useState(false);
 
     useEffect(() => {
-        const updateMobile = () => {
-            setMobile(window.innerWidth > 768)
+        const updateDimensions = () => {
+            setMobile(window.innerWidth > 768);
+            setMobileHorizontal(window.innerHeight < 650);
         }
 
-        updateMobile()
-        window.addEventListener('resize', updateMobile)
+        updateDimensions();
+
+        window.addEventListener('resize', updateDimensions);
         return () => {
-            window.removeEventListener('resize', updateMobile)
+            window.removeEventListener('resize', updateDimensions)
         }
     }, [])
 
     return (
         mobile ? <div className="flex-[0_1_50%] p-4">
-                    <div className="bg-primary h-full flex items-center justify-end p-8 rounded-3xl">
+                    <div className={`bg-primary flex items-center justify-end p-8 rounded-3xl ${!mobileHorizontal ? 'h-full' : ''}`}>
                         <div className="flex flex-col font-bold text-center lg:text-start gap-7 p-5">
                             <div className="flex-col items-center lg:flex-row lg:items-baseline gap-2.5 mb-2.5">
                                 <h1 className="text-4xl">Welcome to </h1>
