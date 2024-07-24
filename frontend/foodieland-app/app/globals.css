@@ -36,7 +36,7 @@ label {
 }
 
 .inputGroup {
-    @apply relative w-full min-w-[300px] mb-5;
+    @apply relative w-full min-w-[300px] mt-5;
 }
 
 .errorMessage {

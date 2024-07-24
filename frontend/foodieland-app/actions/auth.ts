@@ -7,27 +7,25 @@ import { createSession, deleteSession } from "@/lib/session";
 
 
 const signupSchema = z.object({
-    firstName: z.string()
-        .trim()  // Remove leading and trailing whitespace
-        .min(1, { message: 'First name is required and cannot be empty' }),
-
-    lastName: z.string()
-        .trim()  // Remove leading and trailing whitespace
-        .min(1, { message: 'Last name is required and cannot be empty' }),
+    fullName: z.string()
+        .trim()
+        .min(1, { message: 'Full name is required and cannot be empty' })
+        .regex(/^\S+\s+\S+.*$/, { message: 'Full name must include both first name and last name' }),
 
     email: z.string()
         .email({ message: 'Invalid email address' }),
 
     password: z.string()
-        .min(8, { message: 'Password must be at least 8 characters long' })
+        .min(6, { message: 'Password must be at least 6 characters long' })
         .regex(/(?=.*[A-Z])/, { message: 'Password must contain at least one capital letter' })
+        .regex(/(?=.*\d)/, { message: 'Password must contain at least one digit' })
         .regex(/(?=.*[!@#$%^&*])/, { message: 'Password must contain at least one special character' }),
 });
 
 const loginSchema = z.object({
    email: z.string().email({ message: 'Invalid email address' }),
 
-   password: z.string().min(8, { message: 'Password must be at least 8 characters long' })
+   password: z.string().min(6, { message: 'Password must be at least 6 characters long' })
 });
 
 export async function login (prevState: { errors: { firstName?: string[]; lastName?: string[]; email?: string[]; password?: string[]; general?: string }} | undefined, formData: FormData) {
@@ -67,10 +65,9 @@ export async function login (prevState: { errors: { firstName?: string[]; lastNa
 }
 
 
-export async function signup(prevState: { errors: { email?: string[]; password?: string[]; general?: string }} | undefined, formData: FormData) {
+export async function signup(prevState: { errors: { fullName?:string[], email?: string[]; password?: string[]; general?: string }} | undefined, formData: FormData) {
     const parsedData = signupSchema.safeParse({
-        firstName: formData.get('firstName'),
-        lastName: formData.get('lastName'),
+        fullName: formData.get('username'),
         email: formData.get('email'),
         password: formData.get('password')
     });
@@ -83,14 +80,31 @@ export async function signup(prevState: { errors: { email?: string[]; password?:
     }
     let response;
     try {
-        response = await axiosInstance.post('account/register', parsedData.data);
+        const [firstName, ...lastNameParts] = parsedData.data.fullName.trim().split(' ');
+        if (lastNameParts.length === 0) {
+            return {
+                errors: {
+                    fullName: ['Full name must include both first name and last name']
+                }
+            };
+        }
+
+        const lastName = lastNameParts.join(' ');
+        const data = {
+            firstName: firstName,
+            lastName: lastName ? lastName : '',
+            email: parsedData.data.email,
+            password: parsedData.data.password
+        };
+        response = await axiosInstance.post('account/register', data);
 
         await createSession(response.data.token);
     } catch (error) {
         if (error.response && error.response.status === 400) {
+            const message = error.response.data["message"];
             return {
                 errors: {
-                    general: 'This email address is already in use.'
+                    general: message
                 }
             };
         } else {
