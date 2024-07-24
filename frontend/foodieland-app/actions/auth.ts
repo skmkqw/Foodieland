@@ -9,7 +9,8 @@ import { createSession, deleteSession } from "@/lib/session";
 const signupSchema = z.object({
     fullName: z.string()
         .trim()
-        .min(1, { message: 'Name is required and cannot be empty' }),
+        .min(1, { message: 'Full name is required and cannot be empty' })
+        .regex(/^\S+\s+\S+.*$/, { message: 'Full name must include both first name and last name' }),
 
     email: z.string()
         .email({ message: 'Invalid email address' }),
@@ -24,7 +25,7 @@ const signupSchema = z.object({
 const loginSchema = z.object({
    email: z.string().email({ message: 'Invalid email address' }),
 
-   password: z.string().min(8, { message: 'Password must be at least 8 characters long' })
+   password: z.string().min(6, { message: 'Password must be at least 6 characters long' })
 });
 
 export async function login (prevState: { errors: { firstName?: string[]; lastName?: string[]; email?: string[]; password?: string[]; general?: string }} | undefined, formData: FormData) {
@@ -79,10 +80,19 @@ export async function signup(prevState: { errors: { fullName?:string[], email?: 
     }
     let response;
     try {
-        const [firstName, ...lastName] = parsedData.data.fullName.trim().split(' ');
+        const [firstName, ...lastNameParts] = parsedData.data.fullName.trim().split(' ');
+        if (lastNameParts.length === 0) {
+            return {
+                errors: {
+                    fullName: ['Full name must include both first name and last name']
+                }
+            };
+        }
+
+        const lastName = lastNameParts.join(' ');
         const data = {
             firstName: firstName,
-            lastName: lastName,
+            lastName: lastName ? lastName : '',
             email: parsedData.data.email,
             password: parsedData.data.password
         };
@@ -91,9 +101,10 @@ export async function signup(prevState: { errors: { fullName?:string[], email?: 
         await createSession(response.data.token);
     } catch (error) {
         if (error.response && error.response.status === 400) {
+            const message = error.response.data["message"];
             return {
                 errors: {
-                    general: 'This email address is already in use.'
+                    general: message
                 }
             };
         } else {
