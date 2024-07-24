@@ -11,7 +11,6 @@ export default function InputGroup({ type, errorMessage } : { type: "email" | "u
                         id="email"
                         name="email"
                         placeholder="example@email.com"
-                        required
                     />
                 </div>
             );
@@ -25,7 +24,6 @@ export default function InputGroup({ type, errorMessage } : { type: "email" | "u
                         id="password"
                         name="password"
                         placeholder="********"
-                        required
                     />
                 </div>
             );
@@ -33,13 +31,12 @@ export default function InputGroup({ type, errorMessage } : { type: "email" | "u
         case "username":
             inputGroup = (
                 <div className="inputGroup">
-                    <label htmlFor="username">E-mail</label>
+                    <label htmlFor="username">Full Name</label>
                     <input
                         type="text"
                         id="username"
                         name="username"
                         placeholder="John Doe"
-                        required
                     />
                 </div>
             );
