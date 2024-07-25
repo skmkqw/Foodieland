@@ -1,4 +1,7 @@
-export default function InputGroup({ type, errorMessage } : { type: "email" | "username" | "password", errorMessage?: string }) {
+export default function InputGroup({ type, errorMessage }: {
+    type: "email" | "username" | "password",
+    errorMessage?: string
+}) {
     let inputGroup;
 
     switch (type) {

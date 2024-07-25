@@ -1,8 +1,7 @@
-'use server'
+"use server";
 
 import { cookies } from "next/headers";
-import {NextRequest, NextResponse} from "next/server";
-import {date} from "zod";
+import { NextRequest, NextResponse } from "next/server";
 
 const SESSION_DURATION_MS = 10 * 1000;
 
@@ -21,11 +20,11 @@ export async function updateSession(request: NextRequest) {
 
     const expires = new Date(Date.now() + SESSION_DURATION_MS);
     const response = NextResponse.next();
-    response.cookies.set('session', session, { httpOnly: true, secure: true, expires: expires });
+    response.cookies.set("session", session, { httpOnly: true, secure: true, expires: expires });
 
     return response;
 }
 
-export async function deleteSession(){
+export async function deleteSession() {
     cookies().set("session", "", { expires: new Date(0) });
 }

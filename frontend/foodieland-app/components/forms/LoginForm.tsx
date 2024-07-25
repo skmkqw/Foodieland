@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import {InputGroup, Button} from "@/components";
+import { Button, InputGroup } from "@/components";
 import { login } from "@/actions/auth";
-import  { useFormState } from "react-dom";
+import { useFormState } from "react-dom";
+
 export default function LoginForm() {
-    const [errorMessage, formAction, isPending] = useFormState(login, undefined,);
+    const [errorMessage, formAction, isPending] = useFormState(login, undefined);
 
     return (
         <form action={formAction}>
@@ -13,7 +14,7 @@ export default function LoginForm() {
             {errorMessage?.errors.general && (
                 <p className="errorMessage mt-2">{errorMessage.errors.general}</p>
             )}
-            <Button type={'submit'} additionalStyles="w-full mt-5" text={'Log in'}/>
+            <Button type={"submit"} additionalStyles="w-full mt-5" text={"Log in"} />
         </form>
     );
 }

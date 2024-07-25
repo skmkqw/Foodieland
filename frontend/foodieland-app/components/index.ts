@@ -7,11 +7,11 @@ import LoginForm from "@/components/forms/LoginForm";
 import RegisterForm from "@/components/forms/RegisterForm";
 
 export {
-  Logo,
-  Button,
-  LoginForm,
-  LinkButton,
-  RegisterForm,
-  Promosection,
-  InputGroup
+    Logo,
+    Button,
+    LoginForm,
+    LinkButton,
+    RegisterForm,
+    Promosection,
+    InputGroup
 };
