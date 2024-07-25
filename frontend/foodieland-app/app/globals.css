@@ -23,7 +23,7 @@ main {
     @apply flex justify-center;
 }
 .container {
-    @apply max-w-screen-xl;
+    @apply max-w-screen-xl mx-auto px-6;
 }
 h1 {
     @apply text-3xl font-bold;
@@ -41,4 +41,8 @@ label {
 
 .errorMessage {
     @apply text-red-500;
+}
+
+.navLink {
+    @apply text-gray-800 hover:text-gray-600 font-medium text-base;
 }
