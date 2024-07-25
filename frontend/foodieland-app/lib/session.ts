@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-const SESSION_DURATION_MS = 10 * 1000;
+const SESSION_DURATION_MS = 600 * 1000;
 
 export async function getSession() {
     return cookies().get("session")?.value;
