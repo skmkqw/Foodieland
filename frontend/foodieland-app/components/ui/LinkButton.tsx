@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@/components/index";
+import { Button } from "@/components";
 
 export default function LinkButton({ url, buttonText, additionalStyles }: { url: string, buttonText: string, additionalStyles?: string }) {
     return (
