@@ -19,25 +19,21 @@ export default function NavBar() {
     return (
         <>
             <div className="border-b-gray-200 border-b">
-                <Container>
-                    <div className="hidden relative py-6 md:flex justify-between items-center gap-6">
-                        <Link href="/foodieland-app/public">
-                            <Logo fontsize={24} />
-                        </Link>
-                        <NavLinks />
-                        <SocialLinks />
-                    </div>
+                <Container className="hidden relative py-6 md:flex justify-between items-center gap-6">
+                    <Link href="/foodieland-app/public">
+                        <Logo fontsize={24} />
+                    </Link>
+                    <NavLinks />
+                    <SocialLinks />
                 </Container>
             </div>
             <div className="border-b-gray-200 border-b">
-                <Container>
-                    <div className="md:hidden relative flex items-center justify-between flex-row my-4">
-                        <Link href="/foodieland-app/public">
-                            <Logo fontsize={24} />
-                        </Link>
-                        <MenuButton onClick={handleDrawerToggle} isOpen={isDrawerOpen} />
-                        <MobileDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} />
-                    </div>
+                <Container className="md:hidden relative flex items-center justify-between flex-row my-4">
+                    <Link href="/foodieland-app/public">
+                        <Logo fontsize={24} />
+                    </Link>
+                    <MenuButton onClick={handleDrawerToggle} isOpen={isDrawerOpen} />
+                    <MobileDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} />
                 </Container>
             </div>
         </>
