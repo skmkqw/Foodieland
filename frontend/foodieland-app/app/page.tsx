@@ -1,9 +1,9 @@
-import { Header } from "@/components";
+import { NavBar } from "@/components";
 
 export default async function Home() {
     return (
         <main className="flex flex-col">
-            <Header />
+            <NavBar />
             <div className="container">
             </div>
         </main>

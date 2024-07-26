@@ -8,13 +8,11 @@ export const metadata: Metadata = {
     description: "Explore hundreds of mind-blowing recipes",
     icons: "/icon.png",
     keywords: "recipes, cooking, food, cuisine, easy recipes, gourmet",
-    author: "Foodieland Team",
     openGraph: {
         title: "Foodieland",
         description: "Explore hundreds of mind-blowing recipes",
         url: "https://www.foodieland.com",
         type: "website",
-        image: "https://www.foodieland.com/images/og-image.jpg"
     }
 };
 
