@@ -4,19 +4,19 @@ export default function NavLinks() {
     return (
         <ul className="flex gap-10">
             <li className="navLink">
-                <Link href="/">Home</Link>
+                <Link href="/foodieland-app/public">Home</Link>
             </li>
             <li className="navLink">
-                <Link href="/">Recipes</Link>
+                <Link href="/foodieland-app/public">Recipes</Link>
             </li>
             <li className="navLink">
-                <Link href="/">Blog</Link>
+                <Link href="/foodieland-app/public">Blog</Link>
             </li>
             <li className="navLink">
-                <Link href="/">Contact</Link>
+                <Link href="/foodieland-app/public">Contact</Link>
             </li>
             <li className="navLink">
-                <Link href="/">About us</Link>
+                <Link href="/foodieland-app/public">About us</Link>
             </li>
         </ul>
     );

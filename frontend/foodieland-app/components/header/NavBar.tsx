@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Logo, MenuButton, NavLinks, SocialLinks } from "@/components";
-import MobileDrawer from "@/components/MobileDrawer";
+import MobileDrawer from "@/components/header/MobileDrawer";
 
 export default function NavBar() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -20,7 +20,7 @@ export default function NavBar() {
         <>
             <div className="border-b-gray-200 border-b">
                 <div className="hidden relative py-6 md:flex justify-between items-center gap-6 container">
-                    <Link href="/">
+                    <Link href="/foodieland-app/public">
                         <Logo fontsize={24} />
                     </Link>
                     <NavLinks />
@@ -29,11 +29,11 @@ export default function NavBar() {
             </div>
             <div className="border-b-gray-200 border-b">
                 <div className="md:hidden relative flex items-center justify-between flex-row my-4 container">
-                    <Link href="/">
+                    <Link href="/foodieland-app/public">
                         <Logo fontsize={24} />
                     </Link>
-                    <MenuButton onClick={handleDrawerToggle} isOpen={isDrawerOpen}/>
-                    <MobileDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer}/>
+                    <MenuButton onClick={handleDrawerToggle} isOpen={isDrawerOpen} />
+                    <MobileDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} />
                 </div>
             </div>
         </>
