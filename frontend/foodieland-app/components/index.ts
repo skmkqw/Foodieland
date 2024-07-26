@@ -8,6 +8,7 @@ import NavLinks from "@/components/shared/header/NavLinks";
 import Promosection from "@/components/shared/Promosection";
 import LoginForm from "@/components/shared/forms/LoginForm";
 import MenuButton from "@/components/shared/header/MenuButton";
+import FeaturedRecipe from "@/components/shared/FeaturedRecipe";
 import SocialLinks from "@/components/shared/header/SocialLinks";
 import RegisterForm from "@/components/shared/forms/RegisterForm";
 
@@ -23,5 +24,6 @@ export {
     NavBar,
     MenuButton,
     SocialLinks,
-    Container
+    Container,
+    FeaturedRecipe,
 };

@@ -22,6 +22,9 @@ module.exports = {
       },
       colors: {
         'primary': '#E7FAFE'
+      },
+      flex: {
+        '1/2': '0 1 50%'
       }
     },
   },

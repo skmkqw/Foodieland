@@ -1,11 +1,12 @@
-import { Container, NavBar } from "@/components";
+import { Container, FeaturedRecipe, NavBar } from "@/components";
 
 export default async function Home() {
     return (
         <main className="flex flex-col">
             <NavBar />
             <Container>
-                <div></div>
+                <div className="mt-4"></div>
+                <FeaturedRecipe />
             </Container>
         </main>
     );
