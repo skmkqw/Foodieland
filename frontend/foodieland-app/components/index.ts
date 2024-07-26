@@ -1,14 +1,15 @@
-import Logo from "@/components/Logo";
+import Logo from "@/components/shared/Logo";
 import Button from "@/components/ui/Button";
-import NavBar from "@/components/header/NavBar";
+import NavBar from "@/components/shared/header/NavBar";
 import LinkButton from "@/components/ui/LinkButton";
+import Container from "@/components/shared/Container";
 import InputGroup from "@/components/ui/InputGroup";
-import NavLinks from "@/components/header/NavLinks";
-import Promosection from "@/components/Promosection";
-import LoginForm from "@/components/forms/LoginForm";
-import MenuButton from "@/components/header/MenuButton";
-import SocialLinks from "@/components/header/SocialLinks";
-import RegisterForm from "@/components/forms/RegisterForm";
+import NavLinks from "@/components/shared/header/NavLinks";
+import Promosection from "@/components/shared/Promosection";
+import LoginForm from "@/components/shared/forms/LoginForm";
+import MenuButton from "@/components/shared/header/MenuButton";
+import SocialLinks from "@/components/shared/header/SocialLinks";
+import RegisterForm from "@/components/shared/forms/RegisterForm";
 
 export {
     Logo,
@@ -21,5 +22,6 @@ export {
     NavLinks,
     NavBar,
     MenuButton,
-    SocialLinks
+    SocialLinks,
+    Container
 };

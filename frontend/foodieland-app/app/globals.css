@@ -22,9 +22,6 @@ h1, h2, h3, h4, h5, h6 {@apply text-[inherit] font-[inherit];}
 main {
     @apply flex justify-center;
 }
-.container {
-    @apply max-w-screen-xl mx-auto px-6;
-}
 h1 {
     @apply text-3xl font-bold;
 }
