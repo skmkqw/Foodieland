@@ -5,7 +5,7 @@ export default async function Home() {
         <main className="flex flex-col">
             <NavBar />
             <Container>
-                <div className="py-10">
+                <div className="mt-10">
                     <FeaturedRecipe />
                 </div>
             </Container>
