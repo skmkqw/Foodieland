@@ -22,6 +22,11 @@ public class RecipeRepository : IRecipeRepository
         return await _context.Recipes.ToListAsync();
     }
 
+    public async Task<List<Recipe>> GetFeatured()
+    {
+        return await _context.FeaturedRecipes.Select(fr => fr.Recipe).ToListAsync();
+    }
+
     public async Task<Recipe?> GetById(Guid id)
     {
         return await _context.Recipes.FindAsync(id);
@@ -395,6 +400,25 @@ public class RecipeRepository : IRecipeRepository
 
         recipe.IsPublished = false;
         await _context.SaveChangesAsync();
+        return (true, null);
+    }
+
+    public async Task<(bool isFeatured, string? error)> SetFeatured(Guid recipeId)
+    {
+        var recipe = await _context.Recipes.FindAsync(recipeId);
+        if (recipe == null)
+        {
+            return (false, "Recipe not found");
+        }
+
+        if (_context.FeaturedRecipes.ToList().Count >= 3)
+        {
+            return (false, "Maximum amount of featured recipes achieved");
+        }
+
+        await _context.FeaturedRecipes.AddAsync(new FeaturedRecipe { RecipeId = recipeId });
+        await _context.SaveChangesAsync();
+
         return (true, null);
     }
 
