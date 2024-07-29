@@ -428,6 +428,19 @@ public class RecipeRepository : IRecipeRepository
         return null;
     }
 
+    public async Task<bool> RemoveFeatured(Guid recipeId)
+    {
+        var featuredRecipe = await _context.FeaturedRecipes.FirstOrDefaultAsync(r => r.RecipeId == recipeId);
+        if (featuredRecipe == null)
+        {
+            return false;
+        }
+
+        _context.FeaturedRecipes.Remove(featuredRecipe);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
     public async Task<bool> Delete(Guid recipeId)
     {
         var recipe = await _context.Recipes.FindAsync(recipeId);
