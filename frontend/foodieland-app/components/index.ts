@@ -1,12 +1,13 @@
 import Logo from "@/components/shared/Logo";
 import Button from "@/components/ui/Button";
-import NavBar from "@/components/shared/header/NavBar";
 import LinkButton from "@/components/ui/LinkButton";
-import Container from "@/components/shared/Container";
 import InputGroup from "@/components/ui/InputGroup";
+import Container from "@/components/shared/Container";
+import NavBar from "@/components/shared/header/NavBar";
+import FeaturedSlider from "@/components/FeaturedSlider";
 import NavLinks from "@/components/shared/header/NavLinks";
-import Promosection from "@/components/shared/Promosection";
 import LoginForm from "@/components/shared/forms/LoginForm";
+import Promosection from "@/components/shared/Promosection";
 import MenuButton from "@/components/shared/header/MenuButton";
 import FeaturedRecipe from "@/components/shared/FeaturedRecipe";
 import SocialLinks from "@/components/shared/header/SocialLinks";
@@ -26,4 +27,5 @@ export {
     SocialLinks,
     Container,
     FeaturedRecipe,
+    FeaturedSlider
 };

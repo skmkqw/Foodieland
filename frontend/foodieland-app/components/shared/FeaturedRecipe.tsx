@@ -22,9 +22,9 @@ export default function FeaturedRecipe({
     creationDate
 }: FeaturedRecipeProps) {
     return (
-        <Container>
+        <Container className="h-full">
             <div
-                className="flex flex-col-reverse lg:flex-row rounded-3xl bg-primary lg:max-h-[640px] relative cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105">
+                className="flex flex-col-reverse lg:flex-row rounded-3xl bg-primary lg:max-h-[640px] h-full cursor-pointer">
                 <div className="flex-1/2 flex flex-col justify-between gap-12 md:gap-24 py-6 md:py-12 px-4 sm:px-10">
                     <div
                         className="flex flex-col gap-6 md:gap-12 items-center text-center base:text-start base:items-start">
