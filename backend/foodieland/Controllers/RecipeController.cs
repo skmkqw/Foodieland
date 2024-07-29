@@ -261,7 +261,7 @@ public class RecipeController : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("recipes/featured/add/{recipeId}")]
+    [HttpPost("recipes/featured/{recipeId}")]
     public async Task<IActionResult> SetFeatured([FromRoute] Guid recipeId)
     {
         string? error = await _repository.SetFeatured(recipeId);
@@ -271,6 +271,18 @@ public class RecipeController : ControllerBase
         }
 
         return NoContent();
+    }
+
+    [Authorize]
+    [HttpDelete("recipes/featured/{recipeId}")]
+    public async Task<IActionResult> RemoveFeatured([FromRoute] Guid recipeId)
+    {
+        bool isDeleted = await _repository.RemoveFeatured(recipeId);
+        if (isDeleted)
+        {
+            return NoContent();
+        } 
+        return NotFound("Recipe not found");
     }
     
     [Authorize]
