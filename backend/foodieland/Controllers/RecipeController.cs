@@ -30,6 +30,13 @@ public class RecipeController : ControllerBase
         var recipes = await _repository.GetAll();
         return Ok(recipes.Select(r => r.ToRecipeDto()));
     }
+
+    [HttpGet("recipes/featured")]
+    public async Task<IActionResult> GetFeatured()
+    {
+        var featuredRecipes = await _repository.GetFeatured();
+        return Ok(featuredRecipes.Select(r => r.ToRecipeDto()));
+    }
     
     [HttpGet("/recipes/{recipeId}")]
     public async Task<IActionResult> GetById([FromRoute] Guid recipeId, [FromQuery] bool displayNutrition = false, [FromQuery] bool displayDirections = false, [FromQuery] bool displayIngredients = false)
@@ -246,6 +253,19 @@ public class RecipeController : ControllerBase
     {
         (bool isHidden, string? error) = await _repository.Hide(recipeId);
         if (!isHidden)
+        {
+            return BadRequest(error);
+        }
+
+        return NoContent();
+    }
+
+    [Authorize]
+    [HttpPost("recipes/featured/add/{recipeId}")]
+    public async Task<IActionResult> SetFeatured([FromRoute] Guid recipeId)
+    {
+        (bool isFeatured, string? error) = await _repository.SetFeatured(recipeId);
+        if (!isFeatured)
         {
             return BadRequest(error);
         }
