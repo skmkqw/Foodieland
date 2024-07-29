@@ -12,6 +12,7 @@
     "autoprefixer": "^10.4.19",
     "axios": "^1.7.2",
     "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.416.0",
     "next": "latest",
     "postcss": "^8.4.39",
     "react": "canary",
