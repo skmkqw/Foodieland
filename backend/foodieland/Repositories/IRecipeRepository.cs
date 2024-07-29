@@ -40,7 +40,7 @@ public interface IRecipeRepository
     
     public Task<(bool isHidden, string? error)> Hide(Guid recipeId);
 
-    public Task<(bool isFeatured, string? error)> SetFeatured(Guid recipeId);
+    public Task<string?> SetFeatured(Guid recipeId);
 
     public Task<bool> Delete(Guid recipeId);
 }

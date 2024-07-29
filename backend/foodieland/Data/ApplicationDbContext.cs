@@ -33,5 +33,6 @@ public class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid
         modelBuilder.ApplyConfiguration(new IngredientConfiguration());
         modelBuilder.ApplyConfiguration(new CookingDirectionConfiguration());
         modelBuilder.ApplyConfiguration(new NutritionInformationConfiguration());
+        modelBuilder.ApplyConfiguration(new FeaturedRecipeConfiguration());
     }
 }
