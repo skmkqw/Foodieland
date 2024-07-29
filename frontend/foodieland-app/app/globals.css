@@ -22,9 +22,6 @@ h1, h2, h3, h4, h5, h6 {@apply text-[inherit] font-[inherit];}
 main {
     @apply flex justify-center;
 }
-.container {
-    @apply max-w-screen-xl;
-}
 h1 {
     @apply text-3xl font-bold;
 }
@@ -41,4 +38,16 @@ label {
 
 .errorMessage {
     @apply text-red-500;
+}
+
+.navLink {
+    @apply text-gray-800 hover:text-gray-600 font-medium text-base;
+}
+
+.navLinkMobile {
+    @apply text-gray-800 text-3xl font-medium;
+}
+
+.navLinkMobileActive {
+    @apply text-4xl font-bold;
 }

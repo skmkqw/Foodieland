@@ -8,9 +8,11 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        'xs': '320px',
+        'xs': '420px',
 
         'sm': '480px',
+
+        'base': '520px',
 
         'md': '768px',
 
@@ -22,6 +24,9 @@ module.exports = {
       },
       colors: {
         'primary': '#E7FAFE'
+      },
+      flex: {
+        '1/2': '0 1 50%'
       }
     },
   },
