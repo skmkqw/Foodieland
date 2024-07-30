@@ -2,45 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FeaturedRecipe } from "@/components";
+import { FeaturedRecipeProps } from "@/schemas/featuredRecipe";
 
-const recipeData = [
-    {
-        id: 1,
-        name: "Some green bullshit",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur culpa dicta distinctio dolore eos error laboriosam modi quas quidem quisquam",
-        cookingTime: 30,
-        category: "Chicken",
-        creatorName: "John Smith",
-        creationDate: "15 Mar, 2024"
-    },
-    {
-        id: 2,
-        name: "Other green bullshit",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur culpa dicta distinctio dolore eos error laboriosam modi quas quidem quisquam",
-        cookingTime: 40,
-        category: "Salad",
-        creatorName: "Jane Doe",
-        creationDate: "21 Apr, 2024"
-    },
-    {
-        id: 3,
-        name: "More green bullshit",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur culpa dicta distinctio dolore eos error laboriosam modi quas quidem quisquam",
-        cookingTime: 20,
-        category: "Seafood",
-        creatorName: "Bob Johnson",
-        creationDate: "05 Jan, 2024"
-    }
-];
-
-export default function FeaturedSlider() {
+export default function FeaturedSlider({ recipes }: { recipes: FeaturedRecipeProps[] }) {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
     const [startPos, setStartPos] = useState(0);
-    const intervalRef = useRef(null);
+    const intervalRef = useRef<any>(null);
 
-    const slideCount = recipeData.length;
+    const slideCount = recipes.length;
 
     const startAutoplay = () => {
         intervalRef.current = setInterval(() => {
@@ -105,8 +76,8 @@ export default function FeaturedSlider() {
                 className="flex items-stretch transition-transform duration-700 "
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
-                {recipeData.map((recipe) => (
-                    <div key={recipe.id} className="flex-shrink-0 w-full">
+                {recipes.map((recipe, idx) => (
+                    <div key={idx} className="flex-shrink-0 w-full">
                         <FeaturedRecipe {...recipe} />
                     </div>
                 ))}
