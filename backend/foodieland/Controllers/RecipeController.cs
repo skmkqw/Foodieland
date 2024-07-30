@@ -35,7 +35,7 @@ public class RecipeController : ControllerBase
     public async Task<IActionResult> GetFeatured()
     {
         var featuredRecipes = await _repository.GetFeatured();
-        return Ok(featuredRecipes.Select(r => r.ToRecipeDto()));
+        return Ok(featuredRecipes.Select(r => r.ToFeaturedDto()));
     }
     
     [HttpGet("/recipes/{recipeId}")]
