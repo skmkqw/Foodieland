@@ -24,7 +24,10 @@ public class RecipeRepository : IRecipeRepository
 
     public async Task<List<Recipe>> GetFeatured()
     {
-        return await _context.FeaturedRecipes.Select(fr => fr.Recipe).ToListAsync();
+        return await _context.FeaturedRecipes
+            .Include(r => r.Recipe)
+            .ThenInclude(c => c.Creator).Select(fr => fr.Recipe)
+            .ToListAsync();
     }
 
     public async Task<Recipe?> GetById(Guid id)
