@@ -1,4 +1,5 @@
-import { FeaturedSlider, NavBar } from "@/components";
+import { NavBar } from "@/components";
+import FeaturedSection from "@/components/shared/FeaturedSection";
 
 
 export default async function Home() {
@@ -6,7 +7,7 @@ export default async function Home() {
         <main className="flex flex-col">
             <NavBar />
             <div className="mt-10 mb-20">
-                <FeaturedSlider />
+                <FeaturedSection />
             </div>
         </main>
     );
