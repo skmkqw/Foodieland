@@ -1,22 +1,13 @@
 import { Container, LinkButton } from "@/components";
 import Image from "next/image";
 import { CircleArrowRight } from "lucide-react";
+import { FeaturedRecipeProps } from "@/schemas/featuredRecipe";
 
-interface FeaturedRecipeProps {
-    id: number,
-    name: string,
-    description: string,
-    cookingTime: number,
-    category: string,
-    creatorName: string,
-    creationDate: string
-}
 
 export default function FeaturedRecipe({
-    id,
     name,
     description,
-    cookingTime,
+    timeToCook,
     category,
     creatorName,
     creationDate
@@ -40,7 +31,7 @@ export default function FeaturedRecipe({
                                 <div
                                     className="bg-black bg-opacity-5 py-3 px-5 rounded-full flex gap-4 items-center justify-center xs:justify-start">
                                     <Image src="/timer.svg" alt="Timer" width={24} height={24} />
-                                    {cookingTime} Minutes
+                                    {timeToCook} Minutes
                                 </div>
                                 <div
                                     className="bg-black bg-opacity-5 p-3 rounded-full flex gap-4 items-center justify-center xs:justify-start">
