@@ -4,7 +4,7 @@ import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
 import Container from "@/components/shared/Container";
 import NavBar from "@/components/shared/header/NavBar";
-import FeaturedSlider from "@/components/FeaturedSlider";
+import FeaturedSlider from "@/components/shared/FeaturedSlider";
 import NavLinks from "@/components/shared/header/NavLinks";
 import LoginForm from "@/components/shared/forms/LoginForm";
 import Promosection from "@/components/shared/Promosection";
