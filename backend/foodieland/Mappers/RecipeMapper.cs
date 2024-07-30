@@ -42,6 +42,7 @@ public static class RecipeMapper
     {
         return new FeaturedRecipeDto()
         {
+            Id = recipe.Id.ToString(),
             Name = recipe.Name,
             Description = recipe.Description,
             TimeToCook = recipe.TimeToCook,
