@@ -1,7 +1,7 @@
 import { Container, LinkButton } from "@/components";
 import Image from "next/image";
 import { CircleArrowRight } from "lucide-react";
-import { FeaturedRecipeProps } from "@/interfaces/FeaturedRecipe";
+import { FeaturedRecipeProps } from "@/schemas/featuredRecipe";
 
 
 export default function FeaturedRecipe({
