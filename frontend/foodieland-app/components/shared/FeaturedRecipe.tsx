@@ -1,19 +1,10 @@
 import { Container, LinkButton } from "@/components";
 import Image from "next/image";
 import { CircleArrowRight } from "lucide-react";
+import { FeaturedRecipeProps } from "@/interfaces/FeaturedRecipe";
 
-interface FeaturedRecipeProps {
-    id: number,
-    name: string,
-    description: string,
-    cookingTime: number,
-    category: string,
-    creatorName: string,
-    creationDate: string
-}
 
 export default function FeaturedRecipe({
-    id,
     name,
     description,
     cookingTime,
