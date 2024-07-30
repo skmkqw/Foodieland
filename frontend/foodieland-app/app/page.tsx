@@ -1,7 +1,5 @@
-import { NavBar } from "@/components";
-import FeaturedSection from "@/components/shared/FeaturedSection";
-import { Suspense } from "react";
-import FeaturedRecipeSkeleton from "@/components/shared/FeaturedRecipeSkeleton";
+import { FeaturedRecipeSkeleton, FeaturedSection, NavBar } from "@/components";
+import React, { Suspense } from "react";
 
 
 export default async function Home() {
