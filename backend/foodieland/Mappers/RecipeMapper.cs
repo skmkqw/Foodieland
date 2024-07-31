@@ -6,6 +6,14 @@ using foodieland.Models;
 
 namespace foodieland.Mappers;
 
+public class RecipeMapperParams
+{
+    public List<CookingDirectionDto>? CookingDirections { get; set; }
+    public NutritionInformationDto? NutritionInformation { get; set; }
+    public List<IngredientDto>? Ingredients { get; set; }
+    public bool IsLiked { get; set; }
+}
+
 public static class RecipeMapper
 {
     public static Recipe ToRecipe(this AddOrUpdateRecipeDto addOrUpdateRecipeDto, Guid creatorId)
@@ -20,7 +28,7 @@ public static class RecipeMapper
         };
     }
 
-    public static RecipeDto ToRecipeDto(this Recipe recipe, List<CookingDirectionDto>? cookingDirections = null, NutritionInformationDto? nutritionInformation = null, List<IngredientDto>? ingredients = null)
+    public static RecipeDto ToRecipeDto(this Recipe recipe, RecipeMapperParams? mapperParams)
     {
         return new RecipeDto()
         {
@@ -29,12 +37,13 @@ public static class RecipeMapper
             Description = recipe.Description,
             Category = recipe.Category,
             TimeToCook = recipe.TimeToCook,
-            NutritionInformation = nutritionInformation,
+            NutritionInformation = mapperParams?.NutritionInformation,
             CreatorId = recipe.CreatorId,
             CreationDate = recipe.CreationDate,
-            Directions = cookingDirections,
-            Ingredients = ingredients,
-            IsPublished = recipe.IsPublished
+            Directions = mapperParams?.CookingDirections,
+            Ingredients = mapperParams?.Ingredients,
+            IsPublished = recipe.IsPublished,
+            IsLiked = mapperParams?.IsLiked ?? false
         };
     }
 }
