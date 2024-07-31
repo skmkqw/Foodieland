@@ -1,3 +1,4 @@
+import Title from "@/components/ui/Title";
 import Logo from "@/components/shared/Logo";
 import Button from "@/components/ui/Button";
 import LinkButton from "@/components/ui/LinkButton";
@@ -13,6 +14,7 @@ import FeaturedRecipe from "@/components/shared/FeaturedRecipe";
 import SocialLinks from "@/components/shared/header/SocialLinks";
 import RegisterForm from "@/components/shared/forms/RegisterForm";
 import FeaturedSection from "@/components/shared/FeaturedSection";
+import CategoriesSection from "@/components/shared/CategoriesSection";
 import FeaturedRecipeSkeleton from "@/components/shared/FeaturedRecipeSkeleton";
 
 export {
@@ -25,11 +27,13 @@ export {
     InputGroup,
     NavLinks,
     NavBar,
+    Title,
     MenuButton,
     SocialLinks,
     Container,
     FeaturedRecipe,
     FeaturedSlider,
     FeaturedSection,
-    FeaturedRecipeSkeleton
+    FeaturedRecipeSkeleton,
+    CategoriesSection
 };
