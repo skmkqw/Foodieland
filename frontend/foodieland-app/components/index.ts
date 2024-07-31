@@ -1,5 +1,8 @@
+import Title from "@/components/ui/Title";
 import Logo from "@/components/shared/Logo";
 import Button from "@/components/ui/Button";
+import Inbox from "@/components/shared/Inbox";
+import Footer from "@/components/shared/Footer";
 import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
 import Container from "@/components/shared/Container";
@@ -8,12 +11,14 @@ import NavLinks from "@/components/shared/header/NavLinks";
 import LoginForm from "@/components/shared/forms/LoginForm";
 import Promosection from "@/components/shared/Promosection";
 import MenuButton from "@/components/shared/header/MenuButton";
-import FeaturedSlider from "@/components/shared/FeaturedSlider";
-import FeaturedRecipe from "@/components/shared/FeaturedRecipe";
 import SocialLinks from "@/components/shared/header/SocialLinks";
 import RegisterForm from "@/components/shared/forms/RegisterForm";
-import FeaturedSection from "@/components/shared/FeaturedSection";
-import FeaturedRecipeSkeleton from "@/components/shared/FeaturedRecipeSkeleton";
+import CategoryCard from "@/components/shared/cards/CategoryCard";
+import CategoriesSection from "@/components/shared/CategoriesSection";
+import FeaturedSlider from "@/components/shared/featured/FeaturedSlider";
+import FeaturedRecipe from "@/components/shared/featured/FeaturedRecipe";
+import FeaturedSection from "@/components/shared/featured/FeaturedSection";
+import FeaturedRecipeSkeleton from "@/components/shared/featured/FeaturedRecipeSkeleton";
 
 export {
     Logo,
@@ -25,11 +30,16 @@ export {
     InputGroup,
     NavLinks,
     NavBar,
+    Title,
     MenuButton,
     SocialLinks,
     Container,
     FeaturedRecipe,
     FeaturedSlider,
     FeaturedSection,
-    FeaturedRecipeSkeleton
+    FeaturedRecipeSkeleton,
+    CategoriesSection,
+    CategoryCard,
+    Footer,
+    Inbox
 };
