@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NavLinks() {
     return (
-        <ul className="flex gap-10">
+        <ul className="flex flex-col text-center sm:flex-row gap-10">
             <li className="navLink">
                 <Link href="/foodieland-app/public">Home</Link>
             </li>
