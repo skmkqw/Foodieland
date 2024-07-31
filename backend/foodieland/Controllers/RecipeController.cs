@@ -228,6 +228,39 @@ public class RecipeController : ControllerBase
     }
 
     [Authorize]
+    [HttpPost("/recipes/{recipeId}/like")]
+    public async Task<IActionResult> LikeRecipe([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string? authorizationHeader)
+    {
+        if (authorizationHeader != null && authorizationHeader.StartsWith("Bearer "))
+        {
+            var token = authorizationHeader.Substring("Bearer ".Length).Trim();
+            var handler = new JwtSecurityTokenHandler();
+
+            if (handler.ReadToken(token) is JwtSecurityToken jwtToken)
+            {
+                var userIdClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid");
+                if (userIdClaim != null)
+                {
+                    var userId = userIdClaim.Value;
+                    
+                    var user = await _userManager.FindByIdAsync(userId);
+                    if (user == null)
+                    {
+                        return BadRequest("Invalid user ID.");
+                    }
+
+                    bool likedSuccessfully = await _repository.AddLike(recipeId, user.Id);
+                    return likedSuccessfully
+                        ? Ok("Recipe liked successfully")
+                        : BadRequest("Recipe not exists or already liked");
+                }
+            }
+        }
+
+        return Unauthorized("Failed to determine user's identity");   
+    }
+
+    [Authorize]
     [HttpPatch("/recipes/{recipeId}/publish")]
     public async Task<IActionResult> Publish([FromRoute] Guid recipeId)
     {
