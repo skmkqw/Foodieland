@@ -28,7 +28,7 @@ public class RecipeController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var recipes = await _repository.GetAll();
-        return Ok(recipes.Select(r => r.ToRecipeDto()));
+        return Ok(recipes.Select(r => r.ToRecipeDto(null)));
     }
     
     [HttpGet("/recipes/{recipeId}")]
@@ -48,7 +48,13 @@ public class RecipeController : ControllerBase
         var directionsDto = directions?.Select(cd => cd.ToCookingDirectionDto()).OrderBy(cd => cd.StepNumber).ToList();
         var ingredientsDto = ingredients?.Select(iq => iq.ToIngredientDto()).ToList();
 
-        return Ok(recipe.ToRecipeDto(directionsDto, nutritionDto, ingredientsDto));
+        return Ok(recipe.
+            ToRecipeDto(
+                new RecipeMapperParams
+                {
+                    CookingDirections = directionsDto, Ingredients = ingredientsDto, NutritionInformation = nutritionDto
+                })
+        );
     }
 
     [Authorize]
@@ -101,7 +107,7 @@ public class RecipeController : ControllerBase
                 return NotFound("Recipe not found");
             }
 
-            return Ok(updatedRecipe.ToRecipeDto());
+            return Ok(updatedRecipe.ToRecipeDto(null));
         }
 
         return BadRequest(ModelState);
