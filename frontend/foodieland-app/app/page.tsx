@@ -1,6 +1,5 @@
-import { CategoriesSection, FeaturedRecipeSkeleton, FeaturedSection, NavBar } from "@/components";
+import { CategoriesSection, FeaturedRecipeSkeleton, FeaturedSection, Footer, Inbox, NavBar } from "@/components";
 import React, { Suspense } from "react";
-import Footer from "@/components/shared/Footer";
 
 
 export default async function Home() {
@@ -12,6 +11,7 @@ export default async function Home() {
                     <FeaturedSection />
                 </Suspense>
                 <CategoriesSection />
+                <Inbox />
             </div>
             <Footer />
         </main>
