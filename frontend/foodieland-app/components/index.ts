@@ -9,12 +9,13 @@ import NavLinks from "@/components/shared/header/NavLinks";
 import LoginForm from "@/components/shared/forms/LoginForm";
 import Promosection from "@/components/shared/Promosection";
 import MenuButton from "@/components/shared/header/MenuButton";
-import FeaturedSlider from "@/components/shared/featured/FeaturedSlider";
-import FeaturedRecipe from "@/components/shared/featured/FeaturedRecipe";
 import SocialLinks from "@/components/shared/header/SocialLinks";
 import RegisterForm from "@/components/shared/forms/RegisterForm";
-import FeaturedSection from "@/components/shared/featured/FeaturedSection";
+import CategoryCard from "@/components/shared/cards/CategoryCard";
 import CategoriesSection from "@/components/shared/CategoriesSection";
+import FeaturedSlider from "@/components/shared/featured/FeaturedSlider";
+import FeaturedRecipe from "@/components/shared/featured/FeaturedRecipe";
+import FeaturedSection from "@/components/shared/featured/FeaturedSection";
 import FeaturedRecipeSkeleton from "@/components/shared/featured/FeaturedRecipeSkeleton";
 
 export {
@@ -35,5 +36,6 @@ export {
     FeaturedSlider,
     FeaturedSection,
     FeaturedRecipeSkeleton,
-    CategoriesSection
+    CategoriesSection,
+    CategoryCard
 };
