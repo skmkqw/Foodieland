@@ -8,4 +8,6 @@ public class AppUser : IdentityUser<Guid>
     public string LastName { get; set; } = string.Empty;
 
     public List<Recipe> Recipes { get; set; } = new();
+    
+    public List<LikedRecipe> LikedRecipes { get; set; } = new();
 }
