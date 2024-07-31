@@ -59,36 +59,16 @@ public class RecipeController : ControllerBase
 
     [Authorize]
     [HttpPost("/recipes")]
-    public async Task<IActionResult> Create([FromBody] AddOrUpdateRecipeDto addOrUpdateRecipeDto)
+    public async Task<IActionResult> Create([FromBody] AddOrUpdateRecipeDto addOrUpdateRecipeDto, [FromHeader(Name = "Authorization")] string? authorizationHeader)
     {
         if (ModelState.IsValid)
         {
-            var authorizationHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
-        
-            if (authorizationHeader != null && authorizationHeader.StartsWith("Bearer "))
+            var user = await TryDetermineUser(authorizationHeader);
+            if (user != null)
             {
-                var token = authorizationHeader.Substring("Bearer ".Length).Trim();
-                var handler = new JwtSecurityTokenHandler();
-
-                if (handler.ReadToken(token) is JwtSecurityToken jwtToken)
-                {
-                    var userIdClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid");
-                    if (userIdClaim != null)
-                    {
-                        var userId = userIdClaim.Value;
-                    
-                        var user = await _userManager.FindByIdAsync(userId);
-                        if (user == null)
-                        {
-                            return BadRequest("Invalid user ID.");
-                        }
-
-                        var createdRecipe = await _repository.Create(addOrUpdateRecipeDto, userId);
-                        return CreatedAtAction(nameof(GetById), new { recipeId = createdRecipe.Id }, createdRecipe.ToRecipeDto());
-                    }
-                }
+                var createdRecipe = await _repository.Create(addOrUpdateRecipeDto, user.Id.ToString());
+                return CreatedAtAction(nameof(GetById), new { recipeId = createdRecipe.Id }, createdRecipe.ToRecipeDto(null));
             }
-
             return Unauthorized("Failed to determine user's identity");
         }
 
@@ -237,32 +217,14 @@ public class RecipeController : ControllerBase
     [HttpPost("/recipes/{recipeId}/like")]
     public async Task<IActionResult> LikeRecipe([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string? authorizationHeader)
     {
-        if (authorizationHeader != null && authorizationHeader.StartsWith("Bearer "))
+        var user = await TryDetermineUser(authorizationHeader);
+        if (user != null)
         {
-            var token = authorizationHeader.Substring("Bearer ".Length).Trim();
-            var handler = new JwtSecurityTokenHandler();
-
-            if (handler.ReadToken(token) is JwtSecurityToken jwtToken)
-            {
-                var userIdClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid");
-                if (userIdClaim != null)
-                {
-                    var userId = userIdClaim.Value;
-                    
-                    var user = await _userManager.FindByIdAsync(userId);
-                    if (user == null)
-                    {
-                        return BadRequest("Invalid user ID.");
-                    }
-
-                    bool likedSuccessfully = await _repository.AddLike(recipeId, user.Id);
-                    return likedSuccessfully
-                        ? Ok("Recipe liked successfully")
-                        : BadRequest("Recipe not exists or already liked");
-                }
-            }
+            bool likedSuccessfully = await _repository.AddLike(recipeId, user.Id);
+            return likedSuccessfully
+                ? Ok("Recipe liked successfully")
+                : BadRequest("Recipe not exists or already liked");
         }
-
         return Unauthorized("Failed to determine user's identity");   
     }
 
