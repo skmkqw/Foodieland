@@ -36,5 +36,5 @@ public class Recipe
 
     public AppUser Creator { get; set; }
     
-    public bool IsPublished { get; set; } = false;
+    public bool IsPublished { get; set; }
 }
