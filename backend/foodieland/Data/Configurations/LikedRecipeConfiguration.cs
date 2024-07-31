@@ -8,7 +8,7 @@ public class LikedRecipeConfiguration : IEntityTypeConfiguration<LikedRecipe>
 {
     public void Configure(EntityTypeBuilder<LikedRecipe> builder)
     {
-        builder.ToTable("RecipeLikes");
+        builder.ToTable("LikedRecipes");
 
         builder.HasKey(rl => new { rl.UserId, rl.RecipeId });
 
@@ -24,7 +24,7 @@ public class LikedRecipeConfiguration : IEntityTypeConfiguration<LikedRecipe>
         builder.HasOne(rl => rl.Recipe)
             .WithMany(r => r.Likes)
             .HasForeignKey(rl => rl.RecipeId)
-            .OnDelete(DeleteBehavior.Cascade)
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
     }
 }
