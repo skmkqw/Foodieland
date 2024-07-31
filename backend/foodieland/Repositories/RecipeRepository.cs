@@ -338,6 +338,35 @@ public class RecipeRepository : IRecipeRepository
         }
     }
 
+    public async Task<bool> AddLike(Guid userId, Guid recipeId)
+    {
+        if (await IsLikedByUserAsync(userId, recipeId)) return false;
+        var like = new LikedRecipe { UserId = userId, RecipeId = recipeId };
+        _context.LikedRecipes.Add(like);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+    
+    public async Task<bool> RemoveLike(Guid userId, Guid recipeId)
+    {
+        var like = await _context.LikedRecipes
+            .FirstOrDefaultAsync(l => l.UserId == userId && l.RecipeId == recipeId);
+        if (like != null)
+        {
+            _context.LikedRecipes.Remove(like);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        return false;
+    }
+    
+    private async Task<bool> IsLikedByUserAsync(Guid userId, Guid recipeId)
+    {
+        return await _context.LikedRecipes
+            .AnyAsync(l => l.UserId == userId && l.RecipeId == recipeId);
+    }
+
     private async Task<(bool isReadyToPublish, string[]? errors)> VerifyRecipe(Recipe recipe)
     {
         List<string> errors = new ();
