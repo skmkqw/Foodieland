@@ -1,4 +1,4 @@
-import { CategoryCard, Container, Title } from "@/components";
+import { Button, CategoryCard, Container, Title } from "@/components";
 
 const CardsData = [
     {
@@ -36,7 +36,10 @@ const CardsData = [
 export default function CategoriesSection() {
     return (
         <Container className="flex flex-col gap-14 w-full">
-            <Title text="Categories" className="text-center sm:text-start"/>
+            <div className="flex flex-col items-center gap-10 md:flex-row justify-between text-center sm:text-start">
+                <Title text="Categories" />
+                <Button type="button" text="View All Categories" additionalStyles="bg-primary !text-black hover:bg-gray-100" />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
                 {CardsData.map((card, idx) => (
                     <CategoryCard {...card} key={idx} />
