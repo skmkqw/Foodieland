@@ -10,6 +10,8 @@ public interface IRecipeRepository
 {
     public Task<List<Recipe>> GetAll();
 
+    public Task<List<Recipe>> GetFeatured();
+
     public Task<Recipe?> GetById(Guid id);
 
     public Task<Recipe> Create(AddOrUpdateRecipeDto recipeDto, string creatorId);
@@ -43,6 +45,10 @@ public interface IRecipeRepository
     public Task<(bool isHidden, string? error)> Hide(Guid recipeId);
 
     public Task<bool> IsLikedByUser(Guid recipeId, Guid userId);
+
+    public Task<string?> SetFeatured(Guid recipeId);
+
+    public Task<bool> RemoveFeatured(Guid recipeId);
 
     public Task<bool> Delete(Guid recipeId);
 }

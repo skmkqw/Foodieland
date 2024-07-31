@@ -46,4 +46,18 @@ public static class RecipeMapper
             IsLiked = mapperParams?.IsLiked ?? false
         };
     }
+
+    public static FeaturedRecipeDto ToFeaturedDto(this Recipe recipe)
+    {
+        return new FeaturedRecipeDto()
+        {
+            Id = recipe.Id.ToString(),
+            Name = recipe.Name,
+            Description = recipe.Description,
+            TimeToCook = recipe.TimeToCook,
+            Category = recipe.Category.ToString(),
+            CreatorName = $"{recipe.Creator.FirstName} {recipe.Creator.LastName}",
+            CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy")
+        };
+    }
 }

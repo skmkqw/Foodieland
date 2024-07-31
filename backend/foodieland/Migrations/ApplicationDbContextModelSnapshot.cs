@@ -254,6 +254,22 @@ namespace foodieland.Migrations
                     b.ToTable("CookingDirections", (string)null);
                 });
 
+            modelBuilder.Entity("foodieland.Models.FeaturedRecipe", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("FeaturedRecipes");
+                });
+
             modelBuilder.Entity("foodieland.Models.Ingredient", b =>
                 {
                     b.Property<Guid>("Id")
@@ -447,6 +463,17 @@ namespace foodieland.Migrations
                 {
                     b.HasOne("foodieland.Models.Recipe", "Recipe")
                         .WithMany("Directions")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("foodieland.Models.FeaturedRecipe", b =>
+                {
+                    b.HasOne("foodieland.Models.Recipe", "Recipe")
+                        .WithMany()
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

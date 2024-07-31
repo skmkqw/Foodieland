@@ -24,6 +24,8 @@ public class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid
     
     public DbSet<LikedRecipe> LikedRecipes { get; set; }
     
+    public DbSet<FeaturedRecipe> FeaturedRecipes { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -34,5 +36,6 @@ public class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid
         modelBuilder.ApplyConfiguration(new CookingDirectionConfiguration());
         modelBuilder.ApplyConfiguration(new NutritionInformationConfiguration());
         modelBuilder.ApplyConfiguration(new LikedRecipeConfiguration());
+        modelBuilder.ApplyConfiguration(new FeaturedRecipeConfiguration());
     }
 }
