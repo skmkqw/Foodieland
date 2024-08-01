@@ -39,12 +39,14 @@ public interface IRecipeRepository
     public Task<bool> AddLike(Guid recipeId, Guid userId);
 
     public Task<bool> RemoveLike(Guid recipeId, Guid userId);
+    
+    public Task<bool> IsLikedByUser(Guid recipeId, Guid userId);
+
+    public Task<List<LikedRecipe>> GetLikedRecipesByUser(Guid userId);
 
     public Task<(bool isPublished, string[]? errors)> Publish(Guid recipeId);
     
     public Task<(bool isHidden, string? error)> Hide(Guid recipeId);
-
-    public Task<bool> IsLikedByUser(Guid recipeId, Guid userId);
 
     public Task<string?> SetFeatured(Guid recipeId);
 

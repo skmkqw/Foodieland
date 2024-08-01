@@ -375,6 +375,11 @@ public class RecipeRepository : IRecipeRepository
         return await _context.LikedRecipes
             .AnyAsync(l => l.UserId == userId && l.RecipeId == recipeId);
     }
+    
+    public async Task<List<LikedRecipe>> GetLikedRecipesByUser(Guid userId)
+    {
+        return await _context.LikedRecipes.Where(lr => lr.UserId == userId).ToListAsync();
+    }
 
     private async Task<(bool isReadyToPublish, string[]? errors)> VerifyRecipe(Recipe recipe)
     {
