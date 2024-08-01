@@ -8,10 +8,10 @@ namespace foodieland.Mappers;
 
 public class RecipeMapperParams
 {
-    public List<CookingDirectionDto>? CookingDirections { get; set; }
-    public NutritionInformationDto? NutritionInformation { get; set; }
-    public List<IngredientDto>? Ingredients { get; set; }
-    public bool IsLiked { get; set; }
+    public List<CookingDirectionDto>? CookingDirections { get; init; }
+    public NutritionInformationDto? NutritionInformation { get; init; }
+    public List<IngredientDto>? Ingredients { get; init; }
+    public bool IsLiked { get; init; }
 }
 
 public static class RecipeMapper
