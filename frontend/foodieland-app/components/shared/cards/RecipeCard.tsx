@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { LikeButton } from "@/components";
+import { useState } from "react";
 
 interface RecipeCardProps {
     imagePath: string,
@@ -8,8 +12,14 @@ interface RecipeCardProps {
 }
 
 export default function RecipeCard({ imagePath, name, category, timeToCook }: RecipeCardProps) {
+    const [isLiked, setIsLiked] = useState(false);
+
+    const handleToggleLike = () => {
+        setIsLiked(!isLiked);
+    };
     return (
-        <div className="p-4 flex flex-col gap-7 bg-gradient-to-b from-white to-primary rounded-3xl">
+        <div className="relative p-4 flex flex-col gap-7 bg-gradient-to-b from-white to-primary rounded-3xl">
+            <LikeButton isLiked={isLiked} onToggle={handleToggleLike} className="absolute top-[6%] right-[10%]" />
             <Image src={imagePath} alt="Recipe image" width={370} height={250} className="rounded-3xl w-full object-cover" />
             <div className="flex flex-col gap-5 px-3">
                 <p className="font-semibold text-3xl text-start">{name}</p>

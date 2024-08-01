@@ -20,7 +20,6 @@ export default async function Home() {
                     <FeaturedSection />
                 </Suspense>
                 <CategoriesSection />
-                <RecipeSectionSkeleton />
                 <Suspense fallback={<RecipeSectionSkeleton />} >
                     <RecipesSection />
                 </Suspense>
