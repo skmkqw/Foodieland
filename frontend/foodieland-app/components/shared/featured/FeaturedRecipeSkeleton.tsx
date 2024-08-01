@@ -2,7 +2,7 @@ import { Container } from "@/components";
 
 export default function FeaturedRecipeSkeleton() {
     return (
-        <Container>
+        <Container className="w-full">
             <div
                 className="flex flex-col-reverse lg:flex-row rounded-3xl bg-primary lg:h-[640px] h-full cursor-pointer animate-pulse">
                 <div className="flex-1/2 flex flex-col justify-between gap-12 md:gap-24 py-6 md:py-12 px-4 sm:px-10">

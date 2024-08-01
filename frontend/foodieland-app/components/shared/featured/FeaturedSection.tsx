@@ -6,7 +6,7 @@ export default async function FeaturedSection() {
 
     if (!featuredRecipesData) return (
         <Container>
-            <div className="rounded-3xl bg-primary flex items-center justify-center py-10">
+            <div className="rounded-3xl bg-primary flex items-center justify-center p-10 text-center">
                 <p className="font-medium text-2xl">Oops! An unexpected error occurred while fetching featured recipes. Please try again later.</p>
             </div>
         </Container>
