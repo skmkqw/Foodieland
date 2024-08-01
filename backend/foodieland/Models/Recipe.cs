@@ -30,11 +30,13 @@ public class Recipe
 
     public List<CookingDirection> Directions { get; set; } = new ();
 
-    public NutritionInformation? NutritionInformation { get; set; } = null;
+    public NutritionInformation? NutritionInformation { get; set; }
 
     public Guid CreatorId { get; set; }
 
     public AppUser Creator { get; set; }
+
+    public bool IsPublished { get; set; }
     
-    public bool IsPublished { get; set; } = false;
+    public List<LikedRecipe> Likes { get; set; } = new();
 }
