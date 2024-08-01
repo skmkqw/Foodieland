@@ -346,7 +346,7 @@ public class RecipeRepository : IRecipeRepository
         }
     }
 
-    public async Task<bool> AddLike(Guid userId, Guid recipeId)
+    public async Task<bool> AddLike(Guid recipeId, Guid userId)
     {
         if (await IsLikedByUser(userId, recipeId) && await GetById(recipeId) == null) return false;
         var like = new LikedRecipe { UserId = userId, RecipeId = recipeId };
@@ -355,7 +355,7 @@ public class RecipeRepository : IRecipeRepository
         return true;
     }
     
-    public async Task<bool> RemoveLike(Guid userId, Guid recipeId)
+    public async Task<bool> RemoveLike(Guid recipeId, Guid userId)
     {
         var like = await _context.LikedRecipes
             .FirstOrDefaultAsync(l => l.UserId == userId && l.RecipeId == recipeId);
