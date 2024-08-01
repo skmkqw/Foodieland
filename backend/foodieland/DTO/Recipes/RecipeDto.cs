@@ -26,5 +26,7 @@ public class RecipeDto
     
     public DateOnly CreationDate { get; set; } 
     
-    public bool IsPublished { get; set; } = false;
+    public bool IsPublished { get; set; }
+    
+    public bool IsLiked { get; set; }
 }
