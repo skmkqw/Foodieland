@@ -6,6 +6,7 @@ import Footer from "@/components/shared/Footer";
 import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
 import Container from "@/components/shared/Container";
+import Description from "@/components/ui/Description";
 import NavBar from "@/components/shared/header/NavBar";
 import NavLinks from "@/components/shared/header/NavLinks";
 import LoginForm from "@/components/shared/forms/LoginForm";
@@ -41,5 +42,6 @@ export {
     CategoriesSection,
     CategoryCard,
     Footer,
-    Inbox
+    Inbox,
+    Description
 };
