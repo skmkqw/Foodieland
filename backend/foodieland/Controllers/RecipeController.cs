@@ -25,16 +25,19 @@ public class RecipeController : ControllerBase
     }
     
     [HttpGet("/recipes")]
-    public async Task<IActionResult> GetAll([FromHeader(Name = "Authorization")] string? authorizationHeader)
+    public async Task<IActionResult> GetAll(
+        [FromHeader(Name = "Authorization")] string? authorizationHeader,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
     {
-        var recipes = await _repository.GetAll();
+        var recipes = await _repository.GetAll(page, pageSize);
         var user = await TryDetermineUser(authorizationHeader);
 
         if (user == null) return Ok(recipes.Select(r => r.ToRecipeDto(null)));
-        
+
         var likedRecipes = await _repository.GetLikedRecipesByUser(user.Id);
         var likedRecipeIds = new HashSet<Guid>(likedRecipes.Select(lr => lr.RecipeId));
-        
+
         var responseData = recipes.Select(recipe =>
                 recipe.ToRecipeDto(new RecipeMapperParams { IsLiked = likedRecipeIds.Contains(recipe.Id) }))
             .ToList();

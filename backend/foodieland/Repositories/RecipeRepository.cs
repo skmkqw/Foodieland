@@ -14,9 +14,13 @@ public partial class RecipeRepository : IRecipeRepository
     {
         _context = context;
     }
-    public async Task<List<Recipe>> GetAll()
+    
+    public async Task<List<Recipe>> GetAll(int page, int pageSize)
     {
-        return await _context.Recipes.ToListAsync();
+        return await _context.Recipes
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
 
     public async Task<Recipe?> GetById(Guid id)
