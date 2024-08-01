@@ -8,7 +8,7 @@ namespace foodieland.Repositories;
 
 public interface IRecipeRepository
 {
-    public Task<List<Recipe>> GetAll();
+    public Task<List<Recipe>> GetAll(int page, int pageSize);
 
     public Task<List<Recipe>> GetFeatured();
 
