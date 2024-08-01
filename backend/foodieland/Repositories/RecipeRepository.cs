@@ -203,7 +203,7 @@ public class RecipeRepository : IRecipeRepository
     }
     
 
-    private bool TryFindIngredient(string ingredientName, out Ingredient ingredient)
+    private bool TryFindIngredient(string ingredientName, out Ingredient? ingredient)
     {
         ingredient = _context.Ingredients.FirstOrDefault(i => i.Name == ingredientName);
         return ingredient != null;
