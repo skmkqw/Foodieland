@@ -12,6 +12,7 @@ import NavLinks from "@/components/shared/header/NavLinks";
 import LoginForm from "@/components/shared/forms/LoginForm";
 import Promosection from "@/components/shared/Promosection";
 import MenuButton from "@/components/shared/header/MenuButton";
+import RecipesSection from "@/components/shared/RecipesSection";
 import SocialLinks from "@/components/shared/header/SocialLinks";
 import RegisterForm from "@/components/shared/forms/RegisterForm";
 import CategoryCard from "@/components/shared/cards/CategoryCard";
@@ -41,6 +42,7 @@ export {
     FeaturedRecipeSkeleton,
     CategoriesSection,
     CategoryCard,
+    RecipesSection,
     Footer,
     Inbox,
     Description

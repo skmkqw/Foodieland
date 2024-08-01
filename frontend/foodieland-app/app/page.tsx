@@ -1,4 +1,12 @@
-import { CategoriesSection, FeaturedRecipeSkeleton, FeaturedSection, Footer, Inbox, NavBar } from "@/components";
+import {
+    CategoriesSection,
+    FeaturedRecipeSkeleton,
+    FeaturedSection,
+    Footer,
+    Inbox,
+    NavBar,
+    RecipesSection
+} from "@/components";
 import React, { Suspense } from "react";
 
 
@@ -11,6 +19,9 @@ export default async function Home() {
                     <FeaturedSection />
                 </Suspense>
                 <CategoriesSection />
+                <Suspense fallback={<p>Loading recipes..</p>} >
+                    <RecipesSection />
+                </Suspense>
                 <Inbox />
             </div>
             <Footer />
