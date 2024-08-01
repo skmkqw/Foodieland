@@ -29,18 +29,17 @@ public class RecipeController : ControllerBase
     {
         var recipes = await _repository.GetAll();
         var user = await TryDetermineUser(authorizationHeader);
-        if (user != null)
-        {
-            var responseData = new List<RecipeDto>();
-            foreach (var recipe in recipes)
-            {
-                bool isLiked = await _repository.IsLikedByUser(recipe.Id, user.Id);
-                responseData.Add(recipe.ToRecipeDto(new RecipeMapperParams {IsLiked = isLiked}));
-            }
 
-            return Ok(responseData);
-        }
-        return Ok(recipes.Select(r => r.ToRecipeDto(null)));
+        if (user == null) return Ok(recipes.Select(r => r.ToRecipeDto(null)));
+        
+        var likedRecipes = await _repository.GetLikedRecipesByUser(user.Id);
+        var likedRecipeIds = new HashSet<Guid>(likedRecipes.Select(lr => lr.RecipeId));
+        
+        var responseData = recipes.Select(recipe =>
+                recipe.ToRecipeDto(new RecipeMapperParams { IsLiked = likedRecipeIds.Contains(recipe.Id) }))
+            .ToList();
+
+        return Ok(responseData);
     }
 
     [HttpGet("recipes/featured")]
