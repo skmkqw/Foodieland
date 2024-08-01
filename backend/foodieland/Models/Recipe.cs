@@ -37,6 +37,6 @@ public class Recipe
     public AppUser Creator { get; set; }
 
     public bool IsPublished { get; set; }
-    
+  
     public List<LikedRecipe> Likes { get; set; } = new();
 }
