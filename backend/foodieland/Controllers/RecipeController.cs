@@ -39,17 +39,25 @@ public class RecipeController : ControllerBase
     }
     
     [HttpGet("/recipes/{recipeId}")]
-    public async Task<IActionResult> GetById([FromRoute] Guid recipeId, [FromQuery] bool displayNutrition = false, [FromQuery] bool displayDirections = false, [FromQuery] bool displayIngredients = false)
+    public async Task<IActionResult> GetById(
+        [FromRoute] Guid recipeId, 
+        [FromHeader(Name = "Authorization")] string? authorizationHeader,
+        [FromQuery] bool displayNutrition = false, 
+        [FromQuery] bool displayDirections = false, 
+        [FromQuery] bool displayIngredients = false) 
     {
         var recipe = await _repository.GetById(recipeId);
         if (recipe == null)
         {
             return NotFound("Recipe not found");
         }
+
+        var user = await TryDetermineUser(authorizationHeader);
         
         var nutritionInformation = displayNutrition ? await _repository.GetNutritionInformation(recipeId) : null;
         var directions = displayDirections ? await _repository.GetCookingDirections(recipeId) : null;
         var ingredients = displayIngredients ? await _repository.GetIngredients(recipeId) : null;
+        var isLiked = user != null && await _repository.IsLikedByUser(recipeId, user.Id);
 
         var nutritionDto = nutritionInformation?.ToNutritionDto();
         var directionsDto = directions?.Select(cd => cd.ToCookingDirectionDto()).OrderBy(cd => cd.StepNumber).ToList();
@@ -59,7 +67,7 @@ public class RecipeController : ControllerBase
             ToRecipeDto(
                 new RecipeMapperParams
                 {
-                    CookingDirections = directionsDto, Ingredients = ingredientsDto, NutritionInformation = nutritionDto
+                    CookingDirections = directionsDto, Ingredients = ingredientsDto, NutritionInformation = nutritionDto, IsLiked = isLiked
                 })
         );
     }
