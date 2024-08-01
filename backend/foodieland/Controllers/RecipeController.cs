@@ -242,6 +242,21 @@ public class RecipeController : ControllerBase
         }
         return Unauthorized("Failed to determine user's identity");   
     }
+    
+    [Authorize]
+    [HttpDelete("/recipes/{recipeId}/unlike")]
+    public async Task<IActionResult> UnlikeRecipe([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string? authorizationHeader)
+    {
+        var user = await TryDetermineUser(authorizationHeader);
+        if (user != null)
+        {
+            bool unlikedSuccessfully = await _repository.RemoveLike(recipeId, user.Id);
+            return unlikedSuccessfully
+                ? Ok("Recipe unliked successfully")
+                : BadRequest("Recipe not exists or not liked");
+        }
+        return Unauthorized("Failed to determine user's identity");   
+    }
 
     [Authorize]
     [HttpPatch("/recipes/{recipeId}/publish")]
