@@ -348,7 +348,7 @@ public class RecipeRepository : IRecipeRepository
 
     public async Task<bool> AddLike(Guid recipeId, Guid userId)
     {
-        if (await IsLikedByUser(userId, recipeId) && await GetById(recipeId) == null) return false;
+        if (await IsLikedByUser(recipeId, userId) || await GetById(recipeId) == null) return false;
         var like = new LikedRecipe { UserId = userId, RecipeId = recipeId };
         _context.LikedRecipes.Add(like);
         await _context.SaveChangesAsync();
