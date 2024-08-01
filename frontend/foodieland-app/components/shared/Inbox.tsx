@@ -11,8 +11,8 @@ export default function Inbox () {
                     <input type="email" placeholder="Your email address..." className="border-none"/>
                     <Button type="submit" text="Subscribe"/>
                 </form>
-                <Image src="/inbox-left.png" alt="Food" height={300} width={300} className="absolute bottom-0 left-0"/>
-                <Image src="/inbox-right.png" alt="Food" height={250} width={250} className="absolute bottom-0 right-0"/>
+                <Image src="/inbox-left.png" alt="Food" height={300} width={300} className="absolute bottom-0 left-0 w-80"/>
+                <Image src="/inbox-right.png" alt="Food" height={250} width={250} className="absolute bottom-0 right-0 w-70"/>
             </div>
         </Container>
     );
