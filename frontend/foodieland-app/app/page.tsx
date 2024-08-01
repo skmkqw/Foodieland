@@ -5,6 +5,7 @@ import {
     Footer,
     Inbox,
     NavBar,
+    RecipeSectionSkeleton,
     RecipesSection
 } from "@/components";
 import React, { Suspense } from "react";
@@ -19,7 +20,8 @@ export default async function Home() {
                     <FeaturedSection />
                 </Suspense>
                 <CategoriesSection />
-                <Suspense fallback={<p>Loading recipes..</p>} >
+                <RecipeSectionSkeleton />
+                <Suspense fallback={<RecipeSectionSkeleton />} >
                     <RecipesSection />
                 </Suspense>
                 <Inbox />
