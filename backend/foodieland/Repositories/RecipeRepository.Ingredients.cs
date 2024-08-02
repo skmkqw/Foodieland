@@ -1,4 +1,5 @@
 using foodieland.DTO.IngredientQuantities;
+using foodieland.Entities;
 using foodieland.Mappers;
 using foodieland.Models;
 using Microsoft.EntityFrameworkCore;
@@ -7,10 +8,10 @@ namespace foodieland.Repositories;
 
 public partial class RecipeRepository
 {
-    public async Task<List<IngredientQuantity>?> GetIngredients(Guid recipeId)
+    public async Task<List<IngredientQuantityEntity>?> GetIngredients(Guid recipeId)
     {
         var recipe = await _context.Recipes.Include(r => r.Ingredients)
-            .ThenInclude(iq => iq.Ingredient)
+            .ThenInclude(iq => iq.IngredientEntity)
             .FirstOrDefaultAsync(r => r.Id == recipeId);
         if (recipe == null)
         {
@@ -20,7 +21,7 @@ public partial class RecipeRepository
         return recipe.Ingredients;
     }
     
-    public async Task<List<IngredientQuantity>> AddIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> ingredients)
+    public async Task<List<IngredientQuantityEntity>> AddIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> ingredients)
     {
         if (ingredients == null || !ingredients.Any())
         {
@@ -31,7 +32,7 @@ public partial class RecipeRepository
         try
         {
             var recipe = await _context.Recipes.Include(r => r.Ingredients)
-                .ThenInclude(iq => iq.Ingredient)
+                .ThenInclude(iq => iq.IngredientEntity)
                 .FirstOrDefaultAsync(r => r.Id == recipeId);
             if (recipe == null)
             {
@@ -64,7 +65,7 @@ public partial class RecipeRepository
         }
     }
 
-    public async Task<List<IngredientQuantity>> ChangeIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> changedIngredients)
+    public async Task<List<IngredientQuantityEntity>> ChangeIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> changedIngredients)
     {
         if (changedIngredients.Count == 0)
         {
@@ -74,7 +75,7 @@ public partial class RecipeRepository
         try
         {
             var recipe = await _context.Recipes.Include(r => r.Ingredients)
-                .ThenInclude(iq => iq.Ingredient)
+                .ThenInclude(iq => iq.IngredientEntity)
                 .FirstOrDefaultAsync(r => r.Id == recipeId);
             
             if (recipe == null)
@@ -98,7 +99,7 @@ public partial class RecipeRepository
                     var ingredientQuantity = await CreateIngredientQuantity(recipe, changedIngredients[i]);
 
                     ingredients[i].IngredientId = ingredientQuantity.IngredientId;
-                    ingredients[i].Ingredient = ingredientQuantity.Ingredient;
+                    ingredients[i].IngredientEntity = ingredientQuantity.IngredientEntity;
                     ingredients[i].Quantity = ingredientQuantity.Quantity;
                     ingredients[i].Unit = ingredientQuantity.Unit;
                 }
@@ -128,16 +129,16 @@ public partial class RecipeRepository
         }
     }
     
-    private bool TryFindIngredient(string ingredientName, out Ingredient? ingredient)
+    private bool TryFindIngredient(string ingredientName, out IngredientEntity? ingredient)
     {
         ingredient = _context.Ingredients.FirstOrDefault(i => i.Name == ingredientName);
         return ingredient != null;
     }
 
-    private async Task<Ingredient> CreateIngredient(string ingredientName)
+    private async Task<IngredientEntity> CreateIngredient(string ingredientName)
     {
         ingredientName = ingredientName.Trim();
-        var newIngredient = new Ingredient
+        var newIngredient = new IngredientEntity
         {
             Id = Guid.NewGuid(),
             Name = char.ToUpper(ingredientName[0]) + ingredientName.Substring(1).ToLower()
@@ -146,20 +147,20 @@ public partial class RecipeRepository
         return createdIngredient.Entity;
     }
 
-    private async Task<IngredientQuantity> CreateIngredientQuantity(Recipe recipe, AddOrUpdateIngredientDto changedIngredient)
+    private async Task<IngredientQuantityEntity> CreateIngredientQuantity(RecipeEntity recipeEntity, AddOrUpdateIngredientDto changedIngredient)
     {
-        IngredientQuantity ingredientQuantity;
+        IngredientQuantityEntity ingredientQuantityEntity;
 
         if (TryFindIngredient(changedIngredient.IngredientName, out var existingIngredient))
         {
-            ingredientQuantity = changedIngredient.ToIngredientQuantity(recipe, existingIngredient);
+            ingredientQuantityEntity = changedIngredient.ToIngredientQuantity(recipeEntity, existingIngredient);
         }
         else
         {
             var newIngredient = await CreateIngredient(changedIngredient.IngredientName);
-            ingredientQuantity = changedIngredient.ToIngredientQuantity(recipe, newIngredient);
+            ingredientQuantityEntity = changedIngredient.ToIngredientQuantity(recipeEntity, newIngredient);
         }
 
-        return ingredientQuantity;
+        return ingredientQuantityEntity;
     }
 }

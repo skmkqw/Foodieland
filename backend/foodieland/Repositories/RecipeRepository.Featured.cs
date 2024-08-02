@@ -1,3 +1,4 @@
+using foodieland.Entities;
 using foodieland.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -5,11 +6,11 @@ namespace foodieland.Repositories;
 
 public partial class RecipeRepository
 {
-    public async Task<List<Recipe>> GetFeatured()
+    public async Task<List<RecipeEntity>> GetFeatured()
     {
         return await _context.FeaturedRecipes
-            .Include(r => r.Recipe)
-            .ThenInclude(c => c.Creator).Select(fr => fr.Recipe)
+            .Include(r => r.RecipeEntity)
+            .ThenInclude(c => c.Creator).Select(fr => fr.RecipeEntity)
             .ToListAsync();
     }
     
@@ -32,7 +33,7 @@ public partial class RecipeRepository
             return "Maximum amount of featured recipes achieved";
         }
 
-        await _context.FeaturedRecipes.AddAsync(new FeaturedRecipe { RecipeId = recipeId });
+        await _context.FeaturedRecipes.AddAsync(new FeaturedRecipeEntity { RecipeId = recipeId });
         await _context.SaveChangesAsync();
 
         return null;

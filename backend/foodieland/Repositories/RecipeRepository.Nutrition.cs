@@ -1,4 +1,5 @@
 using foodieland.DTO.NutritionInformation;
+using foodieland.Entities;
 using foodieland.Mappers;
 using foodieland.Models;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ namespace foodieland.Repositories;
 
 public partial class RecipeRepository
 {
-    public async Task<NutritionInformation?> GetNutritionInformation(Guid recipeId)
+    public async Task<NutritionInformationEntity?> GetNutritionInformation(Guid recipeId)
     {
         var recipe = await _context.Recipes.FindAsync(recipeId);
         if (recipe == null)
@@ -20,7 +21,7 @@ public partial class RecipeRepository
         return nutritionInformation;
     }
 
-    public async Task<(NutritionInformation? nutritionInformation, string? error)> AddNutritionInformation(Guid recipeId, AddOrUpdateNutritionDto addNutritionInfoDto)
+    public async Task<(NutritionInformationEntity? nutritionInformation, string? error)> AddNutritionInformation(Guid recipeId, AddOrUpdateNutritionDto addNutritionInfoDto)
     {
         var recipe = await _context.Recipes.Include(ni => ni.NutritionInformation).FirstOrDefaultAsync(r => r.Id == recipeId);
         if (recipe == null)
@@ -39,11 +40,11 @@ public partial class RecipeRepository
         return (createdInfo.Entity, null);
     }
 
-    public async Task<NutritionInformation> ChangeNutritionInformation(Guid nutritionId, AddOrUpdateNutritionDto updateNutritionInfoDto)
+    public async Task<NutritionInformationEntity> ChangeNutritionInformation(Guid nutritionId, AddOrUpdateNutritionDto updateNutritionInfoDto)
     {
-        NutritionInformation nutritionInformation = (await _context.NutritionInformation.FindAsync(nutritionId))!;
-        _context.Entry(nutritionInformation).CurrentValues.SetValues(updateNutritionInfoDto);
+        NutritionInformationEntity nutritionInformationEntity = (await _context.NutritionInformation.FindAsync(nutritionId))!;
+        _context.Entry(nutritionInformationEntity).CurrentValues.SetValues(updateNutritionInfoDto);
         await _context.SaveChangesAsync();
-        return nutritionInformation;
+        return nutritionInformationEntity;
     }
 }

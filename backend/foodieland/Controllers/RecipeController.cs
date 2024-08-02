@@ -128,7 +128,7 @@ public class RecipeController : ControllerBase
     {
         if (ModelState.IsValid)
         {
-            (NutritionInformation? nutrition, string? error) =
+            (NutritionInformationEntity? nutrition, string? error) =
                 await _repository.AddNutritionInformation(recipeId, addNutritionDto);
             if (error == null)
             {

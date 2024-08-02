@@ -1,4 +1,5 @@
 using foodieland.DTO.CookingDirection;
+using foodieland.Entities;
 using foodieland.Mappers;
 using foodieland.Models;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ namespace foodieland.Repositories;
 
 public partial class RecipeRepository
 {
-    public async Task<List<CookingDirection>?> GetCookingDirections(Guid recipeId)
+    public async Task<List<CookingDirectionEntity>?> GetCookingDirections(Guid recipeId)
     {
         var recipe = await _context.Recipes.Include(r => r.Directions).FirstOrDefaultAsync(r => r.Id == recipeId);
         if (recipe == null)
@@ -19,7 +20,7 @@ public partial class RecipeRepository
     }
 
 
-    public async Task<List<CookingDirection>> AddCookingDirections(Guid recipeId, List<CookingDirection> directions)
+    public async Task<List<CookingDirectionEntity>> AddCookingDirections(Guid recipeId, List<CookingDirectionEntity> directions)
     {
         await using var transaction = await _context.Database.BeginTransactionAsync();
         try
@@ -47,7 +48,7 @@ public partial class RecipeRepository
         }
     }
 
-    public async Task<List<CookingDirection>> ChangeCookingDirections(Guid recipeId, List<AddOrUpdateCookingDirectionDto> changedCookingDirections)
+    public async Task<List<CookingDirectionEntity>> ChangeCookingDirections(Guid recipeId, List<AddOrUpdateCookingDirectionDto> changedCookingDirections)
     {
         await using var transaction = await _context.Database.BeginTransactionAsync();
         try

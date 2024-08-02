@@ -1,12 +1,12 @@
-using foodieland.Models;
+using foodieland.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace foodieland.Data.Configurations;
 
-public class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
+public class RecipeConfiguration : IEntityTypeConfiguration<RecipeEntity>
 {
-    public void Configure(EntityTypeBuilder<Recipe> builder)
+    public void Configure(EntityTypeBuilder<RecipeEntity> builder)
     {
         builder.ToTable("Recipes");
 
@@ -36,16 +36,16 @@ public class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
             .IsRequired();
 
         builder.HasMany(r => r.Ingredients)
-            .WithOne(r => r.Recipe)
+            .WithOne(r => r.RecipeEntity)
             .HasForeignKey(ri => ri.RecipeId);
 
         builder.HasMany(r => r.Directions)
-            .WithOne(cd => cd.Recipe)
+            .WithOne(cd => cd.RecipeEntity)
             .HasForeignKey(cd => cd.RecipeId);
 
         builder.HasOne(r => r.NutritionInformation)
-            .WithOne(ni => ni.Recipe)
-            .HasForeignKey<NutritionInformation>(ni => ni.RecipeId);
+            .WithOne(ni => ni.RecipeEntity)
+            .HasForeignKey<NutritionInformationEntity>(ni => ni.RecipeId);
 
         builder.HasOne(r => r.Creator)
             .WithMany(au => au.Recipes)

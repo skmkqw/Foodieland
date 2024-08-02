@@ -1,4 +1,4 @@
-using foodieland.Models;
+using foodieland.Entities;
 
 namespace foodieland.DTO.IngredientQuantities;
 

@@ -1,4 +1,4 @@
-using foodieland.Models;
+using foodieland.Entities;
 
 namespace foodieland.Repositories;
 
@@ -43,20 +43,20 @@ public partial class RecipeRepository
         return (true, null);
     }
     
-    private async Task<(bool isReadyToPublish, string[]? errors)> VerifyRecipe(Recipe recipe)
+    private async Task<(bool isReadyToPublish, string[]? errors)> VerifyRecipe(RecipeEntity recipeEntity)
     {
         List<string> errors = new ();
-        var nutritionInformation = await GetNutritionInformation(recipe.Id);
+        var nutritionInformation = await GetNutritionInformation(recipeEntity.Id);
         if (nutritionInformation == null)
         {
             errors.Add("Recipe must have nutrition information");
         }
-        var cookingDirections = await GetCookingDirections(recipe.Id);
+        var cookingDirections = await GetCookingDirections(recipeEntity.Id);
         if (cookingDirections == null || cookingDirections.Count == 0)
         {
             errors.Add("Recipe must have at least 1 cooking direction");
         }
-        var ingredients = await GetIngredients(recipe.Id);
+        var ingredients = await GetIngredients(recipeEntity.Id);
         if (ingredients == null || ingredients.Count == 0)
         {
             errors.Add("Recipe must have at least 1 ingredient");

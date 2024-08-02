@@ -1,12 +1,12 @@
-using foodieland.Models;
+using foodieland.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace foodieland.Data.Configurations;
 
-public class LikedRecipeConfiguration : IEntityTypeConfiguration<LikedRecipe>
+public class LikedRecipeConfiguration : IEntityTypeConfiguration<LikedRecipeEntity>
 {
-    public void Configure(EntityTypeBuilder<LikedRecipe> builder)
+    public void Configure(EntityTypeBuilder<LikedRecipeEntity> builder)
     {
         builder.ToTable("LikedRecipes");
 
@@ -21,7 +21,7 @@ public class LikedRecipeConfiguration : IEntityTypeConfiguration<LikedRecipe>
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 
-        builder.HasOne(rl => rl.Recipe)
+        builder.HasOne(rl => rl.RecipeEntity)
             .WithMany(r => r.Likes)
             .HasForeignKey(rl => rl.RecipeId)
             .OnDelete(DeleteBehavior.Restrict)

@@ -2,6 +2,7 @@ using foodieland.DTO.CookingDirection;
 using foodieland.DTO.IngredientQuantities;
 using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
+using foodieland.Entities;
 using foodieland.Models;
 
 namespace foodieland.Mappers;
@@ -16,9 +17,9 @@ public class RecipeMapperParams
 
 public static class RecipeMapper
 {
-    public static Recipe ToRecipe(this AddOrUpdateRecipeDto addOrUpdateRecipeDto, Guid creatorId)
+    public static RecipeEntity ToRecipe(this AddOrUpdateRecipeDto addOrUpdateRecipeDto, Guid creatorId)
     {
-        return new Recipe()
+        return new RecipeEntity()
         {
             Name = addOrUpdateRecipeDto.Name,
             Description = addOrUpdateRecipeDto.Description,
@@ -28,36 +29,36 @@ public static class RecipeMapper
         };
     }
 
-    public static RecipeDto ToRecipeDto(this Recipe recipe, RecipeMapperParams? mapperParams)
+    public static RecipeDto ToRecipeDto(this RecipeEntity recipeEntity, RecipeMapperParams? mapperParams)
     {
         return new RecipeDto()
         {
-            Id = recipe.Id,
-            Name = recipe.Name,
-            Description = recipe.Description,
-            Category = recipe.Category,
-            TimeToCook = recipe.TimeToCook,
+            Id = recipeEntity.Id,
+            Name = recipeEntity.Name,
+            Description = recipeEntity.Description,
+            Category = recipeEntity.Category,
+            TimeToCook = recipeEntity.TimeToCook,
             NutritionInformation = mapperParams?.NutritionInformation,
-            CreatorId = recipe.CreatorId,
-            CreationDate = recipe.CreationDate,
+            CreatorId = recipeEntity.CreatorId,
+            CreationDate = recipeEntity.CreationDate,
             Directions = mapperParams?.CookingDirections,
             Ingredients = mapperParams?.Ingredients,
-            IsPublished = recipe.IsPublished,
+            IsPublished = recipeEntity.IsPublished,
             IsLiked = mapperParams?.IsLiked ?? false
         };
     }
 
-    public static FeaturedRecipeDto ToFeaturedDto(this Recipe recipe)
+    public static FeaturedRecipeDto ToFeaturedDto(this RecipeEntity recipeEntity)
     {
         return new FeaturedRecipeDto()
         {
-            Id = recipe.Id.ToString(),
-            Name = recipe.Name,
-            Description = recipe.Description,
-            TimeToCook = recipe.TimeToCook,
-            Category = recipe.Category.ToString(),
-            CreatorName = $"{recipe.Creator.FirstName} {recipe.Creator.LastName}",
-            CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy")
+            Id = recipeEntity.Id.ToString(),
+            Name = recipeEntity.Name,
+            Description = recipeEntity.Description,
+            TimeToCook = recipeEntity.TimeToCook,
+            Category = recipeEntity.Category.ToString(),
+            CreatorName = $"{recipeEntity.Creator.FirstName} {recipeEntity.Creator.LastName}",
+            CreationDate = recipeEntity.CreationDate.ToString("dd MMM, yyyy")
         };
     }
 }

@@ -1,4 +1,6 @@
-namespace foodieland.Models;
+using foodieland.Models;
+
+namespace foodieland.Entities;
 
 public enum RecipeCategories
 {
@@ -13,7 +15,7 @@ public enum RecipeCategories
     Chocolate,
     Asian
 }
-public class Recipe
+public class RecipeEntity
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
@@ -26,11 +28,11 @@ public class Recipe
     
     public RecipeCategories Category { get; set; }
 
-    public List<IngredientQuantity> Ingredients { get; set; } = new ();
+    public List<IngredientQuantityEntity> Ingredients { get; set; } = new ();
 
-    public List<CookingDirection> Directions { get; set; } = new ();
+    public List<CookingDirectionEntity> Directions { get; set; } = new ();
 
-    public NutritionInformation? NutritionInformation { get; set; }
+    public NutritionInformationEntity? NutritionInformation { get; set; }
 
     public Guid CreatorId { get; set; }
 
@@ -38,5 +40,5 @@ public class Recipe
 
     public bool IsPublished { get; set; }
   
-    public List<LikedRecipe> Likes { get; set; } = new();
+    public List<LikedRecipeEntity> Likes { get; set; } = new();
 }

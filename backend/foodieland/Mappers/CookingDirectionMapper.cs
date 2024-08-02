@@ -1,24 +1,25 @@
 using foodieland.DTO.CookingDirection;
+using foodieland.Entities;
 using foodieland.Models;
 
 namespace foodieland.Mappers;
 
 public static class CookingDirectionMapper
 {
-    public static CookingDirectionDto ToCookingDirectionDto(this CookingDirection cookingDirection)
+    public static CookingDirectionDto ToCookingDirectionDto(this CookingDirectionEntity cookingDirectionEntity)
     {
         return new CookingDirectionDto()
         {
-            Id = cookingDirection.Id,
-            Description = cookingDirection.Descirption,
-            StepNumber = cookingDirection.StepNumber,
-            Title = cookingDirection.Title
+            Id = cookingDirectionEntity.Id,
+            Description = cookingDirectionEntity.Descirption,
+            StepNumber = cookingDirectionEntity.StepNumber,
+            Title = cookingDirectionEntity.Title
         };
     }
 
-    public static CookingDirection ToCookingDirection(this AddOrUpdateCookingDirectionDto addOrUpdateCookingDirectionDto, Guid recipeId)
+    public static CookingDirectionEntity ToCookingDirection(this AddOrUpdateCookingDirectionDto addOrUpdateCookingDirectionDto, Guid recipeId)
     {
-        return new CookingDirection()
+        return new CookingDirectionEntity()
         {
             Id = Guid.NewGuid(),
             Descirption = addOrUpdateCookingDirectionDto.Description,

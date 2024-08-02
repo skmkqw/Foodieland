@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace foodieland.Models;
+namespace foodieland.Entities;
 
-public class NutritionInformation
+public class NutritionInformationEntity
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
@@ -19,5 +19,5 @@ public class NutritionInformation
     public Guid RecipeId { get; set; }
     
     [JsonIgnore]
-    public Recipe Recipe { get; set; }
+    public RecipeEntity RecipeEntity { get; set; }
 }

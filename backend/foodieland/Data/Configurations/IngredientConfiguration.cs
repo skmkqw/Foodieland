@@ -1,12 +1,13 @@
+using foodieland.Entities;
 using foodieland.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace foodieland.Data.Configurations;
 
-public class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
+public class IngredientConfiguration : IEntityTypeConfiguration<IngredientEntity>
 {
-    public void Configure(EntityTypeBuilder<Ingredient> builder)
+    public void Configure(EntityTypeBuilder<IngredientEntity> builder)
     {
         builder.HasKey(e => e.Id);
         
@@ -15,7 +16,7 @@ public class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
             .HasMaxLength(200);
 
         builder.HasMany(e => e.IngredientQuantities)
-            .WithOne(ri => ri.Ingredient)
+            .WithOne(ri => ri.IngredientEntity)
             .HasForeignKey(ri => ri.IngredientId);
 
         builder.HasIndex(e => e.Name).IsUnique();

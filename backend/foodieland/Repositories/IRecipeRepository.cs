@@ -2,39 +2,40 @@ using foodieland.DTO.CookingDirection;
 using foodieland.DTO.IngredientQuantities;
 using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
+using foodieland.Entities;
 using foodieland.Models;
 
 namespace foodieland.Repositories;
 
 public interface IRecipeRepository
 {
-    public Task<List<Recipe>> GetAll(int page, int pageSize);
+    public Task<List<RecipeEntity>> GetAll(int page, int pageSize);
 
-    public Task<List<Recipe>> GetFeatured();
+    public Task<List<RecipeEntity>> GetFeatured();
 
-    public Task<Recipe?> GetById(Guid id);
+    public Task<RecipeEntity?> GetById(Guid id);
 
-    public Task<Recipe> Create(AddOrUpdateRecipeDto recipeDto, string creatorId);
+    public Task<RecipeEntity> Create(AddOrUpdateRecipeDto recipeDto, string creatorId);
 
-    public Task<Recipe?> Update(Guid recipeId, AddOrUpdateRecipeDto recipeDto);
+    public Task<RecipeEntity?> Update(Guid recipeId, AddOrUpdateRecipeDto recipeDto);
 
-    public Task<NutritionInformation?> GetNutritionInformation(Guid recipeId);
+    public Task<NutritionInformationEntity?> GetNutritionInformation(Guid recipeId);
 
-    public Task<(NutritionInformation? nutritionInformation, string? error)> AddNutritionInformation(Guid recipeId, AddOrUpdateNutritionDto addNutritionInfoDto);
+    public Task<(NutritionInformationEntity? nutritionInformation, string? error)> AddNutritionInformation(Guid recipeId, AddOrUpdateNutritionDto addNutritionInfoDto);
 
-    public Task<NutritionInformation> ChangeNutritionInformation(Guid nutritionId, AddOrUpdateNutritionDto addNutritionInfoDto);
+    public Task<NutritionInformationEntity> ChangeNutritionInformation(Guid nutritionId, AddOrUpdateNutritionDto addNutritionInfoDto);
 
-    public Task<List<CookingDirection>?> GetCookingDirections(Guid recipeId);
+    public Task<List<CookingDirectionEntity>?> GetCookingDirections(Guid recipeId);
 
-    public Task<List<CookingDirection>> AddCookingDirections(Guid recipeId, List<CookingDirection> cookingDirections);
+    public Task<List<CookingDirectionEntity>> AddCookingDirections(Guid recipeId, List<CookingDirectionEntity> cookingDirections);
 
-    public Task<List<CookingDirection>> ChangeCookingDirections(Guid recipeId, List<AddOrUpdateCookingDirectionDto> changedCookingDirections);
+    public Task<List<CookingDirectionEntity>> ChangeCookingDirections(Guid recipeId, List<AddOrUpdateCookingDirectionDto> changedCookingDirections);
 
-    public Task<List<IngredientQuantity>?> GetIngredients(Guid recipeId);
+    public Task<List<IngredientQuantityEntity>?> GetIngredients(Guid recipeId);
     
-    public Task<List<IngredientQuantity>> AddIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> ingredients);
+    public Task<List<IngredientQuantityEntity>> AddIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> ingredients);
 
-    public Task<List<IngredientQuantity>> ChangeIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> changedIngredients);
+    public Task<List<IngredientQuantityEntity>> ChangeIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> changedIngredients);
 
     public Task<bool> AddLike(Guid recipeId, Guid userId);
 
@@ -42,7 +43,7 @@ public interface IRecipeRepository
     
     public Task<bool> IsLikedByUser(Guid recipeId, Guid userId);
 
-    public Task<List<LikedRecipe>> GetLikedRecipesByUser(Guid userId);
+    public Task<List<LikedRecipeEntity>> GetLikedRecipesByUser(Guid userId);
 
     public Task<(bool isPublished, string[]? errors)> Publish(Guid recipeId);
     

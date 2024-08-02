@@ -1,7 +1,7 @@
 using foodieland.Data;
 using foodieland.DTO.Recipes;
+using foodieland.Entities;
 using foodieland.Mappers;
-using foodieland.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace foodieland.Repositories;
@@ -15,7 +15,7 @@ public partial class RecipeRepository : IRecipeRepository
         _context = context;
     }
     
-    public async Task<List<Recipe>> GetAll(int page, int pageSize)
+    public async Task<List<RecipeEntity>> GetAll(int page, int pageSize)
     {
         return await _context.Recipes
             .Skip((page - 1) * pageSize)
@@ -23,19 +23,19 @@ public partial class RecipeRepository : IRecipeRepository
             .ToListAsync();
     }
 
-    public async Task<Recipe?> GetById(Guid id)
+    public async Task<RecipeEntity?> GetById(Guid id)
     {
         return await _context.Recipes.FindAsync(id);
     }
 
-    public async Task<Recipe> Create(AddOrUpdateRecipeDto addOrUpdateRecipeDto, string creatorId)
+    public async Task<RecipeEntity> Create(AddOrUpdateRecipeDto addOrUpdateRecipeDto, string creatorId)
     {
         var createdRecipe = await _context.Recipes.AddAsync(addOrUpdateRecipeDto.ToRecipe(new Guid(creatorId)));
         await _context.SaveChangesAsync();
         return createdRecipe.Entity;
     }
 
-    public async Task<Recipe?> Update(Guid recipeId, AddOrUpdateRecipeDto recipeDto)
+    public async Task<RecipeEntity?> Update(Guid recipeId, AddOrUpdateRecipeDto recipeDto)
     {
         var recipe = await _context.Recipes.FindAsync(recipeId);
         if (recipe == null)

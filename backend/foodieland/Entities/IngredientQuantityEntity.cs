@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
-
-namespace foodieland.Models;
+namespace foodieland.Entities;
 
 public enum MeasurementUnit
 {
@@ -73,18 +72,18 @@ public enum MeasurementUnit
     Scoop
 }
 
-public class IngredientQuantity
+public class IngredientQuantityEntity
 {
     public Guid Id { get; set; }
     public Guid RecipeId { get; init; }
     
     [JsonIgnore]
-    public Recipe Recipe { get; set; } = new ();
+    public RecipeEntity RecipeEntity { get; set; } = new ();
     
     public Guid IngredientId { get; set; }
     
     [JsonIgnore]
-    public Ingredient Ingredient { get; set; } = new ();
+    public IngredientEntity IngredientEntity { get; set; } = new ();
 
     public double Quantity { get; set; }
 

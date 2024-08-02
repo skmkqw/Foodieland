@@ -1,32 +1,33 @@
 using foodieland.DTO.IngredientQuantities;
+using foodieland.Entities;
 using foodieland.Models;
 
 namespace foodieland.Mappers;
 
 public static class IngredientQuantityMapper
 {
-    public static IngredientQuantity ToIngredientQuantity(this AddOrUpdateIngredientDto addOrUpdateIngredientDto, Recipe recipe, Ingredient ingredient)
+    public static IngredientQuantityEntity ToIngredientQuantity(this AddOrUpdateIngredientDto addOrUpdateIngredientDto, RecipeEntity recipeEntity, IngredientEntity ingredientEntity)
     {
-        return new IngredientQuantity()
+        return new IngredientQuantityEntity()
         {
             Id = Guid.NewGuid(),
             Quantity = addOrUpdateIngredientDto.Quantity,
             Unit = addOrUpdateIngredientDto.Unit,
-            RecipeId = recipe.Id,
-            Recipe = recipe,
-            IngredientId = ingredient.Id,
-            Ingredient = ingredient
+            RecipeId = recipeEntity.Id,
+            RecipeEntity = recipeEntity,
+            IngredientId = ingredientEntity.Id,
+            IngredientEntity = ingredientEntity
         };
     }
 
-    public static IngredientDto ToIngredientDto(this IngredientQuantity ingredientQuantity)
+    public static IngredientDto ToIngredientDto(this IngredientQuantityEntity ingredientQuantityEntity)
     {
         return new IngredientDto()
         {
-            Id = ingredientQuantity.Id,
-            IngredientName = ingredientQuantity.Ingredient.Name,
-            Quantity = ingredientQuantity.Quantity,
-            Unit = ingredientQuantity.Unit
+            Id = ingredientQuantityEntity.Id,
+            IngredientName = ingredientQuantityEntity.IngredientEntity.Name,
+            Quantity = ingredientQuantityEntity.Quantity,
+            Unit = ingredientQuantityEntity.Unit
         };
     }
 }

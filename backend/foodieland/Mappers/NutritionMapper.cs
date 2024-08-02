@@ -1,14 +1,15 @@
 using foodieland.DTO.NutritionInformation;
+using foodieland.Entities;
 using foodieland.Models;
 
 namespace foodieland.Mappers;
 
 public static class NutritionMapper
 {
-    public static NutritionInformation FromAddOrUpdateDtoToNutritionInformation(
+    public static NutritionInformationEntity FromAddOrUpdateDtoToNutritionInformation(
         this AddOrUpdateNutritionDto addOrUpdateNutritionDto, Guid recipeId)
     {
-        return new NutritionInformation()
+        return new NutritionInformationEntity()
         {
             Calories = addOrUpdateNutritionDto.Calories,
             Carbohydrate = addOrUpdateNutritionDto.Carbohydrate,
@@ -19,16 +20,16 @@ public static class NutritionMapper
         };
     }
 
-    public static NutritionInformationDto ToNutritionDto(this NutritionInformation nutritionInformation)
+    public static NutritionInformationDto ToNutritionDto(this NutritionInformationEntity nutritionInformationEntity)
     {
         return new NutritionInformationDto()
         {
-            Id = nutritionInformation.Id,
-            Calories = nutritionInformation.Calories,
-            Carbohydrate = nutritionInformation.Carbohydrate,
-            Cholesterol = nutritionInformation.Cholesterol,
-            Fat = nutritionInformation.Fat,
-            Protein = nutritionInformation.Protein,
+            Id = nutritionInformationEntity.Id,
+            Calories = nutritionInformationEntity.Calories,
+            Carbohydrate = nutritionInformationEntity.Carbohydrate,
+            Cholesterol = nutritionInformationEntity.Cholesterol,
+            Fat = nutritionInformationEntity.Fat,
+            Protein = nutritionInformationEntity.Protein,
         };
     }
 }

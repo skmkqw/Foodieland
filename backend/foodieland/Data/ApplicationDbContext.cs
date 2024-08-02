@@ -1,4 +1,5 @@
 using foodieland.Data.Configurations;
+using foodieland.Entities;
 using foodieland.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -12,19 +13,19 @@ public class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid
     {
     }
     
-    public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<RecipeEntity> Recipes { get; set; }
     
-    public DbSet<IngredientQuantity> IngredientQuantities { get; set; }
+    public DbSet<IngredientQuantityEntity> IngredientQuantities { get; set; }
     
-    public DbSet<CookingDirection> CookingDirections { get; set; }
+    public DbSet<CookingDirectionEntity> CookingDirections { get; set; }
     
-    public DbSet<NutritionInformation> NutritionInformation { get; set; }
+    public DbSet<NutritionInformationEntity> NutritionInformation { get; set; }
     
-    public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<IngredientEntity> Ingredients { get; set; }
     
-    public DbSet<LikedRecipe> LikedRecipes { get; set; }
+    public DbSet<LikedRecipeEntity> LikedRecipes { get; set; }
     
-    public DbSet<FeaturedRecipe> FeaturedRecipes { get; set; }
+    public DbSet<FeaturedRecipeEntity> FeaturedRecipes { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
