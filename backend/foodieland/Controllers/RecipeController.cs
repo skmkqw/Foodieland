@@ -3,6 +3,7 @@ using foodieland.DTO.CookingDirection;
 using foodieland.DTO.IngredientQuantities;
 using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
+using foodieland.Entities;
 using foodieland.Mappers;
 using foodieland.Models;
 using foodieland.Repositories;

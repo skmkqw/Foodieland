@@ -1,4 +1,4 @@
-using foodieland.Entities;
+using foodieland.Common;
 
 namespace foodieland.DTO.Recipes;
 

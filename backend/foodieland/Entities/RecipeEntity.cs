@@ -1,20 +1,7 @@
+using foodieland.Common;
 using foodieland.Models;
 
 namespace foodieland.Entities;
-
-public enum RecipeCategories
-{
-    Vegan,
-    Breakfast,
-    Lunch,
-    Meat,
-    Chicken,
-    Fish,
-    Diet,
-    Dessert,
-    Chocolate,
-    Asian
-}
 public class RecipeEntity
 {
     public Guid Id { get; set; } = Guid.NewGuid();

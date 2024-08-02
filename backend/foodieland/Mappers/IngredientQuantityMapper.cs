@@ -27,7 +27,7 @@ public static class IngredientQuantityMapper
             Id = ingredientQuantityEntity.Id,
             IngredientName = ingredientQuantityEntity.IngredientEntity.Name,
             Quantity = ingredientQuantityEntity.Quantity,
-            Unit = ingredientQuantityEntity.Unit
+            Units = ingredientQuantityEntity.Unit
         };
     }
 }

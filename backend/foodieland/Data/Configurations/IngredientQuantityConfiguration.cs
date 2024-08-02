@@ -1,3 +1,4 @@
+using foodieland.Common;
 using foodieland.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -27,6 +28,6 @@ public class IngredientQuantityConfiguration : IEntityTypeConfiguration<Ingredie
         builder.Property(ri => ri.Unit)
             .HasConversion(
                 v => v.ToString(),
-                v => (MeasurementUnit)Enum.Parse(typeof(MeasurementUnit), v));
+                v => (MeasurementUnits)Enum.Parse(typeof(MeasurementUnits), v));
     }
 }
