@@ -30,14 +30,7 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
             return BadRequest(new { errorCode = "EMAIL_IN_USE", message = "There's already an account registered for this email" });
         }
 
-        var user = new AppUser()
-        {
-            FirstName = registerDto.FirstName,
-            LastName = registerDto.LastName,
-            UserName = registerDto.Email,
-            Email = registerDto.Email,
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
+        var user = AppUser.Create(registerDto.FirstName, registerDto.LastName, registerDto.Email, Guid.NewGuid().ToString());
 
         var result = await userManager.CreateAsync(user, registerDto.Password);
 
