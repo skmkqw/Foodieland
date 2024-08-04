@@ -20,7 +20,8 @@ export default function RecipeCard({ imagePath, name, category, timeToCook }: Re
     return (
         <div className="relative p-4 flex flex-col gap-7 bg-gradient-to-b from-white to-primary rounded-3xl">
             <LikeButton isLiked={isLiked} onToggle={handleToggleLike} className="absolute top-[6%] right-[10%]" />
-            <Image src={imagePath} alt="Recipe image" width={370} height={250} className="rounded-3xl w-full object-cover" />
+            <Image src={imagePath} alt="Recipe image" width={370} height={250}
+                   className="rounded-3xl w-full object-cover" />
             <div className="flex flex-col gap-5 px-3">
                 <p className="font-semibold text-3xl text-start">{name}</p>
                 <div className="flex items-center gap-5 pb-9">

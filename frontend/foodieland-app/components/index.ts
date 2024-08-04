@@ -19,7 +19,7 @@ import SocialLinks from "@/components/shared/header/SocialLinks";
 import RegisterForm from "@/components/shared/forms/RegisterForm";
 import CategoryCard from "@/components/shared/cards/CategoryCard";
 import CategoriesSection from "@/components/shared/CategoriesSection";
-import RecipeSectionSkeleton from "@/components/RecipeSectionSkeleton";
+import RecipeSectionSkeleton from "@/components/shared/RecipeSectionSkeleton";
 import RecipeCardSkeleton from "@/components/shared/RecipeCardSkeleton";
 import FeaturedSlider from "@/components/shared/featured/FeaturedSlider";
 import FeaturedRecipe from "@/components/shared/featured/FeaturedRecipe";

@@ -54,7 +54,7 @@ const recipeCards = [
         name: "Lorem ipsum dolor sit amet",
         category: "Lunch",
         timeToCook: 10
-    },
+    }
 ];
 
 export default function RecipesSection() {
