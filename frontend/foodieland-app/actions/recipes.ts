@@ -8,7 +8,7 @@ const featuredRecipesSchema = z.array(recipeSchema);
 
 export const fetchRecipes = async (recipeAmount: number): Promise<RecipeProps[] | undefined> => {
     try {
-        const response = await axiosInstance.get(`/recipes/featured?page=1&pageSize=${recipeAmount}`);
+        const response = await axiosInstance.get(`/recipes?page=1&pageSize=${recipeAmount}`);
         const parsedData = featuredRecipesSchema.safeParse(response.data);
 
         if (!parsedData.success) {
