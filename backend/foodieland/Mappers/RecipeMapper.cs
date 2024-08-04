@@ -47,6 +47,18 @@ public static class RecipeMapper
         };
     }
 
+    public static ShortRecipeDTo ToShortRecipeDto(this Recipe recipe, bool isLiked)
+    {
+        return new ShortRecipeDTo()
+        {
+            Name = recipe.Name,
+            Description = recipe.Description,
+            Category = recipe.Category,
+            TimeToCook = recipe.TimeToCook,
+            IsLiked = isLiked
+        };
+    }
+
     public static FeaturedRecipeDto ToFeaturedDto(this Recipe recipe)
     {
         return new FeaturedRecipeDto()
