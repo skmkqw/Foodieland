@@ -3,13 +3,25 @@
 import { z } from "zod";
 import { axiosInstance } from "@/lib/axios";
 import { RecipeProps, recipeSchema } from "@/schemas/recipe";
+import { getSession } from "@/lib/session";
 
-const featuredRecipesSchema = z.array(recipeSchema);
+const recipeSchemaArray = z.array(recipeSchema);
 
 export const fetchRecipes = async (recipeAmount: number): Promise<RecipeProps[] | undefined> => {
+    const session = await getSession();
+    let parsedData;
     try {
-        const response = await axiosInstance.get(`/recipes?page=1&pageSize=${recipeAmount}`);
-        const parsedData = featuredRecipesSchema.safeParse(response.data);
+        if (session) {
+            const response = await axiosInstance.get(`/recipes?page=1&pageSize=${recipeAmount}`, {
+                headers: {
+                    Authorization: `Bearer ${session}`
+                }
+            });
+            parsedData = recipeSchemaArray.safeParse(response.data);
+        } else {
+            const response = await axiosInstance.get(`/recipes?page=1&pageSize=${recipeAmount}`);
+            parsedData = recipeSchemaArray.safeParse(response.data);
+        }
 
         if (!parsedData.success) {
             console.error("Invalid data structure:", parsedData.error);
