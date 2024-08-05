@@ -51,6 +51,7 @@ public static class RecipeMapper
     {
         return new ShortRecipeDTo()
         {
+            Id = recipe.Id,
             Name = recipe.Name,
             Description = recipe.Description,
             Category = recipe.Category,
