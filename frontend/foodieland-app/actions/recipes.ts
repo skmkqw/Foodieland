@@ -32,3 +32,25 @@ export const fetchRecipes = async (recipeAmount: number): Promise<RecipeProps[] 
         console.error("Error fetching recipes:", error);
     }
 };
+
+export const likeRecipe = async (recipeId: string) => {
+    try {
+        const session = await getSession();
+
+        if (!session) {
+            console.error("Failed to get session:", session);
+            return false;
+        }
+
+        await axiosInstance.post(`/recipes/${recipeId}/like`, {}, {
+            headers: {
+                Authorization: `Bearer ${session}`
+            }
+        });
+
+        return true;
+    } catch (error) {
+        console.error("Error liking recipe:", error);
+        return false;
+    }
+};
