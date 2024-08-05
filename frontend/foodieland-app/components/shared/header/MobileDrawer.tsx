@@ -25,7 +25,11 @@ const MENU_ITEMS = [
     }
 ];
 
-export default function MobileDrawer({ isOpen, closeDrawer }: { isOpen: boolean, closeDrawer: () => void }) {
+export default function MobileDrawer({ isOpen, closeDrawer, userName }: {
+    isOpen: boolean,
+    closeDrawer: () => void,
+    userName?: string
+}) {
     const [activeIndex, setActiveIndex] = useState(0);
 
 
