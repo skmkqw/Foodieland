@@ -33,7 +33,7 @@ export const fetchRecipes = async (recipeAmount: number): Promise<RecipeProps[] 
     }
 };
 
-export const likeRecipe = async (recipeId: string) => {
+export const likeRecipe = async (recipeId: string): Promise<boolean> => {
     try {
         const session = await getSession();
 
@@ -51,6 +51,28 @@ export const likeRecipe = async (recipeId: string) => {
         return true;
     } catch (error) {
         console.error("Error liking recipe:", error);
+        return false;
+    }
+};
+
+export const unlikeRecipe = async (recipeId: string): Promise<boolean> => {
+    try {
+        const session = await getSession();
+
+        if (!session) {
+            console.error("Failed to get session:", session);
+            return false;
+        }
+
+        await axiosInstance.delete(`/recipes/${recipeId}/unlike`, {
+            headers: {
+                Authorization: `Bearer ${session}`
+            }
+        });
+
+        return true;
+    } catch (error) {
+        console.error("Error unliking recipe:", error);
         return false;
     }
 };
