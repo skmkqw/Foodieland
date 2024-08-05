@@ -4,7 +4,15 @@ import { fetchRecipes } from "@/actions/recipes";
 
 export default async function RecipesSection() {
     const recipes = await fetchRecipes(6);
-    if (!recipes) return <p>Error loading recipes</p>;
+
+    if (!recipes) return (
+        <Container>
+            <div className="rounded-3xl bg-primary flex items-center justify-center p-10 text-center">
+                <p className="font-medium text-2xl">Oops! An unexpected error occurred while fetching recipes.
+                    Please try again later.</p>
+            </div>
+        </Container>
+    );
 
     return (
         <Container className="w-full flex flex-col items-center gap-10 text-center">
