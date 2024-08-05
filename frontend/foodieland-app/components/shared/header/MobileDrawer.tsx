@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { SocialLinks } from "@/components";
+import { UserInfo } from "@/components";
 
 const MENU_ITEMS = [
     {
@@ -48,7 +48,7 @@ export default function MobileDrawer({ isOpen, closeDrawer }: { isOpen: boolean,
                         </div>
                     ))
                 }
-                <SocialLinks />
+                <UserInfo userName={userName} />
             </ul>
         </div>
     );
