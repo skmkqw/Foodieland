@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { LikeButton } from "@/components";
 import { useState } from "react";
+import { likeRecipe } from "@/actions/recipes";
 
 interface RecipeCardProps {
     imagePath: string,
@@ -19,10 +20,21 @@ export default function RecipeCard({ id, imagePath, name, category, timeToCook, 
     const handleToggleLike = () => {
         setLikeButtonActive(!likeButtonActive);
     };
+
+    const handleAddLike = async () => {
+        const isLikedSuccessfully = await likeRecipe(id);
+        if (isLikedSuccessfully) setLikeButtonActive(true);
+    }
+
     return (
         <div className="relative p-4 flex flex-col gap-7 bg-gradient-to-b from-white to-primary rounded-3xl">
-            <LikeButton isLiked={likeButtonActive} onToggle={handleToggleLike}
-                        className="absolute top-[6%] right-[10%]" />
+            {likeButtonActive ? (
+                <LikeButton isLiked={true} onToggle={handleToggleLike}
+                            className="absolute top-[6%] right-[10%]" />
+            ) : (
+                <LikeButton isLiked={false} onToggle={handleAddLike}
+                            className="absolute top-[6%] right-[10%]" />
+            )}
             <Image src={imagePath} alt="Recipe image" width={370} height={250}
                    className="rounded-3xl w-full object-cover" />
             <div className="flex flex-col gap-5 px-3">
