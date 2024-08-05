@@ -33,13 +33,13 @@ public class RecipeController : ControllerBase
         var recipes = await _repository.GetAll(page, pageSize);
         var user = await TryDetermineUser(authorizationHeader);
 
-        if (user == null) return Ok(recipes.Select(r => r.ToRecipeDto(null)));
+        if (user == null) return Ok(recipes.Select(r => r.ToShortRecipeDto(false)));
 
         var likedRecipes = await _repository.GetLikedRecipesByUser(user.Id);
         var likedRecipeIds = new HashSet<Guid>(likedRecipes.Select(lr => lr.RecipeId));
-
-        var responseData = recipes.Select(recipe =>
-                recipe.ToRecipeDto(new RecipeMapperParams { IsLiked = likedRecipeIds.Contains(recipe.Id) }))
+        
+        var responseData = recipes.Select
+                (recipe => recipe.ToShortRecipeDto(isLiked: likedRecipeIds.Contains(recipe.Id)))
             .ToList();
 
         return Ok(responseData);

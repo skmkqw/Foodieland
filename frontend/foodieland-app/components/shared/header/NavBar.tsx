@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Container, Logo, MenuButton, NavLinks, SocialLinks } from "@/components";
+import { Container, Logo, MenuButton, NavLinks, UserInfo } from "@/components";
 import MobileDrawer from "@/components/shared/header/MobileDrawer";
 
-export default function NavBar() {
+export default function NavBar({ userName }: { userName?: string }) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     const handleDrawerToggle = () => {
@@ -24,7 +24,7 @@ export default function NavBar() {
                         <Logo fontsize={24} />
                     </Link>
                     <NavLinks />
-                    <SocialLinks />
+                    <UserInfo userName={userName}/>
                 </Container>
             </div>
             <div className="border-b-gray-200 border-b">
@@ -33,7 +33,7 @@ export default function NavBar() {
                         <Logo fontsize={24} />
                     </Link>
                     <MenuButton onClick={handleDrawerToggle} isOpen={isDrawerOpen} />
-                    <MobileDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} />
+                    <MobileDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} userName={userName} />
                 </Container>
             </div>
         </>

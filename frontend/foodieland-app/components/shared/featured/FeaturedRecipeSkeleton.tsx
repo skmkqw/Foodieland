@@ -6,14 +6,17 @@ export default function FeaturedRecipeSkeleton() {
             <div
                 className="flex flex-col-reverse lg:flex-row rounded-3xl bg-primary lg:h-[640px] h-full cursor-pointer animate-pulse">
                 <div className="flex-1/2 flex flex-col justify-between gap-12 md:gap-24 py-6 md:py-12 px-4 sm:px-10">
-                    <div className="flex flex-col gap-6 md:gap-12 items-center text-center base:text-start base:items-start">
+                    <div
+                        className="flex flex-col gap-6 md:gap-12 items-center text-center base:text-start base:items-start">
                         <div className="bg-white rounded-full h-10 w-32"></div>
                         <div className="flex flex-col gap-6 md:gap-10">
                             <div className="w-full h-12 bg-black opacity-5 rounded-full"></div>
                             <div className="leading-7 text-lg h-8 w-3/4 bg-black opacity-5 rounded-full"></div>
                             <div className="flex flex-col xs:flex-row justify-center base:justify-start gap-4">
-                                <div className="bg-black bg-opacity-5 py-3 px-5 rounded-full flex gap-4 items-center justify-center xs:justify-start h-8 w-20"></div>
-                                <div className="bg-black bg-opacity-5 p-3 rounded-full flex gap-4 items-center justify-center xs:justify-start h-8 w-20"></div>
+                                <div
+                                    className="bg-black bg-opacity-5 py-3 px-5 rounded-full flex gap-4 items-center justify-center xs:justify-start h-8 w-20"></div>
+                                <div
+                                    className="bg-black bg-opacity-5 p-3 rounded-full flex gap-4 items-center justify-center xs:justify-start h-8 w-20"></div>
                             </div>
                         </div>
                     </div>
