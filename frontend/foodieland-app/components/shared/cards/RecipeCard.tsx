@@ -6,13 +6,14 @@ import { useState } from "react";
 
 interface RecipeCardProps {
     imagePath: string,
+    id: string,
     name: string,
     category: string,
     timeToCook: number,
     isLiked: boolean
 }
 
-export default function RecipeCard({ imagePath, name, category, timeToCook, isLiked }: RecipeCardProps) {
+export default function RecipeCard({ id, imagePath, name, category, timeToCook, isLiked }: RecipeCardProps) {
     const [likeButtonActive, setLikeButtonActive] = useState(isLiked);
 
     const handleToggleLike = () => {
@@ -20,7 +21,8 @@ export default function RecipeCard({ imagePath, name, category, timeToCook, isLi
     };
     return (
         <div className="relative p-4 flex flex-col gap-7 bg-gradient-to-b from-white to-primary rounded-3xl">
-            <LikeButton isLiked={likeButtonActive} onToggle={handleToggleLike} className="absolute top-[6%] right-[10%]" />
+            <LikeButton isLiked={likeButtonActive} onToggle={handleToggleLike}
+                        className="absolute top-[6%] right-[10%]" />
             <Image src={imagePath} alt="Recipe image" width={370} height={250}
                    className="rounded-3xl w-full object-cover" />
             <div className="flex flex-col gap-5 px-3">
