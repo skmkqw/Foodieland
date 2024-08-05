@@ -6,9 +6,11 @@ import Footer from "@/components/shared/Footer";
 import LikeButton from "@/components/ui/LikeButton";
 import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
+import UserInfo from "@/components/shared/UserInfo";
 import Container from "@/components/shared/Container";
 import Description from "@/components/ui/Description";
 import NavBar from "@/components/shared/header/NavBar";
+import Header from "@/components/shared/header/Header";
 import NavLinks from "@/components/shared/header/NavLinks";
 import LoginForm from "@/components/shared/forms/LoginForm";
 import Promosection from "@/components/shared/Promosection";
@@ -36,6 +38,7 @@ export {
     InputGroup,
     NavLinks,
     NavBar,
+    Header,
     Title,
     MenuButton,
     SocialLinks,
@@ -53,5 +56,6 @@ export {
     RecipeCard,
     RecipeCardSkeleton,
     RecipeSectionSkeleton,
-    LikeButton
+    LikeButton,
+    UserInfo
 };
