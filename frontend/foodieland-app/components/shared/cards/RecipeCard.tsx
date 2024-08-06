@@ -4,6 +4,7 @@ import Image from "next/image";
 import { LikeButton } from "@/components";
 import { useState } from "react";
 import { likeRecipe, unlikeRecipe } from "@/actions/recipes";
+import { toast } from "sonner";
 
 interface RecipeCardProps {
     imagePath: string,
@@ -20,7 +21,10 @@ export default function RecipeCard({ id, imagePath, name, category, timeToCook, 
     const handleToggleLike = async () => {
         const action = likeButtonActive ? unlikeRecipe : likeRecipe;
         const success = await action(id);
-        if (success) setLikeButtonActive(!likeButtonActive);
+        if (success) {
+            setLikeButtonActive(!likeButtonActive);
+            toast.success(likeButtonActive ? "Recipe unliked!" : "Recipe liked!");
+        } else toast.error("Please log in before liking recipes");
     };
 
     return (
