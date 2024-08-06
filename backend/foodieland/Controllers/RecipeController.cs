@@ -356,4 +356,13 @@ public class RecipeController : ControllerBase
 
         return null;
     }
+    
+    private byte[]? ConvertImageToByteArray(IFormFile? image)
+    {
+        if (image == null || image.Length == 0) return null;
+
+        using var memoryStream = new MemoryStream();
+        image.CopyTo(memoryStream);
+        return memoryStream.ToArray();
+    }
 }

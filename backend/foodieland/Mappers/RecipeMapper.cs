@@ -73,4 +73,9 @@ public static class RecipeMapper
             CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy")
         };
     }
+    
+    private static string? ConvertByteArrayToBase64String(byte[]? imageData)
+    {
+        return imageData != null ? Convert.ToBase64String(imageData) : null;
+    }
 }
