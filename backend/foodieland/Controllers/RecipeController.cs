@@ -121,6 +121,30 @@ public class RecipeController : ControllerBase
 
         return BadRequest(ModelState);
     }
+    
+    [Authorize]
+    [HttpPost("/recipes/{recipeId}/uploadImage")]
+    public async Task<IActionResult> UploadImage([FromRoute] Guid recipeId, IFormFile? image)
+    {
+        if (image == null || image.Length == 0)
+        {
+            return BadRequest("No image uploaded");
+        }
+
+        var imageData = ConvertImageToByteArray(image);
+
+        if (imageData == null) return BadRequest("Image data is empty");
+    
+        var recipe = await _repository.GetById(recipeId);
+        if (recipe == null)
+        {
+            return NotFound("Recipe not found");
+        }
+
+        var updatedRecipe = await _repository.AddImage(recipeId, imageData);
+
+        return Ok(updatedRecipe);
+    }
 
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addNutrition")]
@@ -355,5 +379,14 @@ public class RecipeController : ControllerBase
         }
 
         return null;
+    }
+    
+    private byte[]? ConvertImageToByteArray(IFormFile? image)
+    {
+        if (image == null || image.Length == 0) return null;
+
+        using var memoryStream = new MemoryStream();
+        image.CopyTo(memoryStream);
+        return memoryStream.ToArray();
     }
 }

@@ -25,6 +25,8 @@ public class Recipe
     public uint TimeToCook { get; set; }
     
     public RecipeCategories Category { get; set; }
+    
+    public byte[]? ImageData { get; set; }
 
     public List<IngredientQuantity> Ingredients { get; set; } = new ();
 

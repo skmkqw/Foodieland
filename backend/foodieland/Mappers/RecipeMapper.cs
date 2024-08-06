@@ -43,7 +43,8 @@ public static class RecipeMapper
             Directions = mapperParams?.CookingDirections,
             Ingredients = mapperParams?.Ingredients,
             IsPublished = recipe.IsPublished,
-            IsLiked = mapperParams?.IsLiked ?? false
+            IsLiked = mapperParams?.IsLiked ?? false,
+            ImageData = ConvertByteArrayToBase64String(recipe.ImageData)
         };
     }
 
@@ -56,7 +57,8 @@ public static class RecipeMapper
             Description = recipe.Description,
             Category = recipe.Category,
             TimeToCook = recipe.TimeToCook,
-            IsLiked = isLiked
+            IsLiked = isLiked,
+            ImageData = ConvertByteArrayToBase64String(recipe.ImageData)
         };
     }
 
@@ -72,5 +74,10 @@ public static class RecipeMapper
             CreatorName = $"{recipe.Creator.FirstName} {recipe.Creator.LastName}",
             CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy")
         };
+    }
+    
+    private static string? ConvertByteArrayToBase64String(byte[]? imageData)
+    {
+        return imageData != null ? Convert.ToBase64String(imageData) : null;
     }
 }
