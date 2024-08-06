@@ -56,7 +56,7 @@ export default function FeaturedRecipe({
 
                     </div>
                 </div>
-                <div className="p-4 sm:p-6 base:p-8 md:p-10 lg:p-0 lg:flex-1/2">
+                <div className="h-full p-4 sm:p-6 base:p-8 md:p-10 lg:p-0 lg:flex-1/2">
                     <Image
                         src={imageData ? `data:image/jpeg;base64,${imageData}` : "/recipe-placeholder.avif"}
                         alt="Featured Recipe"
