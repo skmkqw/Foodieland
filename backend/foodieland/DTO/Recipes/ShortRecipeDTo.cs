@@ -15,4 +15,6 @@ public class ShortRecipeDTo
     public RecipeCategories Category { get; set; }
     
     public bool IsLiked { get; set; }
+    
+    public string? ImageData { get; set; }
 }
