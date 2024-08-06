@@ -1,5 +1,6 @@
 import { Container, Description, RecipeCard, Title } from "@/components";
 import { fetchRecipes } from "@/actions/recipes";
+import React from "react";
 
 
 export default async function RecipesSection() {
@@ -22,7 +23,7 @@ export default async function RecipesSection() {
                 className="max-w-2xl" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {recipes.map((recipe) => (
-                    <RecipeCard key={recipe.id}  imagePath="/featured-recipe.jpg" {...recipe} />
+                    <RecipeCard {...recipe} key={recipe.id} />
                 ))}
             </div>
         </Container>
