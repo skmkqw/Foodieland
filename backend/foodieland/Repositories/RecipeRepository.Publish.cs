@@ -46,6 +46,11 @@ public partial class RecipeRepository
     private async Task<(bool isReadyToPublish, string[]? errors)> VerifyRecipe(Recipe recipe)
     {
         List<string> errors = new ();
+        var imageData = recipe.ImageData;
+        if (imageData == null)
+        {
+            errors.Add("Recipe must have a cover image");
+        }
         var nutritionInformation = await GetNutritionInformation(recipe.Id);
         if (nutritionInformation == null)
         {

@@ -29,4 +29,6 @@ public class RecipeDto
     public bool IsPublished { get; set; }
     
     public bool IsLiked { get; set; }
+    
+    public string? ImageData { get; set; }
 }
