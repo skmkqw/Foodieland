@@ -7,6 +7,7 @@ export const featuredRecipeSchema = z.object({
     category: z.string(),
     creatorName: z.string(),
     creationDate: z.string(),
+    imageData: z.string().nullable()
 });
 
 export type FeaturedRecipeProps = z.infer<typeof featuredRecipeSchema>;

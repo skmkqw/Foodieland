@@ -10,7 +10,8 @@ export default function FeaturedRecipe({
     timeToCook,
     category,
     creatorName,
-    creationDate
+    creationDate,
+    imageData
 }: FeaturedRecipeProps) {
     return (
         <Container className="h-full">
@@ -56,8 +57,13 @@ export default function FeaturedRecipe({
                     </div>
                 </div>
                 <div className="p-4 sm:p-6 base:p-8 md:p-10 lg:p-0 lg:flex-1/2">
-                    <Image src="/featured-recipe.jpg" alt="Featured Recipe" height={1500} width={1500}
-                           className="rounded-3xl lg:rounded-r-3xl lg:rounded-l-none h-full object-cover" />
+                    <Image
+                        src={imageData ? `data:image/jpeg;base64,${imageData}` : "/recipe-placeholder.avif"}
+                        alt="Featured Recipe"
+                        height={1500}
+                        width={1500}
+                        className="rounded-3xl lg:rounded-r-3xl lg:rounded-l-none h-full object-cover"
+                    />
                 </div>
             </div>
         </Container>
