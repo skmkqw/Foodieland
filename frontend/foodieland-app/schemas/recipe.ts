@@ -6,7 +6,8 @@ export const recipeSchema = z.object({
     description: z.string(),
     timeToCook: z.number(),
     category: z.string(),
-    isLiked: z.boolean()
+    isLiked: z.boolean(),
+    imageData: z.string().nullable()
 });
 
 export type RecipeProps = z.infer<typeof recipeSchema>;

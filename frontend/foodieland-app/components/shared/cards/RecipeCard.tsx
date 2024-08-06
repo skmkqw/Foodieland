@@ -7,15 +7,15 @@ import { likeRecipe, unlikeRecipe } from "@/actions/recipes";
 import { toast } from "sonner";
 
 interface RecipeCardProps {
-    imagePath: string,
     id: string,
     name: string,
     category: string,
     timeToCook: number,
-    isLiked: boolean
+    isLiked: boolean,
+    imageData: string | null,
 }
 
-export default function RecipeCard({ id, imagePath, name, category, timeToCook, isLiked }: RecipeCardProps) {
+export default function RecipeCard({ id, name, category, timeToCook, isLiked, imageData }: RecipeCardProps) {
     const [likeButtonActive, setLikeButtonActive] = useState(isLiked);
 
     const handleToggleLike = async () => {
@@ -34,11 +34,16 @@ export default function RecipeCard({ id, imagePath, name, category, timeToCook, 
                 onToggle={handleToggleLike}
                 className="absolute top-[6%] right-[10%]"
             />
-            <Image src={imagePath}
-                   alt="Recipe image"
-                   width={370} height={250}
-                   className="rounded-3xl w-full object-cover"
-            />
+            <div className="relative w-full h-64">
+                <Image
+                    src={imageData ? `data:image/jpeg;base64,${imageData}` : "/recipe-placeholder.avif"}
+                    alt="Recipe image"
+                    layout="fill"
+                    objectFit="cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="rounded-3xl"
+                />
+            </div>
             <div className="flex flex-col gap-5 px-3">
                 <p className="font-semibold text-3xl text-start">{name}</p>
                 <div className="flex items-center gap-5 pb-9">
