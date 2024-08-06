@@ -1,23 +1,21 @@
 import Link from "next/link";
 
+const MENU_ITEMS = [
+    { title: "Home", href: "/" },
+    { title: "Recipes", href: "/recipes" },
+    { title: "Favourite", href: "/favourite" },
+    { title: "Contact", href: "/contact" },
+    { title: "About us", href: "/about" }
+];
+
 export default function NavLinks() {
     return (
         <ul className="flex flex-col text-center sm:flex-row gap-10">
-            <li className="navLink">
-                <Link href="/foodieland-app/public">Home</Link>
-            </li>
-            <li className="navLink">
-                <Link href="/foodieland-app/public">Recipes</Link>
-            </li>
-            <li className="navLink">
-                <Link href="/foodieland-app/public">Blog</Link>
-            </li>
-            <li className="navLink">
-                <Link href="/foodieland-app/public">Contact</Link>
-            </li>
-            <li className="navLink">
-                <Link href="/foodieland-app/public">About us</Link>
-            </li>
+            {MENU_ITEMS.map((item) => (
+                <li className="navLink" key={item.title}>
+                    <Link href={item.href}>{item.title}</Link>
+                </li>
+            ))}
         </ul>
     );
 }

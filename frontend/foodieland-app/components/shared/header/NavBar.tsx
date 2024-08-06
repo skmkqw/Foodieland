@@ -24,7 +24,7 @@ export default function NavBar({ userName }: { userName?: string }) {
                         <Logo fontsize={24} />
                     </Link>
                     <NavLinks />
-                    <UserInfo userName={userName}/>
+                    <UserInfo userName={userName} />
                 </Container>
             </div>
             <div className="border-b-gray-200 border-b">
