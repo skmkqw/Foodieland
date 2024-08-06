@@ -72,7 +72,8 @@ public static class RecipeMapper
             TimeToCook = recipe.TimeToCook,
             Category = recipe.Category.ToString(),
             CreatorName = $"{recipe.Creator.FirstName} {recipe.Creator.LastName}",
-            CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy")
+            CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy"),
+            ImageData = ConvertByteArrayToBase64String(recipe.ImageData)
         };
     }
     
