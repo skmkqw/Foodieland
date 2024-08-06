@@ -16,8 +16,7 @@ export default function UserInfo({ userName }: { userName?: string }) {
     return (
         <div>
             {userName ? (
-                <div
-                    className="flex items-center gap-3 rounded-lg bg-primary py-2 px-3 cursor-pointer">
+                <div className="flex items-center gap-3 rounded-lg bg-primary py-2 px-3 cursor-pointer">
                     <p className="text-lg font-medium">{userName}</p>
                     <LogOut size={20} onClick={handleLogout} />
                 </div>

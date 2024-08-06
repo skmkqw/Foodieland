@@ -17,6 +17,7 @@
     "postcss": "^8.4.39",
     "react": "canary",
     "react-dom": "canary",
+    "sonner": "^1.5.0",
     "tailwindcss": "^3.4.6",
     "zod": "^3.23.8"
   },

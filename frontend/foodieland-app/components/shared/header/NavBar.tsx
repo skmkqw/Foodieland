@@ -8,13 +8,15 @@ import MobileDrawer from "@/components/shared/header/MobileDrawer";
 export default function NavBar({ userName }: { userName?: string }) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-    const handleDrawerToggle = () => {
-        setIsDrawerOpen(!isDrawerOpen);
+    const openDrawer = () => {
+        document.body.style.overflow = 'hidden';
+        setIsDrawerOpen(true);
     };
 
     const closeDrawer = () => {
+        document.body.style.overflow = 'auto';
         setIsDrawerOpen(false);
-    };
+    }
 
     return (
         <>
@@ -24,7 +26,7 @@ export default function NavBar({ userName }: { userName?: string }) {
                         <Logo fontsize={24} />
                     </Link>
                     <NavLinks />
-                    <UserInfo userName={userName}/>
+                    <UserInfo userName={userName} />
                 </Container>
             </div>
             <div className="border-b-gray-200 border-b">
@@ -32,7 +34,7 @@ export default function NavBar({ userName }: { userName?: string }) {
                     <Link href="/foodieland-app/public">
                         <Logo fontsize={24} />
                     </Link>
-                    <MenuButton onClick={handleDrawerToggle} isOpen={isDrawerOpen} />
+                    <MenuButton onClick={isDrawerOpen ? closeDrawer : openDrawer} isActive={isDrawerOpen} />
                     <MobileDrawer isOpen={isDrawerOpen} closeDrawer={closeDrawer} userName={userName} />
                 </Container>
             </div>

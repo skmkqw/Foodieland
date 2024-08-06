@@ -4,6 +4,7 @@ import Image from "next/image";
 import { LikeButton } from "@/components";
 import { useState } from "react";
 import { likeRecipe, unlikeRecipe } from "@/actions/recipes";
+import { toast } from "sonner";
 
 interface RecipeCardProps {
     imagePath: string,
@@ -17,27 +18,27 @@ interface RecipeCardProps {
 export default function RecipeCard({ id, imagePath, name, category, timeToCook, isLiked }: RecipeCardProps) {
     const [likeButtonActive, setLikeButtonActive] = useState(isLiked);
 
-    const handleAddLike = async () => {
-        const isLikedSuccessfully = await likeRecipe(id);
-        if (isLikedSuccessfully) setLikeButtonActive(true);
-    }
-
-    const handleRemoveLike = async () => {
-        const isUnlikedSuccessfully = await unlikeRecipe(id);
-        if (isUnlikedSuccessfully) setLikeButtonActive(false);
-    }
+    const handleToggleLike = async () => {
+        const action = likeButtonActive ? unlikeRecipe : likeRecipe;
+        const success = await action(id);
+        if (success) {
+            setLikeButtonActive(!likeButtonActive);
+            toast.success(likeButtonActive ? "Recipe unliked!" : "Recipe liked!");
+        } else toast.error("Please log in before liking recipes");
+    };
 
     return (
         <div className="relative p-4 flex flex-col gap-7 bg-gradient-to-b from-white to-primary rounded-3xl">
-            {likeButtonActive ? (
-                <LikeButton isLiked={true} onToggle={handleRemoveLike}
-                            className="absolute top-[6%] right-[10%]" />
-            ) : (
-                <LikeButton isLiked={false} onToggle={handleAddLike}
-                            className="absolute top-[6%] right-[10%]" />
-            )}
-            <Image src={imagePath} alt="Recipe image" width={370} height={250}
-                   className="rounded-3xl w-full object-cover" />
+            <LikeButton
+                isLiked={likeButtonActive}
+                onToggle={handleToggleLike}
+                className="absolute top-[6%] right-[10%]"
+            />
+            <Image src={imagePath}
+                   alt="Recipe image"
+                   width={370} height={250}
+                   className="rounded-3xl w-full object-cover"
+            />
             <div className="flex flex-col gap-5 px-3">
                 <p className="font-semibold text-3xl text-start">{name}</p>
                 <div className="flex items-center gap-5 pb-9">
