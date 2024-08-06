@@ -34,6 +34,9 @@ public class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
 
         builder.Property(r => r.IsPublished)
             .IsRequired();
+        
+        builder.Property(r => r.ImageData)
+            .HasColumnType("VARBINARY(MAX)");
 
         builder.HasMany(r => r.Ingredients)
             .WithOne(r => r.Recipe)
