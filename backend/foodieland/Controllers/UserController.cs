@@ -51,8 +51,10 @@ public class UserController : ControllerBase
             return Unauthorized("User Id are not matching");
         }
 
-        var updatedUser = await _repository.AddImage(userId, imageData);
+        var updatedUser = await _repository.AddImage(user, imageData);
 
-        return Ok(updatedUser);
+        if (updatedUser == null) return StatusCode(500, "An internal server error occurred while adding user image.");
+        
+        return Ok(updatedUser.ToDto());
     }
 }
