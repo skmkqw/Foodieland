@@ -11,7 +11,8 @@ export default function FeaturedRecipe({
     category,
     creatorName,
     creationDate,
-    imageData
+    imageData,
+    userImage
 }: FeaturedRecipeProps) {
     return (
         <Container className="h-full">
@@ -44,8 +45,13 @@ export default function FeaturedRecipe({
                     </div>
                     <div className="flex flex-col gap-6 base:flex-row base:justify-between items-center w-full">
                         <div className="flex gap-3 items-center">
-                            <Image src="/portrait.jpg" alt="Portrait" height={1000} width={1000}
-                                   className="rounded-[100%] w-[50px] h-[50px]" />
+                            <Image
+                                src={userImage ? `data:image/jpeg;base64,${userImage}` : "/user-placeholder.jpg"}
+                                alt="Portrait"
+                                height={1000}
+                                width={1000}
+                                className="rounded-[100%] w-[50px] h-[50px]"
+                            />
                             <div className="flex flex-col gap-2">
                                 <b className="text-lg">{creatorName}</b>
                                 <p className="text-black text-opacity-60">{creationDate}</p>
