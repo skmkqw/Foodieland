@@ -6,6 +6,7 @@ using foodieland.DTO.Recipes;
 using foodieland.Mappers;
 using foodieland.Models;
 using foodieland.Repositories;
+using foodieland.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ public class RecipeController : ControllerBase
         [FromQuery] int pageSize = 10)
     {
         var recipes = await _repository.GetAll(page, pageSize);
-        var user = await TryDetermineUser(authorizationHeader);
+        var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
 
         if (user == null) return Ok(recipes.Select(r => r.ToShortRecipeDto(false)));
 
@@ -66,7 +67,7 @@ public class RecipeController : ControllerBase
             return NotFound("Recipe not found");
         }
 
-        var user = await TryDetermineUser(authorizationHeader);
+        var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
         
         var nutritionInformation = displayNutrition ? await _repository.GetNutritionInformation(recipeId) : null;
         var directions = displayDirections ? await _repository.GetCookingDirections(recipeId) : null;
@@ -92,7 +93,7 @@ public class RecipeController : ControllerBase
     {
         if (ModelState.IsValid)
         {
-            var user = await TryDetermineUser(authorizationHeader);
+            var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
             if (user != null)
             {
                 var createdRecipe = await _repository.Create(addOrUpdateRecipeDto, user.Id.ToString());
@@ -131,7 +132,7 @@ public class RecipeController : ControllerBase
             return BadRequest("No image uploaded");
         }
 
-        var imageData = ConvertImageToByteArray(image);
+        var imageData = ImageConverter.ConvertImageToByteArray(image);
 
         if (imageData == null) return BadRequest("Image data is empty");
     
@@ -270,7 +271,7 @@ public class RecipeController : ControllerBase
     [HttpPost("/recipes/{recipeId}/like")]
     public async Task<IActionResult> LikeRecipe([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string? authorizationHeader)
     {
-        var user = await TryDetermineUser(authorizationHeader);
+        var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
         if (user != null)
         {
             bool likedSuccessfully = await _repository.AddLike(recipeId, user.Id);
@@ -285,7 +286,7 @@ public class RecipeController : ControllerBase
     [HttpDelete("/recipes/{recipeId}/unlike")]
     public async Task<IActionResult> UnlikeRecipe([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string? authorizationHeader)
     {
-        var user = await TryDetermineUser(authorizationHeader);
+        var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
         if (user != null)
         {
             bool unlikedSuccessfully = await _repository.RemoveLike(recipeId, user.Id);
@@ -357,36 +358,5 @@ public class RecipeController : ControllerBase
             return NoContent();
         } 
         return NotFound("Recipe not found");
-    }
-    
-    private async Task<AppUser?> TryDetermineUser(string? authorizationHeader)
-    {
-        if (authorizationHeader != null && authorizationHeader.StartsWith("Bearer "))
-        {
-            var token = authorizationHeader.Substring("Bearer ".Length).Trim();
-            var handler = new JwtSecurityTokenHandler();
-
-            if (handler.ReadToken(token) is JwtSecurityToken jwtToken)
-            {
-                var userIdClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid");
-                if (userIdClaim != null)
-                {
-                    var userId = userIdClaim.Value;
-                    
-                    return await _userManager.FindByIdAsync(userId);
-                }
-            }
-        }
-
-        return null;
-    }
-    
-    private byte[]? ConvertImageToByteArray(IFormFile? image)
-    {
-        if (image == null || image.Length == 0) return null;
-
-        using var memoryStream = new MemoryStream();
-        image.CopyTo(memoryStream);
-        return memoryStream.ToArray();
     }
 }
