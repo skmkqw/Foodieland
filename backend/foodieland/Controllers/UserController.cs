@@ -20,6 +20,13 @@ public class UserController : ControllerBase
         _userManager = userManager;
     }
 
+    [HttpGet("/users")]
+    public async Task<IActionResult> GetAll()
+    {
+        var users = await _repository.GetAll();
+        return Ok(users.Select(u => u.ToDto()));
+    }
+
     [HttpGet("/users/{userId}")]
     public async Task<IActionResult> GetById([FromRoute] Guid userId)
     {
