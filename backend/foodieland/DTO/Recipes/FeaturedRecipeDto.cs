@@ -17,4 +17,6 @@ public class FeaturedRecipeDto
     public string CreationDate { get; set; } = string.Empty;
     
     public string? ImageData { get; set; }
+    
+    public string? UserImage { get; set; }
 }
