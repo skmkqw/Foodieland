@@ -3,6 +3,7 @@ using foodieland.DTO.IngredientQuantities;
 using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Models;
+using foodieland.Utils;
 
 namespace foodieland.Mappers;
 
@@ -44,7 +45,7 @@ public static class RecipeMapper
             Ingredients = mapperParams?.Ingredients,
             IsPublished = recipe.IsPublished,
             IsLiked = mapperParams?.IsLiked ?? false,
-            ImageData = ConvertByteArrayToBase64String(recipe.ImageData)
+            ImageData = ImageConverter.ConvertByteArrayToBase64String(recipe.ImageData)
         };
     }
 
@@ -58,7 +59,7 @@ public static class RecipeMapper
             Category = recipe.Category,
             TimeToCook = recipe.TimeToCook,
             IsLiked = isLiked,
-            ImageData = ConvertByteArrayToBase64String(recipe.ImageData)
+            ImageData = ImageConverter.ConvertByteArrayToBase64String(recipe.ImageData)
         };
     }
 
@@ -73,13 +74,8 @@ public static class RecipeMapper
             Category = recipe.Category.ToString(),
             CreatorName = $"{recipe.Creator.FirstName} {recipe.Creator.LastName}",
             CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy"),
-            ImageData = ConvertByteArrayToBase64String(recipe.ImageData),
-            UserImage = ConvertByteArrayToBase64String(recipe.Creator.ProfileImage)
+            ImageData = ImageConverter.ConvertByteArrayToBase64String(recipe.ImageData),
+            UserImage = ImageConverter.ConvertByteArrayToBase64String(recipe.Creator.ProfileImage)
         };
-    }
-    
-    private static string? ConvertByteArrayToBase64String(byte[]? imageData)
-    {
-        return imageData != null ? Convert.ToBase64String(imageData) : null;
     }
 }

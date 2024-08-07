@@ -6,6 +6,7 @@ using foodieland.DTO.Recipes;
 using foodieland.Mappers;
 using foodieland.Models;
 using foodieland.Repositories;
+using foodieland.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -131,7 +132,7 @@ public class RecipeController : ControllerBase
             return BadRequest("No image uploaded");
         }
 
-        var imageData = ConvertImageToByteArray(image);
+        var imageData = ImageConverter.ConvertImageToByteArray(image);
 
         if (imageData == null) return BadRequest("Image data is empty");
     
@@ -379,14 +380,5 @@ public class RecipeController : ControllerBase
         }
 
         return null;
-    }
-    
-    private byte[]? ConvertImageToByteArray(IFormFile? image)
-    {
-        if (image == null || image.Length == 0) return null;
-
-        using var memoryStream = new MemoryStream();
-        image.CopyTo(memoryStream);
-        return memoryStream.ToArray();
     }
 }
