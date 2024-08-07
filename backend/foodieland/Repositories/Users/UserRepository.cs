@@ -18,21 +18,12 @@ public class UserRepository : IUserRepository
         return await _userManager.FindByIdAsync(userId.ToString());
     }
 
-    public async Task<AppUser?> AddImage(Guid userId, byte[] imageData)
+    public async Task<AppUser?> AddImage(AppUser user, byte[] imageData)
     {
-        var user = await GetById(userId);
-        if (user == null)
-        {
-            return null;
-        }
-
         user.ProfileImage = imageData;
         var result = await _userManager.UpdateAsync(user);
 
-        if (result.Succeeded)
-        {
-            return user;
-        }
+        if (result.Succeeded) return user;
 
         return null;
     }

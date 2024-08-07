@@ -6,5 +6,5 @@ public interface IUserRepository
 {
     public Task<AppUser?> GetById(Guid userId);
     
-    public Task<AppUser?> AddImage(Guid userId, byte[] imageData);
+    public Task<AppUser?> AddImage(AppUser user, byte[] imageData);
 }
