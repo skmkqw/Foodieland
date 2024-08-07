@@ -73,7 +73,8 @@ public static class RecipeMapper
             Category = recipe.Category.ToString(),
             CreatorName = $"{recipe.Creator.FirstName} {recipe.Creator.LastName}",
             CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy"),
-            ImageData = ConvertByteArrayToBase64String(recipe.ImageData)
+            ImageData = ConvertByteArrayToBase64String(recipe.ImageData),
+            UserImage = ConvertByteArrayToBase64String(recipe.Creator.ProfileImage)
         };
     }
     
