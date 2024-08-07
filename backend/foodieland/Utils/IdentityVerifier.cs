@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace foodieland.Utils;
 
-public class IdentityVerifier
+public static class IdentityVerifier
 {
     public static async Task<AppUser?> TryDetermineUser(UserManager<AppUser> userManager, string? authorizationHeader)
     {
