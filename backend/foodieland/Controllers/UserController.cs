@@ -39,7 +39,7 @@ public class UserController : ControllerBase
     
     
     [Authorize]
-    [HttpPost("/recipes/{userId}/uploadImage")]
+    [HttpPost("/users/{userId}/uploadImage")]
     public async Task<IActionResult> UploadImage([FromRoute] Guid userId, IFormFile? image, [FromHeader(Name = "Authorization")] string? authorizationHeader)
     {
         var imageData = ImageConverter.ConvertImageToByteArray(image);
