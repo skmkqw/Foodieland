@@ -1,6 +1,7 @@
 using foodieland.Data;
 using foodieland.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace foodieland.Repositories.Users;
 
@@ -11,6 +12,11 @@ public class UserRepository : IUserRepository
     public UserRepository(UserManager<AppUser> userManager)
     {
         _userManager = userManager;
+    }
+
+    public async Task<List<AppUser>> GetAll()
+    {
+        return await _userManager.Users.ToListAsync();
     }
 
     public async Task<AppUser?> GetById(Guid userId)
