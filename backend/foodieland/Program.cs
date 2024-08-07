@@ -3,9 +3,11 @@ using System.Text.Json.Serialization;
 using foodieland.Data;
 using foodieland.Models;
 using foodieland.Repositories;
+using foodieland.Repositories.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +30,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 builder.Services.AddIdentityCore<AppUser>()
