@@ -5,7 +5,7 @@ using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Mappers;
 using foodieland.Models;
-using foodieland.Repositories;
+using foodieland.Repositories.Recipes;
 using foodieland.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -45,6 +45,28 @@ public class RecipeController : ControllerBase
 
         return Ok(responseData);
     }
+    
+    [HttpGet("/recipes/published")]
+    public async Task<IActionResult> GetAllPublished(
+        [FromHeader(Name = "Authorization")] string? authorizationHeader,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
+    {
+        var recipes = await _repository.GetAllPublished(page, pageSize);
+        var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
+
+        if (user == null) return Ok(recipes.Select(r => r.ToShortRecipeDto(false)));
+
+        var likedRecipes = await _repository.GetLikedRecipesByUser(user.Id);
+        var likedRecipeIds = new HashSet<Guid>(likedRecipes.Select(lr => lr.RecipeId));
+        
+        var responseData = recipes.Select
+                (recipe => recipe.ToShortRecipeDto(isLiked: likedRecipeIds.Contains(recipe.Id)))
+            .ToList();
+
+        return Ok(responseData);
+    }
+
 
     [HttpGet("recipes/featured")]
     public async Task<IActionResult> GetFeatured()
