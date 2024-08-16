@@ -19,7 +19,8 @@ interface RecipeCardProps {
 export default function RecipeCard({ id, name, category, timeToCook, isLiked, imageData }: RecipeCardProps) {
     const [likeButtonActive, setLikeButtonActive] = useState(isLiked);
 
-    const handleToggleLike = async () => {
+    const handleToggleLike = async (e: React.MouseEvent) => {
+        e.preventDefault();
         const action = likeButtonActive ? unlikeRecipe : likeRecipe;
         const success = await action(id);
         if (success) {

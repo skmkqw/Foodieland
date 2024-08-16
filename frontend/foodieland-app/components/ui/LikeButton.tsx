@@ -2,7 +2,7 @@ import { Heart } from "lucide-react";
 
 interface LikeButtonProps {
     isLiked: boolean;
-    onToggle: () => void;
+    onToggle: (e: React.MouseEvent) => void;
     className?: string;
 }
 
