@@ -16,6 +16,7 @@ export default function RecipeInfo() {
                 />
                 <NutritionInformation className="md:col-span-1"/>
             </div>
+            <p className="font-medium text-xl text-black opacity-60 w-full">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam animi aperiam consectetur consequuntur culpa cupiditate, deserunt, ducimus eaque et maxime modi neque odio optio quaerat quia quidem quisquam sapiente!</p>
         </Container>
     );
 }
