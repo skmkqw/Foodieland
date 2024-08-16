@@ -2,8 +2,6 @@ import {
     CategoriesSection,
     FeaturedRecipeSkeleton,
     FeaturedSection,
-    Footer,
-    Header,
     Inbox,
     RecipeSectionSkeleton,
     RecipesSection
@@ -13,19 +11,15 @@ import React, { Suspense } from "react";
 
 export default async function Home() {
     return (
-        <main className="flex flex-col">
-            <Header />
-            <div className="py-10 flex flex-col gap-40">
-                <Suspense fallback={<FeaturedRecipeSkeleton />}>
-                    <FeaturedSection />
-                </Suspense>
-                <CategoriesSection />
-                <Suspense fallback={<RecipeSectionSkeleton />}>
-                    <RecipesSection />
-                </Suspense>
-                <Inbox />
-            </div>
-            <Footer />
+        <main className="flex flex-col py-10 gap-40">
+            <Suspense fallback={<FeaturedRecipeSkeleton />}>
+                <FeaturedSection />
+            </Suspense>
+            <CategoriesSection />
+            <Suspense fallback={<RecipeSectionSkeleton />}>
+                <RecipesSection />
+            </Suspense>
+            <Inbox />
         </main>
     );
 }
