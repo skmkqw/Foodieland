@@ -348,10 +348,10 @@ public class RecipeController : ControllerBase
     [HttpPost("recipes/featured/{recipeId}")]
     public async Task<IActionResult> SetFeatured([FromRoute] Guid recipeId)
     {
-        string[]? errors = await _repository.SetFeatured(recipeId);
-        if (errors != null)
+        string? error = await _repository.SetFeatured(recipeId);
+        if (error != null)
         {
-            return BadRequest(errors);
+            return BadRequest(error);
         }
 
         return NoContent();
