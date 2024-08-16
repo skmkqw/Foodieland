@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const featuredRecipeSchema = z.object({
+    id: z.string(),
     name: z.string(),
     description: z.string(),
     timeToCook: z.number(),

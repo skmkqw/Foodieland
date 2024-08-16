@@ -5,6 +5,7 @@ import { FeaturedRecipeProps } from "@/schemas/featuredRecipe";
 
 
 export default function FeaturedRecipe({
+    id,
     name,
     description,
     timeToCook,
