@@ -1,6 +1,6 @@
 using foodieland.Models;
 
-namespace foodieland.Repositories;
+namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {

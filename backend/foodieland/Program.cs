@@ -2,12 +2,11 @@ using System.Text;
 using System.Text.Json.Serialization;
 using foodieland.Data;
 using foodieland.Models;
-using foodieland.Repositories;
+using foodieland.Repositories.Recipes;
 using foodieland.Repositories.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);

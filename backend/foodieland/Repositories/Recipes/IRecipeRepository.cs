@@ -4,7 +4,7 @@ using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Models;
 
-namespace foodieland.Repositories;
+namespace foodieland.Repositories.Recipes;
 
 public interface IRecipeRepository
 {

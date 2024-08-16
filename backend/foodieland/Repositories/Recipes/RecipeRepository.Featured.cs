@@ -1,7 +1,7 @@
 using foodieland.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace foodieland.Repositories;
+namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {
