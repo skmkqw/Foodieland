@@ -1,8 +1,13 @@
 import Image from "next/image";
 
-export default function CreatorInfo({ image, name, creationDate }: { image: string | null; name: string; creationDate: string }) {
+export default function CreatorInfo({ image, name, creationDate, className }: {
+    image: string | null;
+    name: string;
+    creationDate: string,
+    className?: string
+}) {
     return (
-        <div className="flex gap-3 items-center">
+        <div className={`${className} flex gap-3 items-center`}>
             <Image
                 src={image ? `data:image/jpeg;base64,${image}` : "/user-placeholder.jpg"}
                 alt="Portrait"
