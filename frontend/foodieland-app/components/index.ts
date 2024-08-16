@@ -28,8 +28,8 @@ import RecipeCardSkeleton from "@/components/shared/RecipeCardSkeleton";
 import FeaturedSlider from "@/components/shared/featured/FeaturedSlider";
 import FeaturedRecipe from "@/components/shared/featured/FeaturedRecipe";
 import FeaturedSection from "@/components/shared/featured/FeaturedSection";
-import NutritionInformation from "@/components/shared/NutritionInformation";
 import RecipeSectionSkeleton from "@/components/shared/RecipeSectionSkeleton";
+import { NutritionInformation } from "@/components/shared/NutritionInformation";
 import FeaturedRecipeSkeleton from "@/components/shared/featured/FeaturedRecipeSkeleton";
 
 export {

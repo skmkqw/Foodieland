@@ -10,31 +10,40 @@ function NutritionCategory({ category, value, unit }: { category: string, value:
     );
 }
 
-export default function NutritionInformation({ className }: { className?: string }) {
+export interface NutritionInformationProps {
+    className?: string,
+    calories: number;
+    protein: number;
+    fat: number;
+    carbohydrate: number;
+    cholesterol: number;
+}
+
+export function NutritionInformation({ className, calories, protein, fat, carbohydrate, cholesterol }: NutritionInformationProps) {
     const categoryToValue = [
         {
             category: "Calories",
-            value: 219.9,
+            value: calories,
             unit: "kcal"
         },
         {
             category: "Total Fat",
-            value: 10.7,
+            value: protein,
             unit: "g"
         },
         {
             category: "Protein",
-            value: 7.9,
+            value: fat,
             unit: "g"
         },
         {
             category: "Carbohydrate",
-            value: 22.3,
+            value: carbohydrate,
             unit: "g"
         },
         {
             category: "Cholesterol",
-            value: 37.4,
+            value: cholesterol,
             unit: "mg"
         }
     ];
