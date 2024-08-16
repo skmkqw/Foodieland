@@ -11,7 +11,7 @@ const recipeSchemaArray = z.array(recipeSchema);
 export const fetchRecipes = async (recipeAmount: number): Promise<RecipeProps[] | undefined> => {
     const session = await getSession();
     try {
-        const response = await axiosInstance.get(`/recipes?page=1&pageSize=${recipeAmount}`, {
+        const response = await axiosInstance.get(`/recipes/published?page=1&pageSize=${recipeAmount}`, {
             headers: session ? { Authorization: `Bearer ${session}` } : undefined
         });
 
