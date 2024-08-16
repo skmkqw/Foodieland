@@ -4,7 +4,7 @@ using foodieland.Mappers;
 using foodieland.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace foodieland.Repositories;
+namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository : IRecipeRepository
 {
@@ -18,6 +18,15 @@ public partial class RecipeRepository : IRecipeRepository
     public async Task<List<Recipe>> GetAll(int page, int pageSize)
     {
         return await _context.Recipes
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+    
+    public async Task<List<Recipe>> GetAllPublished(int page, int pageSize)
+    {
+        return await _context.Recipes
+            .Where(r => r.IsPublished == true)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

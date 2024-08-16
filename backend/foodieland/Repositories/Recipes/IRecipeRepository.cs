@@ -4,11 +4,13 @@ using foodieland.DTO.NutritionInformation;
 using foodieland.DTO.Recipes;
 using foodieland.Models;
 
-namespace foodieland.Repositories;
+namespace foodieland.Repositories.Recipes;
 
 public interface IRecipeRepository
 {
     public Task<List<Recipe>> GetAll(int page, int pageSize);
+    
+    public Task<List<Recipe>> GetAllPublished(int page, int pageSize);
 
     public Task<List<Recipe>> GetFeatured();
 

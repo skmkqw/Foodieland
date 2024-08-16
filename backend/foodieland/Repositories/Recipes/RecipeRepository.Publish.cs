@@ -1,6 +1,6 @@
 using foodieland.Models;
 
-namespace foodieland.Repositories;
+namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {
@@ -43,7 +43,7 @@ public partial class RecipeRepository
         return (true, null);
     }
     
-    private async Task<(bool isReadyToPublish, string[]? errors)> VerifyRecipe(Recipe recipe)
+    private async Task<(bool isOk, string[]? errors)> VerifyRecipe(Recipe recipe)
     {
         List<string> errors = new ();
         var imageData = recipe.ImageData;

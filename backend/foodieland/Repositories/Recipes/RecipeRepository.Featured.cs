@@ -1,7 +1,7 @@
 using foodieland.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace foodieland.Repositories;
+namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {
@@ -16,22 +16,21 @@ public partial class RecipeRepository
     public async Task<string?> SetFeatured(Guid recipeId)
     {
         var recipe = await _context.Recipes.FindAsync(recipeId);
-        if (recipe == null)
-        {
+        
+        if (recipe == null) 
             return "Recipe not found";
-        }
+
+        if (recipe.IsPublished == false)
+            return "Recipe is not published";
 
         var existingFeaturedRecipe = await _context.FeaturedRecipes.FirstOrDefaultAsync(r => r.RecipeId == recipeId);
-        if (existingFeaturedRecipe != null)
-        {
+        
+        if (existingFeaturedRecipe != null) 
             return "This recipe is already featured";
-        }
 
-        if (_context.FeaturedRecipes.ToList().Count >= 3)
-        {
+        if (_context.FeaturedRecipes.ToList().Count >= 3) 
             return "Maximum amount of featured recipes achieved";
-        }
-
+        
         await _context.FeaturedRecipes.AddAsync(new FeaturedRecipe { RecipeId = recipeId });
         await _context.SaveChangesAsync();
 
