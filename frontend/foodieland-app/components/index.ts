@@ -11,6 +11,7 @@ import Container from "@/components/shared/Container";
 import Description from "@/components/ui/Description";
 import NavBar from "@/components/shared/header/NavBar";
 import Header from "@/components/shared/header/Header";
+import CreatorInfo from "@/components/shared/CreatorInfo";
 import NavLinks from "@/components/shared/header/NavLinks";
 import LoginForm from "@/components/shared/forms/LoginForm";
 import Promosection from "@/components/shared/Promosection";
@@ -26,6 +27,7 @@ import RecipeCardSkeleton from "@/components/shared/RecipeCardSkeleton";
 import FeaturedSlider from "@/components/shared/featured/FeaturedSlider";
 import FeaturedRecipe from "@/components/shared/featured/FeaturedRecipe";
 import FeaturedSection from "@/components/shared/featured/FeaturedSection";
+import RecipeSectionSkeleton from "@/components/shared/RecipeSectionSkeleton";
 import FeaturedRecipeSkeleton from "@/components/shared/featured/FeaturedRecipeSkeleton";
 
 export {
@@ -52,6 +54,7 @@ export {
     RecipesSection,
     Footer,
     Inbox,
+    CreatorInfo,
     Description,
     RecipeCard,
     RecipeCardSkeleton,
