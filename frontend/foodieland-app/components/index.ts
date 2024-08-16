@@ -15,6 +15,7 @@ import CreatorInfo from "@/components/shared/CreatorInfo";
 import NavLinks from "@/components/shared/header/NavLinks";
 import LoginForm from "@/components/shared/forms/LoginForm";
 import Promosection from "@/components/shared/Promosection";
+import RecipeInfoBar from "@/components/shared/RecipeInfoBar";
 import RecipeCard from "@/components/shared/cards/RecipeCard";
 import MenuButton from "@/components/shared/header/MenuButton";
 import RecipesSection from "@/components/shared/RecipesSection";
