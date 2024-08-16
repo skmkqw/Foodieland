@@ -1,13 +1,9 @@
-"use client";
-
-import { useParams } from "next/navigation";
+import { RecipeInfo } from "@/components";
 
 export default function RecipePage() {
-    const { id } = useParams();
     return (
-        <div>
-            <h1>Recipe Detail Page</h1>
-            <p>Recipe ID: {id}</p>
-        </div>
+        <main className="py-5 sm:py-8 md:py-10">
+            <RecipeInfo />
+        </main>
     );
 }

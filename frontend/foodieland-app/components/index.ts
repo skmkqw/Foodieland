@@ -10,6 +10,7 @@ import UserInfo from "@/components/shared/UserInfo";
 import Container from "@/components/shared/Container";
 import Description from "@/components/ui/Description";
 import NavBar from "@/components/shared/header/NavBar";
+import RecipeInfo from "@/components/shared/RecipeInfo";
 import Header from "@/components/shared/header/Header";
 import CreatorInfo from "@/components/shared/CreatorInfo";
 import NavLinks from "@/components/shared/header/NavLinks";
@@ -23,7 +24,6 @@ import SocialLinks from "@/components/shared/header/SocialLinks";
 import RegisterForm from "@/components/shared/forms/RegisterForm";
 import CategoryCard from "@/components/shared/cards/CategoryCard";
 import CategoriesSection from "@/components/shared/CategoriesSection";
-import RecipeSectionSkeleton from "@/components/shared/RecipeSectionSkeleton";
 import RecipeCardSkeleton from "@/components/shared/RecipeCardSkeleton";
 import FeaturedSlider from "@/components/shared/featured/FeaturedSlider";
 import FeaturedRecipe from "@/components/shared/featured/FeaturedRecipe";
@@ -53,6 +53,7 @@ export {
     FeaturedRecipeSkeleton,
     CategoriesSection,
     CategoryCard,
+    NutritionInformation,
     RecipesSection,
     Footer,
     Inbox,
@@ -60,7 +61,9 @@ export {
     Description,
     RecipeCard,
     RecipeCardSkeleton,
+    RecipeInfoBar,
     RecipeSectionSkeleton,
     LikeButton,
-    UserInfo
+    UserInfo,
+    RecipeInfo
 };
