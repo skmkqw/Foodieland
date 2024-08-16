@@ -1,4 +1,4 @@
-import { Container, LinkButton } from "@/components";
+import { Container, CreatorInfo, LinkButton } from "@/components";
 import Image from "next/image";
 import { CircleArrowRight } from "lucide-react";
 import { FeaturedRecipeProps } from "@/schemas/featuredRecipe";
@@ -47,19 +47,7 @@ export default function FeaturedRecipe({
                         </div>
                     </div>
                     <div className="flex flex-col gap-6 base:flex-row base:justify-between items-center w-full">
-                        <div className="flex gap-3 items-center">
-                            <Image
-                                src={userImage ? `data:image/jpeg;base64,${userImage}` : "/user-placeholder.jpg"}
-                                alt="Portrait"
-                                height={1000}
-                                width={1000}
-                                className="rounded-[100%] w-[50px] h-[50px]"
-                            />
-                            <div className="flex flex-col gap-2">
-                                <b className="text-lg">{creatorName}</b>
-                                <p className="text-black text-opacity-60">{creationDate}</p>
-                            </div>
-                        </div>
+                        <CreatorInfo name={creatorName} creationDate={creationDate} image={userImage} />
                         <LinkButton url={`/recipe/${id}`} buttonText="View Recipe"
                                     children={<CircleArrowRight color="#f8f1f1" size={20} />} />
 
