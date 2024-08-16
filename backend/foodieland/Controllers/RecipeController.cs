@@ -1,4 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
 using foodieland.DTO.CookingDirection;
 using foodieland.DTO.IngredientQuantities;
 using foodieland.DTO.NutritionInformation;
@@ -31,11 +30,11 @@ public class RecipeController : ControllerBase
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 10)
     {
-        var recipes = await _repository.GetAll(page, pageSize);
         var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
 
-        if (user == null) return Ok(recipes.Select(r => r.ToShortRecipeDto(false)));
+        if (user == null) return Unauthorized("Failed to determine user identity");
 
+        var recipes = await _repository.GetAll(page, pageSize);
         var likedRecipes = await _repository.GetLikedRecipesByUser(user.Id);
         var likedRecipeIds = new HashSet<Guid>(likedRecipes.Select(lr => lr.RecipeId));
         
