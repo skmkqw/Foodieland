@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { FeaturedRecipe } from "@/components";
-import { FeaturedRecipeProps } from "@/schemas/featuredRecipe";
+import { FeaturedRecipeCard } from "@/components";
+import { FeaturedRecipe } from "@/types";
 
-export default function FeaturedSlider({ recipes }: { recipes: FeaturedRecipeProps[] }) {
+export default function FeaturedSlider({ recipes }: { recipes: Array<FeaturedRecipe> }) {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
@@ -78,7 +78,7 @@ export default function FeaturedSlider({ recipes }: { recipes: FeaturedRecipePro
             >
                 {recipes.map((recipe, idx) => (
                     <div key={idx} className="flex-shrink-0 w-full">
-                        <FeaturedRecipe {...recipe} />
+                        <FeaturedRecipeCard recipe={recipe} />
                     </div>
                 ))}
             </div>

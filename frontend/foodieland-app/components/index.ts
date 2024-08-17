@@ -26,7 +26,7 @@ import CategoryCard from "@/components/shared/cards/CategoryCard";
 import CategoriesSection from "@/components/shared/CategoriesSection";
 import RecipeCardSkeleton from "@/components/shared/RecipeCardSkeleton";
 import FeaturedSlider from "@/components/shared/featured/FeaturedSlider";
-import FeaturedRecipe from "@/components/shared/featured/FeaturedRecipe";
+import FeaturedRecipeCard from "@/components/shared/featured/FeaturedRecipeCard";
 import FeaturedSection from "@/components/shared/featured/FeaturedSection";
 import RecipeSectionSkeleton from "@/components/shared/RecipeSectionSkeleton";
 import { NutritionInformation } from "@/components/shared/NutritionInformation";
@@ -47,7 +47,7 @@ export {
     MenuButton,
     SocialLinks,
     Container,
-    FeaturedRecipe,
+    FeaturedRecipeCard,
     FeaturedSlider,
     FeaturedSection,
     FeaturedRecipeSkeleton,
