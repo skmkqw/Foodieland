@@ -11,5 +11,3 @@ export const featuredRecipeSchema = z.object({
     imageData: z.string().nullable(),
     userImage: z.string().nullable()
 });
-
-export type FeaturedRecipeProps = z.infer<typeof featuredRecipeSchema>;

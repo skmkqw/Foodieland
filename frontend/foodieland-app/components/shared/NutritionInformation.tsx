@@ -1,3 +1,5 @@
+import { NutritionInformation } from "@/types";
+
 function NutritionCategory({ category, value, unit }: { category: string, value: number, unit: string }) {
     return (
         <div className="flex w-full justify-between items-center border-b-2 border-gray-400 py-5 gap-4">
@@ -10,47 +12,36 @@ function NutritionCategory({ category, value, unit }: { category: string, value:
     );
 }
 
-export interface NutritionInformationProps {
+interface NutritionInformationProps {
     className?: string,
-    calories: number;
-    protein: number;
-    fat: number;
-    carbohydrate: number;
-    cholesterol: number;
+    nutrition: NutritionInformation
 }
 
-export function NutritionInformation({
-    className,
-    calories,
-    protein,
-    fat,
-    carbohydrate,
-    cholesterol
-}: NutritionInformationProps) {
+export function NutritionInformation({ className, nutrition }: NutritionInformationProps) {
     const categoryToValue = [
         {
             category: "Calories",
-            value: calories,
+            value: nutrition.calories,
             unit: "kcal"
         },
         {
             category: "Total Fat",
-            value: protein,
+            value: nutrition.protein,
             unit: "g"
         },
         {
             category: "Protein",
-            value: fat,
+            value: nutrition.fat,
             unit: "g"
         },
         {
             category: "Carbohydrate",
-            value: carbohydrate,
+            value: nutrition.carbohydrate,
             unit: "g"
         },
         {
             category: "Cholesterol",
-            value: cholesterol,
+            value: nutrition.cholesterol,
             unit: "mg"
         }
     ];

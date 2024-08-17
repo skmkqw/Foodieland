@@ -1,10 +1,11 @@
 import { Container, Description, RecipeCard, Title } from "@/components";
 import { fetchRecipes } from "@/actions/recipes";
 import React from "react";
+import { RecipeShort } from "@/types";
 
 
 export default async function RecipesSection() {
-    const recipes = await fetchRecipes(6);
+    const recipes: Array<RecipeShort> | undefined = await fetchRecipes(6);
 
     if (!recipes) return (
         <Container>
@@ -20,10 +21,11 @@ export default async function RecipesSection() {
             <Title text="Simple and tasty recipes" />
             <Description
                 text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aut enim libero neque non quas repellat repellendus tenetur ullam voluptates?"
-                className="max-w-2xl" />
+                className="max-w-2xl"
+            />
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                {recipes.map((recipe) => (
-                    <RecipeCard {...recipe} key={recipe.id} />
+                {recipes.map((recipe, idx) => (
+                    <RecipeCard recipe={recipe} key={idx} />
                 ))}
             </div>
         </Container>

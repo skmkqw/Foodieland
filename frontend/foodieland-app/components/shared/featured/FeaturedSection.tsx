@@ -1,8 +1,9 @@
 import { fetchFeaturedRecipes } from "@/actions/featured";
 import { Container, FeaturedSlider } from "@/components";
+import { FeaturedRecipe } from "@/types";
 
 export default async function FeaturedSection() {
-    const featuredRecipesData = await fetchFeaturedRecipes();
+    const featuredRecipesData: Array<FeaturedRecipe> | undefined = await fetchFeaturedRecipes();
 
     if (!featuredRecipesData) return (
         <Container>

@@ -9,5 +9,3 @@ export const recipeSchema = z.object({
     isLiked: z.boolean(),
     imageData: z.string().nullable()
 });
-
-export type RecipeProps = z.infer<typeof recipeSchema>;

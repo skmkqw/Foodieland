@@ -2,13 +2,14 @@
 
 import { z } from "zod";
 import { axiosInstance } from "@/lib/axios";
-import { RecipeProps, recipeSchema } from "@/schemas/recipe";
+import { recipeSchema } from "@/schemas/recipe";
 import { getSession } from "@/lib/session";
+import { RecipeShort } from "@/types";
 
 const recipeSchemaArray = z.array(recipeSchema);
 
 
-export const fetchRecipes = async (recipeAmount: number): Promise<RecipeProps[] | undefined> => {
+export const fetchRecipes = async (recipeAmount: number): Promise<RecipeShort[] | undefined> => {
     const session = await getSession();
     try {
         const response = await axiosInstance.get(`/recipes/published?page=1&pageSize=${recipeAmount}`, {
