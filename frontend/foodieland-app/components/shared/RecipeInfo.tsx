@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Container, NutritionInformationCard, RecipeInfoBar } from "@/components";
+import { Container, Description, NutritionInformationCard, RecipeInfoBar, Title } from "@/components";
 import { NutritionInformation, Recipe, RecipeCreator } from "@/types";
 
 interface RecipeInfoProps {
@@ -11,7 +11,7 @@ interface RecipeInfoProps {
 export default function RecipeInfo({ recipe, nutritionInformation, creator }: RecipeInfoProps) {
     return (
         <Container className="flex flex-col w-full gap-10 sm:gap-12 md:gap-16">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-center sm:text-left">{recipe.name}</h1>
+            <Title text={recipe.name} className="text-4xl md:text-5xl lg:text-6xl text-center sm:text-left" />
             <RecipeInfoBar
                 category={recipe.category}
                 timeToCook={recipe.timeToCook}
@@ -28,7 +28,7 @@ export default function RecipeInfo({ recipe, nutritionInformation, creator }: Re
                 />
                 <NutritionInformationCard nutrition={nutritionInformation} />
             </div>
-            <p className="font-medium text-xl text-black opacity-60 w-full">{recipe.description}</p>
+            <Description text={recipe.description} className="font-medium text-xl w-full" />
         </Container>
     );
 }
