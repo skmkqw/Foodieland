@@ -24,7 +24,7 @@ const recipeExtended: RecipeExtended = {
 };
 export default function RecipePage() {
     return (
-        <main className="py-5 sm:py-8 md:py-10">
+        <main className="flex flex-col py-5 sm:py-8 md:py-10">
             <RecipeInfo {...recipeExtended} />
             <IngredientsSection />
         </main>
