@@ -1,10 +1,14 @@
 import Image from "next/image";
-import { Container, NutritionInformation, RecipeInfoBar } from "@/components";
-import { NutritionInformationProps } from "@/components/shared/NutritionInformation";
-import { RecipeExtended } from "@/types";
+import { Container, NutritionInformationCard, RecipeInfoBar } from "@/components";
+import { NutritionInformation, Recipe, RecipeCreator } from "@/types";
 
+interface RecipeInfoProps {
+    recipe: Recipe;
+    nutritionInformation: NutritionInformation;
+    creator: RecipeCreator
+}
 
-export default function RecipeInfo({ recipe, nutritionInformation, creator}: RecipeExtended) {
+export default function RecipeInfo({ recipe, nutritionInformation, creator}: RecipeInfoProps) {
     return (
         <Container className="flex flex-col w-full gap-10 sm:gap-12 md:gap-16">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-center sm:text-left">{recipe.name}</h1>
@@ -22,7 +26,7 @@ export default function RecipeInfo({ recipe, nutritionInformation, creator}: Rec
                     width={840}
                     className="rounded-3xl md:col-span-2"
                 />
-                <NutritionInformation nutrition={nutritionInformation} />
+                <NutritionInformationCard nutrition={nutritionInformation} />
             </div>
             <p className="font-medium text-xl text-black opacity-60 w-full">{recipe.description}</p>
         </Container>
