@@ -1,7 +1,9 @@
+import { Ingredient } from "@/components";
+
 export default function IngredientList() {
     return (
         <div>
-            <IngredientList />
+            <Ingredient />
         </div>
     );
 }
