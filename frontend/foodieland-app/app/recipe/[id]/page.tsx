@@ -1,4 +1,4 @@
-import { IngredientsSection, RecipeInfo } from "@/components";
+import { Inbox, IngredientsSection, RecipeInfo } from "@/components";
 import { RecipeExtended } from "@/types";
 
 const recipeExtended: RecipeExtended = {
@@ -38,6 +38,7 @@ export default function RecipePage() {
                 nutritionInformation={recipeExtended.nutritionInformation}
             />
             <IngredientsSection ingredients={recipeExtended.ingredients} />
+            <Inbox className="mt-12 md:mt-20"/>
         </main>
     );
 }
