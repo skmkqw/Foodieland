@@ -19,6 +19,7 @@ export type RecipeExtended = {
     recipe: Recipe,
     creator: RecipeCreator,
     nutritionInformation: NutritionInformation
+    ingredients: Array<Ingredient>
 }
 
 export type NutritionInformation = {
