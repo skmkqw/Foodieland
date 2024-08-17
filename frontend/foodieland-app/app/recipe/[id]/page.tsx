@@ -25,7 +25,7 @@ const recipeExtended: RecipeExtended = {
 export default function RecipePage() {
     return (
         <main className="py-5 sm:py-8 md:py-10">
-            <RecipeInfo recipe={recipeExtended.recipe} creator={recipeExtended.creator} nutritionInformation={recipeExtended.nutritionInformation} />
+            <RecipeInfo {...recipeExtended} />
         </main>
     );
 }

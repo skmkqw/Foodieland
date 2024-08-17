@@ -33,10 +33,9 @@ export default function RecipeCard({ recipe }: { recipe: RecipeShort }) {
                     <Image
                         src={recipe.imageData ? `data:image/jpeg;base64,${recipe.imageData}` : "/recipe-placeholder.avif"}
                         alt="Recipe image"
-                        layout="fill"
-                        objectFit="cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="rounded-3xl"
+                        width={400}
+                        height={250}
+                        className="rounded-3xl object-cover h-full"
                     />
                 </div>
                 <div className="flex flex-col gap-5 px-3">
