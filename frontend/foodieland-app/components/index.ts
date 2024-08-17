@@ -3,7 +3,7 @@ import Logo from "@/components/shared/Logo";
 import Button from "@/components/ui/Button";
 import Inbox from "@/components/shared/Inbox";
 import Footer from "@/components/shared/Footer";
-import Ingredient from "@/components/Ingredient";
+import IngredientItem from "@/components/IngredientItem";
 import LikeButton from "@/components/ui/LikeButton";
 import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
@@ -61,7 +61,7 @@ export {
     RecipesSection,
     Footer,
     Inbox,
-    Ingredient,
+    IngredientItem,
     CreatorInfo,
     Description,
     RecipeCard,
