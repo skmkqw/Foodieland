@@ -1,4 +1,4 @@
-import { RecipeInfo } from "@/components";
+import { IngredientsSection, RecipeInfo } from "@/components";
 import { RecipeExtended } from "@/types";
 
 const recipeExtended: RecipeExtended = {
@@ -26,6 +26,7 @@ export default function RecipePage() {
     return (
         <main className="py-5 sm:py-8 md:py-10">
             <RecipeInfo {...recipeExtended} />
+            <IngredientsSection />
         </main>
     );
 }
