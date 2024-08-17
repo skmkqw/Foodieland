@@ -10,10 +10,13 @@ import UserInfo from "@/components/shared/UserInfo";
 import Container from "@/components/shared/Container";
 import Description from "@/components/ui/Description";
 import NavBar from "@/components/shared/header/NavBar";
+import RecipeInfo from "@/components/shared/RecipeInfo";
 import Header from "@/components/shared/header/Header";
+import CreatorInfo from "@/components/shared/CreatorInfo";
 import NavLinks from "@/components/shared/header/NavLinks";
 import LoginForm from "@/components/shared/forms/LoginForm";
 import Promosection from "@/components/shared/Promosection";
+import RecipeInfoBar from "@/components/shared/RecipeInfoBar";
 import RecipeCard from "@/components/shared/cards/RecipeCard";
 import MenuButton from "@/components/shared/header/MenuButton";
 import RecipesSection from "@/components/shared/RecipesSection";
@@ -21,11 +24,12 @@ import SocialLinks from "@/components/shared/header/SocialLinks";
 import RegisterForm from "@/components/shared/forms/RegisterForm";
 import CategoryCard from "@/components/shared/cards/CategoryCard";
 import CategoriesSection from "@/components/shared/CategoriesSection";
-import RecipeSectionSkeleton from "@/components/shared/RecipeSectionSkeleton";
 import RecipeCardSkeleton from "@/components/shared/RecipeCardSkeleton";
 import FeaturedSlider from "@/components/shared/featured/FeaturedSlider";
 import FeaturedRecipe from "@/components/shared/featured/FeaturedRecipe";
 import FeaturedSection from "@/components/shared/featured/FeaturedSection";
+import RecipeSectionSkeleton from "@/components/shared/RecipeSectionSkeleton";
+import { NutritionInformation } from "@/components/shared/NutritionInformation";
 import FeaturedRecipeSkeleton from "@/components/shared/featured/FeaturedRecipeSkeleton";
 
 export {
@@ -49,13 +53,17 @@ export {
     FeaturedRecipeSkeleton,
     CategoriesSection,
     CategoryCard,
+    NutritionInformation,
     RecipesSection,
     Footer,
     Inbox,
+    CreatorInfo,
     Description,
     RecipeCard,
     RecipeCardSkeleton,
+    RecipeInfoBar,
     RecipeSectionSkeleton,
     LikeButton,
-    UserInfo
+    UserInfo,
+    RecipeInfo
 };

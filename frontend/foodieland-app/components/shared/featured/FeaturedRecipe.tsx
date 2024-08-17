@@ -1,10 +1,11 @@
-import { Container, LinkButton } from "@/components";
+import { Container, CreatorInfo, LinkButton } from "@/components";
 import Image from "next/image";
 import { CircleArrowRight } from "lucide-react";
 import { FeaturedRecipeProps } from "@/schemas/featuredRecipe";
 
 
 export default function FeaturedRecipe({
+    id,
     name,
     description,
     timeToCook,
@@ -18,10 +19,12 @@ export default function FeaturedRecipe({
         <Container className="h-full">
             <div
                 className="flex flex-col-reverse lg:flex-row rounded-3xl bg-primary lg:max-h-[640px] h-full cursor-pointer">
-                <div className="flex-1/2 flex flex-col justify-between gap-12 md:gap-24 py-6 md:py-12 px-4 sm:px-10">
+                <div
+                    className="flex-1/2 flex flex-col justify-between gap-12 md:gap-24 py-6 md:py-12 px-4 sm:px-10">
                     <div
                         className="flex flex-col gap-6 md:gap-12 items-center text-center base:text-start base:items-start">
-                        <div className="bg-white rounded-full py-3 px-5 font-medium shadow-lg flex items-center gap-3">
+                        <div
+                            className="bg-white rounded-full py-3 px-5 font-medium shadow-lg flex items-center gap-3">
                             <Image src="/recipe-emoji.svg" alt="Recipe Icon" height={24} width={24} />
                             <p>Hot Recipes</p>
                         </div>
@@ -44,20 +47,8 @@ export default function FeaturedRecipe({
                         </div>
                     </div>
                     <div className="flex flex-col gap-6 base:flex-row base:justify-between items-center w-full">
-                        <div className="flex gap-3 items-center">
-                            <Image
-                                src={userImage ? `data:image/jpeg;base64,${userImage}` : "/user-placeholder.jpg"}
-                                alt="Portrait"
-                                height={1000}
-                                width={1000}
-                                className="rounded-[100%] w-[50px] h-[50px]"
-                            />
-                            <div className="flex flex-col gap-2">
-                                <b className="text-lg">{creatorName}</b>
-                                <p className="text-black text-opacity-60">{creationDate}</p>
-                            </div>
-                        </div>
-                        <LinkButton url="#" buttonText="View Recipes"
+                        <CreatorInfo name={creatorName} creationDate={creationDate} image={userImage} />
+                        <LinkButton url={`/recipe/${id}`} buttonText="View Recipe"
                                     children={<CircleArrowRight color="#f8f1f1" size={20} />} />
 
                     </div>
