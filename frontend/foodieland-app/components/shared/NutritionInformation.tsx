@@ -19,7 +19,14 @@ export interface NutritionInformationProps {
     cholesterol: number;
 }
 
-export function NutritionInformation({ className, calories, protein, fat, carbohydrate, cholesterol }: NutritionInformationProps) {
+export function NutritionInformation({
+    className,
+    calories,
+    protein,
+    fat,
+    carbohydrate,
+    cholesterol
+}: NutritionInformationProps) {
     const categoryToValue = [
         {
             category: "Calories",

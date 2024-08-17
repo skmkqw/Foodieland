@@ -1,11 +1,13 @@
 import Image from "next/image";
 
-export default function CreatorInfo({ image, name, creationDate, className }: {
+interface CreatorInfoProps {
     image: string | null;
     name: string;
     creationDate: string,
     className?: string
-}) {
+}
+
+export default function CreatorInfo({ image, name, creationDate, className }: CreatorInfoProps) {
     return (
         <div className={`${className} flex gap-3 items-center`}>
             <Image

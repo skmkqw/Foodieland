@@ -28,8 +28,13 @@ export default function RecipeInfo({
     return (
         <Container className="flex flex-col w-full gap-10 sm:gap-12 md:gap-16">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-center sm:text-left">{name}</h1>
-            <RecipeInfoBar category={category} timeToCook={timeToCook} creatorName={creatorName}
-                           creationDate={creationDate} userImage={userImage} />
+            <RecipeInfoBar
+                category={category}
+                timeToCook={timeToCook}
+                creatorName={creatorName}
+                creationDate={creationDate}
+                userImage={userImage}
+            />
             <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-10">
                 <Image
                     src="/recipe-placeholder.avif"
