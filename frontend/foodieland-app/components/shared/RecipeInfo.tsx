@@ -3,12 +3,12 @@ import { Container, NutritionInformationCard, RecipeInfoBar } from "@/components
 import { NutritionInformation, Recipe, RecipeCreator } from "@/types";
 
 interface RecipeInfoProps {
-    recipe: Recipe;
-    nutritionInformation: NutritionInformation;
+    recipe: Recipe,
+    nutritionInformation: NutritionInformation,
     creator: RecipeCreator
 }
 
-export default function RecipeInfo({ recipe, nutritionInformation, creator}: RecipeInfoProps) {
+export default function RecipeInfo({ recipe, nutritionInformation, creator }: RecipeInfoProps) {
     return (
         <Container className="flex flex-col w-full gap-10 sm:gap-12 md:gap-16">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-center sm:text-left">{recipe.name}</h1>
