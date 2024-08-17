@@ -1,7 +1,10 @@
-import { IngredientList } from "@/components";
+import { Container, IngredientList } from "@/components";
 
 export default function IngredientsSection() {
     return (
-        <IngredientList></IngredientList>
+        <Container className="flex flex-col gap-20 w-full mt-20">
+            <h1 className="font-semibold text-4xl">Ingredients</h1>
+            <IngredientList />
+        </Container>
     );
 }
