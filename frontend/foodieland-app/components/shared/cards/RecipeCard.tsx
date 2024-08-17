@@ -6,9 +6,9 @@ import { useState } from "react";
 import { likeRecipe, unlikeRecipe } from "@/actions/recipes";
 import { toast } from "sonner";
 import Link from "next/link";
-import { Recipe } from "@/types";
+import { RecipeShort } from "@/types";
 
-export default function RecipeCard({ recipe }: { recipe: Recipe }) {
+export default function RecipeCard({ recipe }: { recipe: RecipeShort }) {
     const [likeButtonActive, setLikeButtonActive] = useState(recipe.isLiked);
 
     const handleToggleLike = async (e: React.MouseEvent) => {

@@ -4,6 +4,10 @@ import { CircleArrowRight } from "lucide-react";
 import { FeaturedRecipe } from "@/types";
 
 export default function FeaturedRecipeCard({ recipe }: { recipe: FeaturedRecipe }) {
+    const creator = {
+        creatorName: recipe.creatorName,
+        userImage: recipe.userImage
+    }
     return (
         <Container className="h-full">
             <div
@@ -36,7 +40,7 @@ export default function FeaturedRecipeCard({ recipe }: { recipe: FeaturedRecipe 
                         </div>
                     </div>
                     <div className="flex flex-col gap-6 base:flex-row base:justify-between items-center w-full">
-                        <CreatorInfo name={recipe.creatorName} creationDate={recipe.creationDate} image={recipe.userImage} />
+                        <CreatorInfo creationDate={recipe.creationDate} creator={creator} />
                         <LinkButton
                             url={`/recipe/${recipe.id}`}
                             buttonText="View Recipe"

@@ -1,11 +1,11 @@
 import { Container, Description, RecipeCard, Title } from "@/components";
 import { fetchRecipes } from "@/actions/recipes";
 import React from "react";
-import { Recipe } from "@/types";
+import { RecipeShort } from "@/types";
 
 
 export default async function RecipesSection() {
-    const recipes: Array<Recipe> | undefined = await fetchRecipes(6);
+    const recipes: Array<RecipeShort> | undefined = await fetchRecipes(6);
 
     if (!recipes) return (
         <Container>

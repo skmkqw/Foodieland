@@ -1,26 +1,24 @@
 import { CreatorInfo } from "@/components";
 import Image from "next/image";
+import { RecipeCreator } from "@/types";
 
 interface RecipeInfoBarProps {
     timeToCook: number,
     category: string,
-    creatorName: string,
     creationDate: string,
-    userImage: string | null
+    creator: RecipeCreator
 }
 
 export default function RecipeInfoBar({
     timeToCook,
     category,
-    creatorName,
     creationDate,
-    userImage
+    creator
 }: RecipeInfoBarProps) {
     return (
         <div className="grid grid-cols-3 sm:flex items-center gap-6">
             <CreatorInfo
-                image={userImage}
-                name={creatorName}
+                creator={creator}
                 creationDate={creationDate}
                 className="sm:pr-4 sm:flex-row flex-col"
             />
