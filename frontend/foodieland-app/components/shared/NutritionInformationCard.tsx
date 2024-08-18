@@ -17,7 +17,7 @@ interface NutritionInformationProps {
     nutrition: NutritionInformation
 }
 
-export function NutritionInformation({ className, nutrition }: NutritionInformationProps) {
+export function NutritionInformationCard({ className, nutrition }: NutritionInformationProps) {
     const categoryToValue = [
         {
             category: "Calories",

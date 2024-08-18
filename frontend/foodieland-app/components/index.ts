@@ -9,27 +9,34 @@ import InputGroup from "@/components/ui/InputGroup";
 import UserInfo from "@/components/shared/UserInfo";
 import Container from "@/components/shared/Container";
 import Description from "@/components/ui/Description";
+import CheckButton from "@/components/ui/CheckButton";
 import NavBar from "@/components/shared/header/NavBar";
-import RecipeInfo from "@/components/shared/RecipeInfo";
 import Header from "@/components/shared/header/Header";
+import RecipeInfo from "@/components/shared/RecipeInfo";
 import CreatorInfo from "@/components/shared/CreatorInfo";
 import NavLinks from "@/components/shared/header/NavLinks";
 import LoginForm from "@/components/shared/forms/LoginForm";
 import Promosection from "@/components/shared/Promosection";
+import DirectionItem from "@/components/shared/DirectionItem";
+import DirectionList from "@/components/shared/DirectionList";
 import RecipeInfoBar from "@/components/shared/RecipeInfoBar";
 import RecipeCard from "@/components/shared/cards/RecipeCard";
 import MenuButton from "@/components/shared/header/MenuButton";
 import RecipesSection from "@/components/shared/RecipesSection";
+import IngredientList from "@/components/shared/IngredientList";
+import IngredientItem from "@/components/shared/IngredientItem";
 import SocialLinks from "@/components/shared/header/SocialLinks";
 import RegisterForm from "@/components/shared/forms/RegisterForm";
 import CategoryCard from "@/components/shared/cards/CategoryCard";
 import CategoriesSection from "@/components/shared/CategoriesSection";
+import DirectionsSection from "@/components/shared/DirectionsSection";
+import IngredientsSection from "@/components/shared/IngredientsSection";
 import RecipeCardSkeleton from "@/components/shared/RecipeCardSkeleton";
 import FeaturedSlider from "@/components/shared/featured/FeaturedSlider";
-import FeaturedRecipeCard from "@/components/shared/featured/FeaturedRecipeCard";
 import FeaturedSection from "@/components/shared/featured/FeaturedSection";
 import RecipeSectionSkeleton from "@/components/shared/RecipeSectionSkeleton";
-import { NutritionInformation } from "@/components/shared/NutritionInformation";
+import FeaturedRecipeCard from "@/components/shared/featured/FeaturedRecipeCard";
+import { NutritionInformationCard } from "@/components/shared/NutritionInformationCard";
 import FeaturedRecipeSkeleton from "@/components/shared/featured/FeaturedRecipeSkeleton";
 
 export {
@@ -45,6 +52,7 @@ export {
     Header,
     Title,
     MenuButton,
+    IngredientsSection,
     SocialLinks,
     Container,
     FeaturedRecipeCard,
@@ -53,17 +61,23 @@ export {
     FeaturedRecipeSkeleton,
     CategoriesSection,
     CategoryCard,
-    NutritionInformation,
+    NutritionInformationCard,
     RecipesSection,
     Footer,
     Inbox,
+    DirectionItem,
+    CheckButton,
+    IngredientItem,
     CreatorInfo,
     Description,
     RecipeCard,
+    DirectionList,
     RecipeCardSkeleton,
     RecipeInfoBar,
     RecipeSectionSkeleton,
     LikeButton,
     UserInfo,
-    RecipeInfo
+    RecipeInfo,
+    IngredientList,
+    DirectionsSection
 };
