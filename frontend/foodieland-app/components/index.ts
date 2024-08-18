@@ -3,7 +3,7 @@ import Logo from "@/components/shared/Logo";
 import Button from "@/components/ui/Button";
 import Inbox from "@/components/shared/Inbox";
 import Footer from "@/components/shared/Footer";
-import IngredientItem from "@/components/IngredientItem";
+import IngredientItem from "@/components/shared/IngredientItem";
 import LikeButton from "@/components/ui/LikeButton";
 import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
