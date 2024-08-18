@@ -1,4 +1,4 @@
-import { Inbox, IngredientsSection, RecipeInfo } from "@/components";
+import { DirectionsSection, Inbox, IngredientsSection, RecipeInfo } from "@/components";
 import { RecipeExtended } from "@/types";
 
 const recipeExtended: RecipeExtended = {
@@ -27,6 +27,23 @@ const recipeExtended: RecipeExtended = {
         { name: "Butter", amount: 1, unit: "stick" },
         { name: "Eggs", amount: 3, unit: "pieces" },
         { name: "Vanilla", amount: 1, unit: "teaspoon" }
+    ],
+    directions: [
+        {
+            stepNumber: 1,
+            name: "Preheat Oven",
+            description: "Set the oven to 375°F (190°C) and allow it to preheat while preparing the ingredients."
+        },
+        {
+            stepNumber: 2,
+            name: "Mix Ingredients",
+            description: "In a large bowl, combine flour, sugar, baking powder, and salt. Stir in eggs, milk, and vanilla extract until the batter is smooth."
+        },
+        {
+            stepNumber: 3,
+            name: "Bake",
+            description: "Pour the batter into a greased baking dish and bake for 25-30 minutes or until golden brown and a toothpick inserted into the center comes out clean."
+        }
     ]
 };
 export default function RecipePage() {
@@ -38,7 +55,8 @@ export default function RecipePage() {
                 nutritionInformation={recipeExtended.nutritionInformation}
             />
             <IngredientsSection ingredients={recipeExtended.ingredients} />
-            <Inbox className="mt-12 md:mt-20"/>
+            <DirectionsSection directions={recipeExtended.directions} />
+            <Inbox className="mt-12 md:mt-20 !px-6"/>
         </main>
     );
 }
