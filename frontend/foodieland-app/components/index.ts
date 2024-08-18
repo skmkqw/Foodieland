@@ -25,7 +25,6 @@ import MenuButton from "@/components/shared/header/MenuButton";
 import RecipesSection from "@/components/shared/RecipesSection";
 import IngredientList from "@/components/shared/IngredientList";
 import IngredientItem from "@/components/shared/IngredientItem";
-import SocialLinks from "@/components/shared/header/SocialLinks";
 import RegisterForm from "@/components/shared/forms/RegisterForm";
 import CategoryCard from "@/components/shared/cards/CategoryCard";
 import CategoriesSection from "@/components/shared/CategoriesSection";
@@ -53,7 +52,6 @@ export {
     Title,
     MenuButton,
     IngredientsSection,
-    SocialLinks,
     Container,
     FeaturedRecipeCard,
     FeaturedSlider,
