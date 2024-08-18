@@ -1,5 +1,6 @@
 import { DirectionsSection, Inbox, IngredientsSection, RecipeInfo } from "@/components";
 import { RecipeExtended } from "@/types";
+import { notFound } from "next/navigation";
 
 const recipeExtended: RecipeExtended = {
     recipe: {
@@ -46,7 +47,9 @@ const recipeExtended: RecipeExtended = {
         }
     ]
 };
-export default function RecipePage() {
+export default function RecipePage({ params }) {
+    if (!params.id) return notFound();
+
     return (
         <main className="flex flex-col py-5 sm:py-8 md:py-10">
             <RecipeInfo
@@ -56,7 +59,7 @@ export default function RecipePage() {
             />
             <IngredientsSection ingredients={recipeExtended.ingredients} />
             <DirectionsSection directions={recipeExtended.directions} />
-            <Inbox className="mt-12 md:mt-20 !px-6"/>
+            <Inbox className="mt-12 md:mt-20 !px-6" />
         </main>
     );
 }
