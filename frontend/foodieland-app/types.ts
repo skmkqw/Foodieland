@@ -41,3 +41,9 @@ export type Ingredient = {
     amount: number,
     unit: string
 }
+
+export type Direction = {
+    stepNumber: number,
+    name: string,
+    description: string
+}
