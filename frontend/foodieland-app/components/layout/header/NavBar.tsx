@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Container, Logo, MenuButton, NavLinks, UserInfo } from "@/components";
-import MobileDrawer from "@/components/shared/header/MobileDrawer";
+import MobileDrawer from "@/components/layout/header/MobileDrawer";
 
 export default function NavBar({ userName }: { userName?: string }) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
