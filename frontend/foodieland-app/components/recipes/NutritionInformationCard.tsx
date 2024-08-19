@@ -38,18 +38,13 @@ export function NutritionInformationCard({ className, nutrition }: NutritionInfo
             category: "Carbohydrate",
             value: nutrition.carbohydrate,
             unit: "g"
-        },
-        {
-            category: "Cholesterol",
-            value: nutrition.cholesterol,
-            unit: "mg"
         }
     ];
     return (
         <div className={`${className} w-full rounded-3xl bg-primary p-9`}>
             <p className="text-2xl font-semibold">Nutrition Information</p>
-            {categoryToValue.map((item) => (
-                <NutritionCategory category={item.category} value={item.value} unit={item.unit} />
+            {categoryToValue.map((item, idx) => (
+                <NutritionCategory category={item.category} value={item.value} unit={item.unit} key={idx} />
             ))}
         </div>
     );

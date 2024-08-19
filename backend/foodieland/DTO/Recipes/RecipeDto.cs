@@ -26,7 +26,7 @@ public class RecipeDetailsDto
 
     public RecipeCategories Category { get; set; }
     
-    public DateOnly CreationDate { get; set; } 
+    public string CreationDate { get; set; } 
     
     public string? ImageData { get; set; }
     

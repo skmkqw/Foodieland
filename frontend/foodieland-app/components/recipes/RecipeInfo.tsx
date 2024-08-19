@@ -20,8 +20,8 @@ export default function RecipeInfo({ recipe, nutritionInformation, creator }: Re
             />
             <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-10">
                 <Image
-                    src="/recipe-placeholder.avif"
-                    alt={recipe.imageData ? `data:image/jpeg;base64,${recipe.imageData}` : "/recipe-placeholder.avif"}
+                    src={recipe.imageData ? `data:image/jpeg;base64,${recipe.imageData}` : "/recipe-placeholder.avif"}
+                    alt="Recipe image"
                     height={600}
                     width={840}
                     className="rounded-3xl md:col-span-2"

@@ -20,7 +20,7 @@ export default function RecipeInfoBar({
             <CreatorInfo
                 creator={creator}
                 creationDate={creationDate}
-                className="sm:pr-4 sm:flex-row flex-col"
+                className="md:pr-4 sm:flex-row flex-col text-center sm:text-start !gap-1 sm:!gap-3"
             />
             <div className="flex sm:flex-row flex-col items-center gap-4 px-6 border-l-2 border-l-gray-400 border-r-2 border-r-gray-400">
                 <Image src="/timer.svg" alt="Timer" width={24} height={24} />
