@@ -10,6 +10,7 @@ const recipeSchema = z.object({
     category: z.string().min(1),
     timeToCook: z.number().nonnegative(),
     imageData: z.string().nullable(),
+    isLiked: z.boolean()
 });
 
 const recipeCreatorSchema = z.object({

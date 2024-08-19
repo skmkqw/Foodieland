@@ -13,7 +13,8 @@ export type Recipe = {
     creationDate: string,
     category: string,
     timeToCook: number,
-    imageData: string | null
+    imageData: string | null,
+    isLiked: boolean,
 }
 
 export type RecipeExtended = {
