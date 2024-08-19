@@ -22,7 +22,6 @@ public static class NutritionMapper
     {
         return new NutritionInformationDto()
         {
-            Id = nutritionInformation.Id,
             Calories = nutritionInformation.Calories,
             Carbohydrate = nutritionInformation.Carbohydrate,
             Fat = nutritionInformation.Fat,
