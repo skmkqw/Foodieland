@@ -2,11 +2,12 @@
 
 import { z } from "zod";
 import { axiosInstance } from "@/lib/axios";
-import { FeaturedRecipeProps, featuredRecipeSchema } from "@/schemas/featuredRecipe";
+import { featuredRecipeSchema } from "@/schemas/featuredRecipe";
+import { FeaturedRecipe } from "@/types";
 
 const featuredRecipesSchema = z.array(featuredRecipeSchema);
 
-export const fetchFeaturedRecipes = async (): Promise<FeaturedRecipeProps[] | undefined> => {
+export const fetchFeaturedRecipes = async (): Promise<FeaturedRecipe[] | undefined> => {
     try {
         const response = await axiosInstance.get("/recipes/featured");
         const parsedData = featuredRecipesSchema.safeParse(response.data);
