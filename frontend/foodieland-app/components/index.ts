@@ -8,6 +8,7 @@ import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
 import UserInfo from "@/components/shared/UserInfo";
 import Container from "@/components/shared/Container";
+import RecipePageSkeleton from "@/components/recipes/RecipePageSkeleton";
 import Description from "@/components/shared/Description";
 import CheckButton from "@/components/ui/CheckButton";
 import NavBar from "@/components/layout/header/NavBar";
@@ -75,6 +76,7 @@ export {
     RecipeCardSkeleton,
     RecipeInfoBar,
     RecipeSectionSkeleton,
+    RecipePageSkeleton,
     LikeButton,
     UserInfo,
     RecipeInfo,

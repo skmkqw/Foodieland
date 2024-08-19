@@ -26,7 +26,7 @@ export default function RecipeInfo({ recipe, nutritionInformation, creator }: Re
                     alt="Recipe image"
                     height={600}
                     width={840}
-                    className="rounded-3xl md:col-span-2"
+                    className="rounded-3xl md:col-span-2 w-full"
                 />
                 <NutritionInformationCard nutrition={nutritionInformation} />
             </div>
