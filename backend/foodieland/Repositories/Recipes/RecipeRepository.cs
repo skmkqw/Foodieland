@@ -34,7 +34,7 @@ public partial class RecipeRepository : IRecipeRepository
 
     public async Task<Recipe?> GetById(Guid id)
     {
-        return await _context.Recipes.FindAsync(id);
+        return await _context.Recipes.Include(r => r.Creator).FirstOrDefaultAsync(r => r.Id == id);
     }
 
     public async Task<Recipe> Create(AddOrUpdateRecipeDto addOrUpdateRecipeDto, string creatorId)
