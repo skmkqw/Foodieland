@@ -13,6 +13,8 @@ export default function RecipeInfo({ recipe, nutritionInformation, creator }: Re
         <Container className="flex flex-col w-full gap-10 sm:gap-12 md:gap-16">
             <Title text={recipe.name} className="text-4xl md:text-5xl lg:text-6xl text-center sm:text-left" />
             <RecipeInfoBar
+                id={recipe.id}
+                isLiked={recipe.isLiked}
                 category={recipe.category}
                 timeToCook={recipe.timeToCook}
                 creationDate={recipe.creationDate}
