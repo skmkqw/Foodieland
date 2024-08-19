@@ -10,7 +10,7 @@ export default function RecipePageSkeleton() {
                 {/* RecipeInfoBar Skeleton */}
                 <div className="flex flex-col md:flex-row items-center gap-x-4 gap-y-10 md:gap-6">
                     <div className="flex items-center gap-6 w-full">
-                        <div className="flex items-center gap-4 pr-4 md:px-6 md:border-l-2 md:border-l-gray-400 border-r-2 border-r-gray-400">
+                        <div className="flex items-center gap-4 pr-4 md:px-6 border-r-2 border-r-gray-400">
                             <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
                             <div className="w-24 h-6 bg-gray-300 rounded"></div>
                         </div>

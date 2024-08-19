@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import LikeButton from "@/components/ui/LikeButton";
 import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
+import RecipeContainer from "@/components/recipes/RecipeContainer";
 import UserInfo from "@/components/shared/UserInfo";
 import Container from "@/components/shared/Container";
 import RecipePageSkeleton from "@/components/recipes/RecipePageSkeleton";
@@ -77,6 +78,7 @@ export {
     RecipeInfoBar,
     RecipeSectionSkeleton,
     RecipePageSkeleton,
+    RecipeContainer,
     LikeButton,
     UserInfo,
     RecipeInfo,
