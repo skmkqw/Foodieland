@@ -12,7 +12,6 @@ public static class NutritionMapper
         {
             Calories = addOrUpdateNutritionDto.Calories,
             Carbohydrate = addOrUpdateNutritionDto.Carbohydrate,
-            Cholesterol = addOrUpdateNutritionDto.Cholesterol,
             Fat = addOrUpdateNutritionDto.Fat,
             Protein = addOrUpdateNutritionDto.Protein,
             RecipeId = recipeId
@@ -26,7 +25,6 @@ public static class NutritionMapper
             Id = nutritionInformation.Id,
             Calories = nutritionInformation.Calories,
             Carbohydrate = nutritionInformation.Carbohydrate,
-            Cholesterol = nutritionInformation.Cholesterol,
             Fat = nutritionInformation.Fat,
             Protein = nutritionInformation.Protein,
         };

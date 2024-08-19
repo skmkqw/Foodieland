@@ -14,8 +14,6 @@ public class NutritionInformation
     
     public double Carbohydrate { get; set; }
     
-    public double Cholesterol { get; set; }
-
     public Guid RecipeId { get; set; }
     
     [JsonIgnore]
