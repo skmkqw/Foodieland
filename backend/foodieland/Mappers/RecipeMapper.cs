@@ -33,19 +33,26 @@ public static class RecipeMapper
     {
         return new RecipeDto()
         {
-            Id = recipe.Id,
-            Name = recipe.Name,
-            Description = recipe.Description,
-            Category = recipe.Category,
-            TimeToCook = recipe.TimeToCook,
+            Recipe = new RecipeDetailsDto()
+            {
+                Id = recipe.Id,
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Category = recipe.Category,
+                TimeToCook = recipe.TimeToCook,
+                CreationDate = recipe.CreationDate,
+                ImageData = ImageConverter.ConvertByteArrayToBase64String(recipe.ImageData),
+                IsLiked = mapperParams?.IsLiked ?? false,
+            },
+            Creator = new RecipeCreatorDto()
+            {
+                CreatorId = recipe.CreatorId,
+                CreatorName = recipe.Creator.FirstName + " " + recipe.Creator.LastName,
+                UserImage = ImageConverter.ConvertByteArrayToBase64String(recipe.Creator.ProfileImage),
+            },
             NutritionInformation = mapperParams?.NutritionInformation,
-            CreatorId = recipe.CreatorId,
-            CreationDate = recipe.CreationDate,
             Directions = mapperParams?.CookingDirections,
             Ingredients = mapperParams?.Ingredients,
-            IsPublished = recipe.IsPublished,
-            IsLiked = mapperParams?.IsLiked ?? false,
-            ImageData = ImageConverter.ConvertByteArrayToBase64String(recipe.ImageData)
         };
     }
 

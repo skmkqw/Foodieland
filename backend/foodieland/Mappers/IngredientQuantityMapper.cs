@@ -23,9 +23,8 @@ public static class IngredientQuantityMapper
     {
         return new IngredientDto()
         {
-            Id = ingredientQuantity.Id,
-            IngredientName = ingredientQuantity.Ingredient.Name,
-            Quantity = ingredientQuantity.Quantity,
+            Name = ingredientQuantity.Ingredient.Name,
+            Amount = ingredientQuantity.Quantity,
             Unit = ingredientQuantity.Unit
         };
     }
