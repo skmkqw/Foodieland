@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import { Footer, Header } from "@/components";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -21,7 +22,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
         <body className={inter.className}>
+        <Header />
         {children}
+        <Footer />
         <Toaster
             position="top-right"
             toastOptions={{
