@@ -47,7 +47,8 @@ public static class RecipeMapper
             Creator = new RecipeCreatorDto()
             {
                 CreatorId = recipe.CreatorId,
-                CreatorName = recipe.Creator.FirstName + " " + recipe.Creator.LastName
+                CreatorName = recipe.Creator.FirstName + " " + recipe.Creator.LastName,
+                UserImage = ImageConverter.ConvertByteArrayToBase64String(recipe.Creator.ProfileImage),
             },
             NutritionInformation = mapperParams?.NutritionInformation,
             Directions = mapperParams?.CookingDirections,
