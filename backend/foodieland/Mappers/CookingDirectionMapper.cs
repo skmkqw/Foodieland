@@ -9,10 +9,9 @@ public static class CookingDirectionMapper
     {
         return new CookingDirectionDto()
         {
-            Id = cookingDirection.Id,
             Description = cookingDirection.Descirption,
             StepNumber = cookingDirection.StepNumber,
-            Title = cookingDirection.Title
+            Name = cookingDirection.Title
         };
     }
 
