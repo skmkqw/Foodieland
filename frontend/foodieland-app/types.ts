@@ -7,6 +7,7 @@ export type FeaturedRecipe = z.infer<typeof featuredRecipeSchema>;
 export type RecipeShort = z.infer<typeof recipeSchema>;
 
 export type Recipe = {
+    id: string,
     name: string,
     description: string,
     creationDate: string,
@@ -32,6 +33,7 @@ export type NutritionInformation = {
 }
 
 export type RecipeCreator = {
+    creatorId: string,
     creatorName: string,
     userImage: string | null
 }
