@@ -28,8 +28,7 @@ export type NutritionInformation = {
     calories: number,
     protein: number,
     fat: number,
-    carbohydrate: number,
-    cholesterol: number
+    carbohydrate: number
 }
 
 export type RecipeCreator = {
