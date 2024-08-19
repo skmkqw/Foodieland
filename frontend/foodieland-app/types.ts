@@ -1,18 +1,20 @@
 import { z } from "zod";
 import { featuredRecipeSchema } from "@/schemas/featuredRecipe";
-import { recipeSchema } from "@/schemas/recipe";
+import { shortRecipeSchema } from "@/schemas/shortRecipe";
 
 export type FeaturedRecipe = z.infer<typeof featuredRecipeSchema>;
 
-export type RecipeShort = z.infer<typeof recipeSchema>;
+export type RecipeShort = z.infer<typeof shortRecipeSchema>;
 
 export type Recipe = {
+    id: string,
     name: string,
     description: string,
     creationDate: string,
     category: string,
     timeToCook: number,
-    imageData: string | null
+    imageData: string | null,
+    isLiked: boolean,
 }
 
 export type RecipeExtended = {
@@ -27,11 +29,11 @@ export type NutritionInformation = {
     calories: number,
     protein: number,
     fat: number,
-    carbohydrate: number,
-    cholesterol: number
+    carbohydrate: number
 }
 
 export type RecipeCreator = {
+    creatorId: string,
     creatorName: string,
     userImage: string | null
 }

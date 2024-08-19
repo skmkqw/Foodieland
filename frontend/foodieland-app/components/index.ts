@@ -6,8 +6,10 @@ import Footer from "@/components/layout/Footer";
 import LikeButton from "@/components/ui/LikeButton";
 import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
+import RecipeContainer from "@/components/recipes/RecipeContainer";
 import UserInfo from "@/components/shared/UserInfo";
 import Container from "@/components/shared/Container";
+import RecipePageSkeleton from "@/components/recipes/RecipePageSkeleton";
 import Description from "@/components/shared/Description";
 import CheckButton from "@/components/ui/CheckButton";
 import NavBar from "@/components/layout/header/NavBar";
@@ -37,6 +39,7 @@ import RecipeSectionSkeleton from "@/components/recipes/RecipeSectionSkeleton";
 import FeaturedRecipeCard from "@/components/featured/FeaturedRecipeCard";
 import { NutritionInformationCard } from "@/components/recipes/NutritionInformationCard";
 import FeaturedRecipeSkeleton from "@/components/featured/FeaturedRecipeSkeleton";
+import Error from "@/components/shared/Error";
 
 export {
     Logo,
@@ -69,10 +72,13 @@ export {
     CreatorInfo,
     Description,
     RecipeCard,
+    Error,
     DirectionList,
     RecipeCardSkeleton,
     RecipeInfoBar,
     RecipeSectionSkeleton,
+    RecipePageSkeleton,
+    RecipeContainer,
     LikeButton,
     UserInfo,
     RecipeInfo,

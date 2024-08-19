@@ -13,6 +13,8 @@ export default function RecipeInfo({ recipe, nutritionInformation, creator }: Re
         <Container className="flex flex-col w-full gap-10 sm:gap-12 md:gap-16">
             <Title text={recipe.name} className="text-4xl md:text-5xl lg:text-6xl text-center sm:text-left" />
             <RecipeInfoBar
+                id={recipe.id}
+                isLiked={recipe.isLiked}
                 category={recipe.category}
                 timeToCook={recipe.timeToCook}
                 creationDate={recipe.creationDate}
@@ -20,11 +22,11 @@ export default function RecipeInfo({ recipe, nutritionInformation, creator }: Re
             />
             <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-10">
                 <Image
-                    src="/recipe-placeholder.avif"
-                    alt={recipe.imageData ? `data:image/jpeg;base64,${recipe.imageData}` : "/recipe-placeholder.avif"}
+                    src={recipe.imageData ? `data:image/jpeg;base64,${recipe.imageData}` : "/recipe-placeholder.avif"}
+                    alt="Recipe image"
                     height={600}
                     width={840}
-                    className="rounded-3xl md:col-span-2"
+                    className="rounded-3xl md:col-span-2 w-full"
                 />
                 <NutritionInformationCard nutrition={nutritionInformation} />
             </div>

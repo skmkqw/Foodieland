@@ -40,7 +40,7 @@ public static class RecipeMapper
                 Description = recipe.Description,
                 Category = recipe.Category,
                 TimeToCook = recipe.TimeToCook,
-                CreationDate = recipe.CreationDate,
+                CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy"),
                 ImageData = ImageConverter.ConvertByteArrayToBase64String(recipe.ImageData),
                 IsLiked = mapperParams?.IsLiked ?? false,
             },

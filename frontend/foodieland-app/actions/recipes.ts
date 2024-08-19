@@ -1,12 +1,13 @@
 "use server";
 
+import { getSession } from "@/lib/session";
+import { RecipeExtended, RecipeShort } from "@/types";
 import { z } from "zod";
 import { axiosInstance } from "@/lib/axios";
-import { recipeSchema } from "@/schemas/recipe";
-import { getSession } from "@/lib/session";
-import { RecipeShort } from "@/types";
+import { shortRecipeSchema } from "@/schemas/shortRecipe";
+import { recipeExtendedSchema } from "@/schemas/extendedRecipe";
 
-const recipeSchemaArray = z.array(recipeSchema);
+const recipeSchemaArray = z.array(shortRecipeSchema);
 
 
 export const fetchRecipes = async (recipeAmount: number): Promise<RecipeShort[] | undefined> => {
@@ -72,3 +73,23 @@ export const unlikeRecipe = async (recipeId: string): Promise<boolean> => {
         return false;
     }
 };
+
+export const fetchRecipe = async (recipeId: string): Promise<RecipeExtended | undefined> => {
+    const session = await getSession();
+    try {
+        const response = await axiosInstance.get(`/recipes/${recipeId}?displayNutrition=true&displayDirections=true&displayIngredients=true`, {
+            headers: session ? { Authorization: `Bearer ${session}` } : undefined
+        });
+
+        const parsedData = recipeExtendedSchema.safeParse(response.data);
+
+        if (!parsedData.success) {
+            console.error("Invalid data structure:", parsedData.error);
+            return;
+        }
+
+        return parsedData.data;
+    } catch (error) {
+        console.error("Error fetching recipes:", error);
+    }
+}
