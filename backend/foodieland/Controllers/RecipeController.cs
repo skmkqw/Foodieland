@@ -156,16 +156,15 @@ public class RecipeController : ControllerBase
         var imageData = ImageConverter.ConvertImageToByteArray(image);
 
         if (imageData == null) return BadRequest("Image data is empty");
-    
-        var recipe = await _repository.GetById(recipeId);
-        if (recipe == null)
+
+        var updatedRecipe = await _repository.AddImage(recipeId, imageData);
+        
+        if (updatedRecipe == null)
         {
             return NotFound("Recipe not found");
         }
 
-        var updatedRecipe = await _repository.AddImage(recipeId, imageData);
-
-        return Ok(updatedRecipe);
+        return Ok(updatedRecipe.ToRecipeDto(null));
     }
 
     [Authorize]
