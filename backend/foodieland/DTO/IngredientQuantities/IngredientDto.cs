@@ -4,11 +4,9 @@ namespace foodieland.DTO.IngredientQuantities;
 
 public class IngredientDto
 {
-    public Guid Id { get; set; }
-
-    public string IngredientName { get; set; }
+    public string Name { get; set; }
     
-    public double Quantity { get; set; }
+    public double Amount { get; set; }
 
     public MeasurementUnit Unit { get; set; } = MeasurementUnit.Gram;
 }
