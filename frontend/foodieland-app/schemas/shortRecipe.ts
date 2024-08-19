@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const recipeSchema = z.object({
+export const shortRecipeSchema = z.object({
     id: z.string(),
     name: z.string(),
     description: z.string(),

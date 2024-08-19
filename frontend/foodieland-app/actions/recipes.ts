@@ -2,11 +2,11 @@
 
 import { z } from "zod";
 import { axiosInstance } from "@/lib/axios";
-import { recipeSchema } from "@/schemas/recipe";
+import { shortRecipeSchema } from "@/schemas/shortRecipe";
 import { getSession } from "@/lib/session";
 import { RecipeShort } from "@/types";
 
-const recipeSchemaArray = z.array(recipeSchema);
+const recipeSchemaArray = z.array(shortRecipeSchema);
 
 
 export const fetchRecipes = async (recipeAmount: number): Promise<RecipeShort[] | undefined> => {
