@@ -37,6 +37,7 @@ import RecipeSectionSkeleton from "@/components/recipes/RecipeSectionSkeleton";
 import FeaturedRecipeCard from "@/components/featured/FeaturedRecipeCard";
 import { NutritionInformationCard } from "@/components/recipes/NutritionInformationCard";
 import FeaturedRecipeSkeleton from "@/components/featured/FeaturedRecipeSkeleton";
+import Error from "@/components/shared/Error";
 
 export {
     Logo,
@@ -69,6 +70,7 @@ export {
     CreatorInfo,
     Description,
     RecipeCard,
+    Error,
     DirectionList,
     RecipeCardSkeleton,
     RecipeInfoBar,

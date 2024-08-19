@@ -1,4 +1,4 @@
-import { DirectionsSection, Inbox, IngredientsSection, RecipeInfo } from "@/components";
+import { DirectionsSection, Error, Inbox, IngredientsSection, RecipeInfo } from "@/components";
 import { RecipeExtended } from "@/types";
 import { notFound } from "next/navigation";
 import { fetchRecipe } from "@/actions/recipes";
@@ -8,7 +8,9 @@ export default async function RecipePage({ params }) {
 
     const recipe:RecipeExtended | undefined = await fetchRecipe(params.id);
 
-    if (!recipe) return <p>ERROR</p>;
+    if (!recipe) return (
+        <Error errorMessage="Oops! An unexpected error occurred while fetching recipe details. Please try again later." className="mt-10" />
+    );
 
     return (
         <main className="flex flex-col py-5 sm:py-8 md:py-10">

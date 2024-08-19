@@ -1,6 +1,5 @@
-import { Container, Description, RecipeCard, Title } from "@/components";
+import { Container, Description, Error, RecipeCard, Title } from "@/components";
 import { fetchRecipes } from "@/actions/recipes";
-import React from "react";
 import { RecipeShort } from "@/types";
 
 
@@ -8,12 +7,7 @@ export default async function RecipesSection() {
     const recipes: Array<RecipeShort> | undefined = await fetchRecipes(6);
 
     if (!recipes) return (
-        <Container>
-            <div className="rounded-3xl bg-primary flex items-center justify-center p-10 text-center">
-                <p className="font-medium text-2xl">Oops! An unexpected error occurred while fetching recipes.
-                    Please try again later.</p>
-            </div>
-        </Container>
+        <Error errorMessage="Oops! An unexpected error occurred while fetching recipes. Please try again later." />
     );
 
     return (
