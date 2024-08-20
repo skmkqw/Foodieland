@@ -18,7 +18,7 @@ public interface IRecipeRepository
 
     public Task<Recipe> Create(AddOrUpdateRecipeDto recipeDto, string creatorId);
 
-    public Task<Recipe?> Update(Guid recipeId, AddOrUpdateRecipeDto recipeDto);
+    public Task<Recipe?> Update(Recipe recipe, AddOrUpdateRecipeDto recipeDto);
 
     public Task<Recipe?> AddImage(Guid recipeId, byte[] imageData);
 

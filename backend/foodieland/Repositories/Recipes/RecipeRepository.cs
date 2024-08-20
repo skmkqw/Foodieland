@@ -44,13 +44,8 @@ public partial class RecipeRepository : IRecipeRepository
         return createdRecipe.Entity;
     }
 
-    public async Task<Recipe?> Update(Guid recipeId, AddOrUpdateRecipeDto recipeDto)
+    public async Task<Recipe?> Update(Recipe recipe, AddOrUpdateRecipeDto recipeDto)
     {
-        var recipe = await _context.Recipes.FindAsync(recipeId);
-        if (recipe == null)
-        {
-            return null;
-        }
         _context.Entry(recipe).CurrentValues.SetValues(recipeDto);
         await _context.SaveChangesAsync();
         return recipe;
