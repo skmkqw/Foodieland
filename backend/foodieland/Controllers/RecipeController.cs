@@ -402,7 +402,7 @@ public class RecipeController : ControllerBase
         return NotFound("Recipe not found");
     }
     
-    private async Task<bool> IsRecipeExists(Guid recipeId)
+    private async Task<(bool exists, Recipe? recipe)> TryGetRecipeAsync(Guid recipeId)
     {
         var recipe = await _repository.GetById(recipeId);
         return recipe != null;
