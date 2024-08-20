@@ -43,6 +43,7 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
 
         if (result.Succeeded)
         {
+            await userManager.AddToRoleAsync(user, "User");
             var token = TokenGenerator.GenerateToken(user, configuration);
             return Ok(new { token });
         }
