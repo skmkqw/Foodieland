@@ -120,10 +120,9 @@ public class RecipeController : ControllerBase
         return BadRequest(ModelState);
     }
     
-    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("/recipes/{recipeId}")]
-    public async Task<IActionResult> Update([FromRoute] Guid recipeId, [FromBody] AddOrUpdateRecipeDto updateRecipeDto, [FromHeader] string authorizationHeader)
+    public async Task<IActionResult> Update([FromRoute] Guid recipeId, [FromBody] AddOrUpdateRecipeDto updateRecipeDto, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -142,7 +141,7 @@ public class RecipeController : ControllerBase
                     return Ok(updatedRecipe.ToRecipeDto(null));
                 }
                 
-                return Forbid("You can't update this recipe");
+                return Unauthorized("You can't update this recipe");
             }
             return NotFound("Recipe not found");
         }
