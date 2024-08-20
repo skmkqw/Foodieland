@@ -311,7 +311,7 @@ public class RecipeController : ControllerBase
         return Unauthorized("Failed to determine user's identity");   
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPatch("/recipes/{recipeId}/publish")]
     public async Task<IActionResult> Publish([FromRoute] Guid recipeId)
     {
@@ -337,7 +337,7 @@ public class RecipeController : ControllerBase
         return NoContent();
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost("recipes/featured/{recipeId}")]
     public async Task<IActionResult> SetFeatured([FromRoute] Guid recipeId)
     {
@@ -350,7 +350,7 @@ public class RecipeController : ControllerBase
         return NoContent();
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("recipes/featured/{recipeId}")]
     public async Task<IActionResult> RemoveFeatured([FromRoute] Guid recipeId)
     {
