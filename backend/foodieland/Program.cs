@@ -33,6 +33,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 builder.Services.AddIdentityCore<AppUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
