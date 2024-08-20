@@ -119,7 +119,8 @@ public class RecipeController : ControllerBase
 
         return BadRequest(ModelState);
     }
-
+    
+    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("/recipes/{recipeId}")]
     public async Task<IActionResult> Update([FromRoute] Guid recipeId, [FromBody] AddOrUpdateRecipeDto updateRecipeDto)
@@ -138,6 +139,7 @@ public class RecipeController : ControllerBase
         return BadRequest(ModelState);
     }
     
+    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/uploadImage")]
     public async Task<IActionResult> UploadImage([FromRoute] Guid recipeId, IFormFile? image)
@@ -160,7 +162,8 @@ public class RecipeController : ControllerBase
 
         return Ok(updatedRecipe.ToRecipeDto(null));
     }
-
+    
+    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addNutrition")]
     public async Task<IActionResult> AddNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto addNutritionDto)
@@ -179,7 +182,8 @@ public class RecipeController : ControllerBase
 
         return BadRequest(ModelState);
     }
-
+    
+    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("/recipes/{recipeId}/changeNutrition")]
     public async Task<IActionResult> ChangeNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto updateNutritionDto)
@@ -199,7 +203,8 @@ public class RecipeController : ControllerBase
 
         return BadRequest(ModelState);
     }
-
+    
+    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addDirections")]
     public async Task<IActionResult> AddCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> cookingDirections)
@@ -221,6 +226,7 @@ public class RecipeController : ControllerBase
         return BadRequest(ModelState);
     }
     
+    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("/recipes/{recipeId}/changeDirections")]
     public async Task<IActionResult> ChangeCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> changedCookingDirections)
@@ -241,6 +247,7 @@ public class RecipeController : ControllerBase
         return BadRequest(ModelState);
     }
     
+    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addIngredients")]
     public async Task<IActionResult> AddIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> ingredientDtos)
@@ -260,7 +267,8 @@ public class RecipeController : ControllerBase
 
         return BadRequest(ModelState);
     }
-
+    
+    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("recipes/{recipeId}/changeIngredients")]
     public async Task<IActionResult> ChangeIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> changedIngredients)
@@ -324,6 +332,7 @@ public class RecipeController : ControllerBase
         return NoContent();
     }
     
+    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPatch("/recipes/{recipeId}/hide")]
     public async Task<IActionResult> Hide([FromRoute] Guid recipeId)
@@ -362,6 +371,7 @@ public class RecipeController : ControllerBase
         return NotFound("Recipe not found");
     }
     
+    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpDelete("/recipes/{recipeId}")]
     public async Task<IActionResult> Delete([FromRoute] Guid recipeId)
