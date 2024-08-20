@@ -33,7 +33,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 builder.Services.AddIdentityCore<AppUser>()
-    .AddRoles<IdentityRole>()
+    .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
@@ -67,14 +67,14 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
     string[] roleNames = { "User", "Admin" };
     
     foreach (var roleName in roleNames)
     {
         if (!await roleManager.RoleExistsAsync(roleName))
         {
-            await roleManager.CreateAsync(new IdentityRole(roleName));
+            await roleManager.CreateAsync(new IdentityRole<Guid>(roleName));
         }
     }
 }
