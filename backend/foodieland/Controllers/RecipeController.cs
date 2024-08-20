@@ -123,37 +123,29 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("/recipes/{recipeId}")]
-    public async Task<IActionResult> Update([FromRoute] Guid recipeId, [FromBody] AddOrUpdateRecipeDto updateRecipeDto, [FromHeader] string? authorizationHeader)
+    public async Task<IActionResult> Update([FromRoute] Guid recipeId, [FromBody] AddOrUpdateRecipeDto updateRecipeDto, [FromHeader] string authorizationHeader)
     {
         if (ModelState.IsValid)
         {
-            var recipe = await _repository.GetById(recipeId);   
-            if (recipe == null)
+            (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
+            if (recipeExists)
             {
-                return NotFound("Recipe not found");
-            }
-            
-            var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
-            if (user == null)
-            {
-                return Unauthorized("Failed determine user's identity");
-            }
+                if (await IsUserAuthorizedToModifyRecipe(recipe!, authorizationHeader))
+                {
+                    var updatedRecipe = await _repository.Update(recipe!, updateRecipeDto);
 
-            if (user.Id != recipe.CreatorId)
-            {
+                    if (updatedRecipe == null)
+                    {
+                        return BadRequest("Failed to update recipe");
+                    }
+
+                    return Ok(updatedRecipe.ToRecipeDto(null));
+                }
+                
                 return Forbid("You can't update this recipe");
             }
-            
-            var updatedRecipe = await _repository.Update(recipe, updateRecipeDto);
-
-            if (updatedRecipe == null)
-            {
-                return BadRequest("Failed to update recipe");
-            }
-
-            return Ok(updatedRecipe.ToRecipeDto(null));
+            return NotFound("Recipe not found");
         }
-
         return BadRequest(ModelState);
     }
     
@@ -405,6 +397,12 @@ public class RecipeController : ControllerBase
     private async Task<(bool exists, Recipe? recipe)> TryGetRecipeAsync(Guid recipeId)
     {
         var recipe = await _repository.GetById(recipeId);
-        return recipe != null;
+        return (recipe != null, recipe);
+    }
+    
+    private async Task<bool> IsUserAuthorizedToModifyRecipe(Recipe recipe, string authorizationHeader)
+    {
+        var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
+        return user != null && user.Id == recipe.CreatorId;
     }
 }
