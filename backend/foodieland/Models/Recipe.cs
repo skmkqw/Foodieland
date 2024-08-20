@@ -11,8 +11,30 @@ public enum RecipeCategories
     Diet,
     Dessert,
     Chocolate,
-    Asian
+    Asian,
+    Mediterranean,
+    Italian,
+    Mexican,
+    Indian,
+    Healthy,
+    ComfortFood,
+    GlutenFree,
+    Keto,
+    LowCalorie,
+    SoupsAndStews,
+    Salads,
+    Appetizers,
+    SideDishes,
+    Beverages,
+    Baking,
+    Barbecue,
+    Seafood,
+    Holiday,
+    Regional,
+    Fusion,
+    Dinner
 }
+
 public class Recipe
 {
     public Guid Id { get; set; } = Guid.NewGuid();
