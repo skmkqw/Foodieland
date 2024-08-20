@@ -127,10 +127,28 @@ public class RecipeController : ControllerBase
     {
         if (ModelState.IsValid)
         {
-            var updatedRecipe = await _repository.Update(recipeId, updateRecipeDto);
-            if (updatedRecipe == null)
+            var recipe = await _repository.GetById(recipeId);   
+            if (recipe == null)
             {
                 return NotFound("Recipe not found");
+            }
+            
+            var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
+            if (user == null)
+            {
+                return Unauthorized("Failed determine user's identity");
+            }
+
+            if (user.Id != recipe.CreatorId)
+            {
+                return Forbid("You can't update this recipe");
+            }
+            
+            var updatedRecipe = await _repository.Update(recipe, updateRecipeDto);
+
+            if (updatedRecipe == null)
+            {
+                return BadRequest("Failed to update recipe");
             }
 
             return Ok(updatedRecipe.ToRecipeDto(null));
@@ -382,5 +400,11 @@ public class RecipeController : ControllerBase
             return NoContent();
         } 
         return NotFound("Recipe not found");
+    }
+    
+    private async Task<bool> IsRecipeExists(Guid recipeId)
+    {
+        var recipe = await _repository.GetById(recipeId);
+        return recipe != null;
     }
 }
