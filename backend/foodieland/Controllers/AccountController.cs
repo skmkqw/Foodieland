@@ -44,7 +44,7 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
         if (result.Succeeded)
         {
             await userManager.AddToRoleAsync(user, "User");
-            var token = TokenGenerator.GenerateToken(user, configuration);
+            var token = TokenGenerator.GenerateToken(user, ["User"], configuration);
             return Ok(new { token });
         }
 
@@ -62,7 +62,8 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
             { 
                 if (await userManager.CheckPasswordAsync(user, loginDto.Password)) 
                 { 
-                    var token = TokenGenerator.GenerateToken(user, configuration); 
+                    var roles = await userManager.GetRolesAsync(user);
+                    var token = TokenGenerator.GenerateToken(user, roles, configuration); 
                     return Ok(new { token }); 
                 } 
             }
