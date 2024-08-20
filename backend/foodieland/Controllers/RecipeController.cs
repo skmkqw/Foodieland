@@ -24,22 +24,16 @@ public class RecipeController : ControllerBase
         _userManager = userManager;
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpGet("/recipes")]
     public async Task<IActionResult> GetAll(
-        [FromHeader(Name = "Authorization")] string? authorizationHeader,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 10)
     {
-        var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
-
-        if (user == null) return Unauthorized("Failed to determine user identity");
-
         var recipes = await _repository.GetAll(page, pageSize);
-        var likedRecipes = await _repository.GetLikedRecipesByUser(user.Id);
-        var likedRecipeIds = new HashSet<Guid>(likedRecipes.Select(lr => lr.RecipeId));
         
-        var responseData = recipes.Select
-                (recipe => recipe.ToShortRecipeDto(isLiked: likedRecipeIds.Contains(recipe.Id)))
+        var responseData = recipes
+            .Select(recipe => recipe.ToShortRecipeDto(false))
             .ToList();
 
         return Ok(responseData);
