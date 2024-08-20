@@ -123,7 +123,7 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("/recipes/{recipeId}")]
-    public async Task<IActionResult> Update([FromRoute] Guid recipeId, [FromBody] AddOrUpdateRecipeDto updateRecipeDto)
+    public async Task<IActionResult> Update([FromRoute] Guid recipeId, [FromBody] AddOrUpdateRecipeDto updateRecipeDto, [FromHeader] string? authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -142,7 +142,7 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/uploadImage")]
-    public async Task<IActionResult> UploadImage([FromRoute] Guid recipeId, IFormFile? image)
+    public async Task<IActionResult> UploadImage([FromRoute] Guid recipeId, IFormFile? image, [FromHeader] string? authorizationHeader)
     {
         if (image == null || image.Length == 0)
         {
@@ -166,7 +166,7 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addNutrition")]
-    public async Task<IActionResult> AddNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto addNutritionDto)
+    public async Task<IActionResult> AddNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto addNutritionDto, [FromHeader] string? authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -186,7 +186,7 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("/recipes/{recipeId}/changeNutrition")]
-    public async Task<IActionResult> ChangeNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto updateNutritionDto)
+    public async Task<IActionResult> ChangeNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto updateNutritionDto, [FromHeader] string? authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -207,7 +207,7 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addDirections")]
-    public async Task<IActionResult> AddCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> cookingDirections)
+    public async Task<IActionResult> AddCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> cookingDirections, [FromHeader] string? authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -229,7 +229,7 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("/recipes/{recipeId}/changeDirections")]
-    public async Task<IActionResult> ChangeCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> changedCookingDirections)
+    public async Task<IActionResult> ChangeCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> changedCookingDirections, [FromHeader] string? authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -250,7 +250,7 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addIngredients")]
-    public async Task<IActionResult> AddIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> ingredientDtos)
+    public async Task<IActionResult> AddIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> ingredientDtos, [FromHeader] string? authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -271,7 +271,7 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("recipes/{recipeId}/changeIngredients")]
-    public async Task<IActionResult> ChangeIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> changedIngredients)
+    public async Task<IActionResult> ChangeIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> changedIngredients, [FromHeader] string? authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -335,7 +335,7 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPatch("/recipes/{recipeId}/hide")]
-    public async Task<IActionResult> Hide([FromRoute] Guid recipeId)
+    public async Task<IActionResult> Hide([FromRoute] Guid recipeId, [FromHeader] string? authorizationHeader)
     {
         (bool isHidden, string? error) = await _repository.Hide(recipeId);
         if (!isHidden)
@@ -374,7 +374,7 @@ public class RecipeController : ControllerBase
     //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpDelete("/recipes/{recipeId}")]
-    public async Task<IActionResult> Delete([FromRoute] Guid recipeId)
+    public async Task<IActionResult> Delete([FromRoute] Guid recipeId, [FromHeader] string? authorizationHeader)
     {
         bool isDeleted = await _repository.Delete(recipeId);
         if (isDeleted)
