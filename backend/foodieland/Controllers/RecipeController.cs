@@ -350,17 +350,22 @@ public class RecipeController : ControllerBase
 
     [Authorize]
     [HttpPost("/recipes/{recipeId}/like")]
-    public async Task<IActionResult> LikeRecipe([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string? authorizationHeader)
+    public async Task<IActionResult> LikeRecipe([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
-        var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
-        if (user != null)
+        (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
+        if (recipeExists)
         {
-            bool likedSuccessfully = await _repository.AddLike(recipeId, user.Id);
-            return likedSuccessfully
-                ? Ok("Recipe liked successfully")
-                : BadRequest("Recipe not exists or already liked");
+            var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
+            if (user != null)
+            {
+                bool likedSuccessfully = await _repository.AddLike(recipe!, user.Id);
+                return likedSuccessfully
+                    ? Ok("Recipe liked successfully")
+                    : BadRequest("Recipe not exists or already liked");
+            }  
+            return Unauthorized("You can't like this recipe");
         }
-        return Unauthorized("Failed to determine user's identity");   
+        return NotFound("Recipe not found");
     }
     
     [Authorize]
