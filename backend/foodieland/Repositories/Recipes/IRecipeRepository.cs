@@ -50,7 +50,7 @@ public interface IRecipeRepository
 
     public Task<(bool isPublished, string[]? errors)> Publish(Guid recipeId);
     
-    public Task<(bool isHidden, string? error)> Hide(Guid recipeId);
+    public Task<(bool isHidden, string? error)> Hide(Recipe recipe);
 
     public Task<string?> SetFeatured(Guid recipeId);
 

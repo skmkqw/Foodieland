@@ -25,14 +25,8 @@ public partial class RecipeRepository
         return (true, null);
     }
 
-    public async Task<(bool isHidden, string? error)> Hide(Guid recipeId)
+    public async Task<(bool isHidden, string? error)> Hide(Recipe recipe)
     {
-        var recipe = await _context.Recipes.FindAsync(recipeId);
-        if (recipe == null)
-        {
-            return (false, "Recipe not found");
-        }
-
         if (recipe.IsPublished == false)
         {
             return (false, "Recipe is already hidden");
