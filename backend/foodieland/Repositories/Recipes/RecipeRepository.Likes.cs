@@ -14,12 +14,11 @@ public partial class RecipeRepository
         return true;
     }
     
-    public async Task<bool> RemoveLike(Guid recipeId, Guid userId)
+    public async Task<bool> RemoveLike(Recipe recipe, Guid userId)
     {
         var like = await _context.LikedRecipes
-            .FirstOrDefaultAsync(l => l.UserId == userId && l.RecipeId == recipeId);
-        var recipe = await GetById(recipeId);
-        if (like != null && recipe != null)
+            .FirstOrDefaultAsync(l => l.UserId == userId && l.RecipeId == recipe.Id);
+        if (like != null)
         {
             _context.LikedRecipes.Remove(like);
             await _context.SaveChangesAsync();

@@ -42,7 +42,7 @@ public interface IRecipeRepository
 
     public Task<bool> AddLike(Recipe recipe, Guid userId);
 
-    public Task<bool> RemoveLike(Guid recipeId, Guid userId);
+    public Task<bool> RemoveLike(Recipe recipe, Guid userId);
     
     public Task<bool> IsLikedByUser(Guid recipeId, Guid userId);
 
