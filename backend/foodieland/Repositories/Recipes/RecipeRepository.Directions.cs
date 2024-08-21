@@ -7,6 +7,7 @@ namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {
+    //TODO PASS RECIPE INSTEAD OF ID
     public async Task<List<CookingDirection>?> GetCookingDirections(Guid recipeId)
     {
         var recipe = await _context.Recipes.Include(r => r.Directions).FirstOrDefaultAsync(r => r.Id == recipeId);

@@ -7,6 +7,7 @@ namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {
+    //TODO PASS RECIPE INSTEAD OF ID
     public async Task<List<IngredientQuantity>?> GetIngredients(Guid recipeId)
     {
         var recipe = await _context.Recipes.Include(r => r.Ingredients)
@@ -20,9 +21,9 @@ public partial class RecipeRepository
         return recipe.Ingredients;
     }
     
-    public async Task<List<IngredientQuantity>> AddIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> ingredients)
+    public async Task<List<IngredientQuantity>> AddIngredients(Recipe recipe, List<AddOrUpdateIngredientDto> ingredients)
     {
-        if (ingredients == null || !ingredients.Any())
+        if (ingredients == null || ingredients.Count == 0)
         {
             throw new ArgumentException("Ingredients list must contain at least 1 ingredient");
         }
@@ -30,14 +31,6 @@ public partial class RecipeRepository
         await using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            var recipe = await _context.Recipes.Include(r => r.Ingredients)
-                .ThenInclude(iq => iq.Ingredient)
-                .FirstOrDefaultAsync(r => r.Id == recipeId);
-            if (recipe == null)
-            {
-                throw new Exception("Recipe not found");
-            }
-
             foreach (AddOrUpdateIngredientDto ingredient in ingredients)
             {
                 if (string.IsNullOrWhiteSpace(ingredient.IngredientName))
