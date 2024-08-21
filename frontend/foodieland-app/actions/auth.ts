@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { axiosInstance } from "@/lib/axios";
 import { createSession, deleteSession } from "@/lib/session";
 import { loginSchema, signupSchema } from "@/schemas/auth";
+import { decodeToken } from "@/lib/authorization";
 
 interface PrevStateErrors {
     errors: {
@@ -30,6 +31,15 @@ export async function login(prevState: PrevStateErrors | undefined, formData: Fo
         const response = await axiosInstance.post("/account/login", parsedData.data);
 
         await createSession(response.data.token);
+
+        const userData = decodeToken(response.data.token);
+
+        if (userData.roles.includes("admin")) {
+            redirect("/admin");
+        } else {
+            redirect("/");
+        }
+
     } catch (error: any) {
         if (error.response && error.response.status === 400) {
             return {
@@ -45,8 +55,6 @@ export async function login(prevState: PrevStateErrors | undefined, formData: Fo
             };
         }
     }
-
-    redirect("/");
 }
 
 
