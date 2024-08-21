@@ -44,39 +44,22 @@ public partial class RecipeRepository : IRecipeRepository
         return createdRecipe.Entity;
     }
 
-    public async Task<Recipe?> Update(Guid recipeId, AddOrUpdateRecipeDto recipeDto)
+    public async Task<Recipe?> Update(Recipe recipe, AddOrUpdateRecipeDto recipeDto)
     {
-        var recipe = await _context.Recipes.FindAsync(recipeId);
-        if (recipe == null)
-        {
-            return null;
-        }
         _context.Entry(recipe).CurrentValues.SetValues(recipeDto);
         await _context.SaveChangesAsync();
         return recipe;
     }
 
-    public async Task<Recipe?> AddImage(Guid recipeId, byte[] imageData)
+    public async Task<Recipe?> AddImage(Recipe recipe, byte[] imageData)
     {
-        var recipe = await _context.Recipes.FindAsync(recipeId);
-        if (recipe == null)
-        {
-            return null;
-        }
-
         recipe.ImageData = imageData;
         await _context.SaveChangesAsync();
         return recipe;
     }
 
-    public async Task<bool> Delete(Guid recipeId)
+    public async Task<bool> Delete(Recipe recipe)
     {
-        var recipe = await _context.Recipes.FindAsync(recipeId);
-        if (recipe == null)
-        {
-            return false;
-        }
-
         _context.Recipes.Remove(recipe);
         await _context.SaveChangesAsync();
         return true;

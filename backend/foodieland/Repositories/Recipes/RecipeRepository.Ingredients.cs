@@ -8,21 +8,16 @@ namespace foodieland.Repositories.Recipes;
 public partial class RecipeRepository
 {
     public async Task<List<IngredientQuantity>?> GetIngredients(Guid recipeId)
-    {
-        var recipe = await _context.Recipes.Include(r => r.Ingredients)
-            .ThenInclude(iq => iq.Ingredient)
-            .FirstOrDefaultAsync(r => r.Id == recipeId);
-        if (recipe == null)
-        {
-            return null;
-        }
-
-        return recipe.Ingredients;
+    { 
+        return await _context.IngredientQuantities
+            .Include(i => i.Ingredient)
+            .Where(i => i.RecipeId == recipeId)
+            .ToListAsync();
     }
     
-    public async Task<List<IngredientQuantity>> AddIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> ingredients)
+    public async Task<List<IngredientQuantity>> AddIngredients(Recipe recipe, List<AddOrUpdateIngredientDto> ingredients)
     {
-        if (ingredients == null || !ingredients.Any())
+        if (ingredients == null || ingredients.Count == 0)
         {
             throw new ArgumentException("Ingredients list must contain at least 1 ingredient");
         }
@@ -30,14 +25,6 @@ public partial class RecipeRepository
         await using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            var recipe = await _context.Recipes.Include(r => r.Ingredients)
-                .ThenInclude(iq => iq.Ingredient)
-                .FirstOrDefaultAsync(r => r.Id == recipeId);
-            if (recipe == null)
-            {
-                throw new Exception("Recipe not found");
-            }
-
             foreach (AddOrUpdateIngredientDto ingredient in ingredients)
             {
                 if (string.IsNullOrWhiteSpace(ingredient.IngredientName))
@@ -64,7 +51,7 @@ public partial class RecipeRepository
         }
     }
 
-    public async Task<List<IngredientQuantity>> ChangeIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> changedIngredients)
+    public async Task<List<IngredientQuantity>> ChangeIngredients(Recipe recipe, List<AddOrUpdateIngredientDto> changedIngredients)
     {
         if (changedIngredients.Count == 0)
         {
@@ -73,16 +60,10 @@ public partial class RecipeRepository
         await using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            var recipe = await _context.Recipes.Include(r => r.Ingredients)
-                .ThenInclude(iq => iq.Ingredient)
-                .FirstOrDefaultAsync(r => r.Id == recipeId);
             
-            if (recipe == null)
-                throw new Exception("Recipe not found");
+            var ingredients = await GetIngredients(recipe.Id);
 
-            var ingredients = recipe.Ingredients;
-
-            if (ingredients.Count == 0)
+            if (ingredients == null || ingredients.Count == 0)
                 throw new Exception("Recipe has no ingredients");
             
 

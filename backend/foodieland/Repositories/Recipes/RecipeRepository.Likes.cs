@@ -5,21 +5,20 @@ namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {
-    public async Task<bool> AddLike(Guid recipeId, Guid userId)
+    public async Task<bool> AddLike(Recipe recipe, Guid userId)
     {
-        if (await IsLikedByUser(recipeId, userId) || await GetById(recipeId) == null) return false;
-        var like = new LikedRecipe { UserId = userId, RecipeId = recipeId };
+        if (await IsLikedByUser(recipe.Id, userId)) return false;
+        var like = new LikedRecipe { UserId = userId, RecipeId = recipe.Id };
         _context.LikedRecipes.Add(like);
         await _context.SaveChangesAsync();
         return true;
     }
     
-    public async Task<bool> RemoveLike(Guid recipeId, Guid userId)
+    public async Task<bool> RemoveLike(Recipe recipe, Guid userId)
     {
         var like = await _context.LikedRecipes
-            .FirstOrDefaultAsync(l => l.UserId == userId && l.RecipeId == recipeId);
-        var recipe = await GetById(recipeId);
-        if (like != null && recipe != null)
+            .FirstOrDefaultAsync(l => l.UserId == userId && l.RecipeId == recipe.Id);
+        if (like != null)
         {
             _context.LikedRecipes.Remove(like);
             await _context.SaveChangesAsync();

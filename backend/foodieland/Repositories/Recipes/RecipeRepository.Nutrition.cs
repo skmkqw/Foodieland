@@ -20,28 +20,22 @@ public partial class RecipeRepository
         return nutritionInformation;
     }
 
-    public async Task<(NutritionInformation? nutritionInformation, string? error)> AddNutritionInformation(Guid recipeId, AddOrUpdateNutritionDto addNutritionInfoDto)
+    public async Task<(NutritionInformation? nutritionInformation, string? error)> AddNutritionInformation(Recipe recipe, AddOrUpdateNutritionDto addNutritionInfoDto)
     {
-        var recipe = await _context.Recipes.Include(ni => ni.NutritionInformation).FirstOrDefaultAsync(r => r.Id == recipeId);
-        if (recipe == null)
-        {
-            return (null, "Recipe not found");
-        }
 
-        if (recipe.NutritionInformation != null)
+        if (await GetNutritionInformation(recipe.Id) != null)
         {
             return (null, "Recipe already has nutrition information");
         }
 
-        var createdInfo =
-            await _context.AddAsync(addNutritionInfoDto.FromAddOrUpdateDtoToNutritionInformation(recipeId));
+        var createdInfo = await _context.NutritionInformation
+            .AddAsync(addNutritionInfoDto.FromAddOrUpdateDtoToNutritionInformation(recipe.Id));
         await _context.SaveChangesAsync();
         return (createdInfo.Entity, null);
     }
 
-    public async Task<NutritionInformation> ChangeNutritionInformation(Guid nutritionId, AddOrUpdateNutritionDto updateNutritionInfoDto)
+    public async Task<NutritionInformation> ChangeNutritionInformation(NutritionInformation nutritionInformation, AddOrUpdateNutritionDto updateNutritionInfoDto)
     {
-        NutritionInformation nutritionInformation = (await _context.NutritionInformation.FindAsync(nutritionId))!;
         _context.Entry(nutritionInformation).CurrentValues.SetValues(updateNutritionInfoDto);
         await _context.SaveChangesAsync();
         return nutritionInformation;
