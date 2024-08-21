@@ -180,23 +180,29 @@ public class RecipeController : ControllerBase
         return NotFound("Recipe not found");
     }
     
-    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addNutrition")]
-    public async Task<IActionResult> AddNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto addNutritionDto, [FromHeader] string? authorizationHeader)
+    public async Task<IActionResult> AddNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto addNutritionDto, [FromHeader] string authorizationHeader)
     {
         if (ModelState.IsValid)
         {
-            (NutritionInformation? nutrition, string? error) =
-                await _repository.AddNutritionInformation(recipeId, addNutritionDto);
-            if (error == null)
+            (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
+            if (recipeExists)
             {
-                return CreatedAtAction(nameof(GetById), new { recipeId = nutrition!.Id }, nutrition.ToNutritionDto());
+                if (await IsUserAuthorizedToModifyRecipe(recipe!, authorizationHeader))
+                {
+                    (NutritionInformation? nutrition, string? error) = await _repository.AddNutritionInformation(recipe!, addNutritionDto);
+                    if (error == null)
+                    {
+                        return CreatedAtAction(nameof(GetById), new { recipeId = nutrition!.Id }, nutrition.ToNutritionDto());
+                    }
+
+                    return BadRequest(error);
+                }
+                return Unauthorized("You can't update this recipe");
             }
-
-            return BadRequest(error);
+            return NotFound("Recipe not found");
         }
-
         return BadRequest(ModelState);
     }
     
