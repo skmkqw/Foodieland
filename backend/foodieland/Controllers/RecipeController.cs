@@ -370,17 +370,22 @@ public class RecipeController : ControllerBase
     
     [Authorize]
     [HttpDelete("/recipes/{recipeId}/unlike")]
-    public async Task<IActionResult> UnlikeRecipe([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string? authorizationHeader)
+    public async Task<IActionResult> UnlikeRecipe([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
-        var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
-        if (user != null)
+        (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
+        if (recipeExists)
         {
-            bool unlikedSuccessfully = await _repository.RemoveLike(recipeId, user.Id);
-            return unlikedSuccessfully
-                ? Ok("Recipe unliked successfully")
-                : BadRequest("Recipe not exists or not liked");
+            var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
+            if (user != null)
+            {
+                bool unlikedSuccessfully = await _repository.RemoveLike(recipe!, user.Id);
+                return unlikedSuccessfully
+                    ? Ok("Recipe unliked successfully")
+                    : BadRequest("Recipe not exists or not liked");
+            }
+            return Unauthorized("You can't unlike this recipe");
         }
-        return Unauthorized("Failed to determine user's identity");   
+        return NotFound("Recipe not found");
     }
 
     [Authorize(Roles = "Admin")]
