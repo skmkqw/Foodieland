@@ -148,28 +148,36 @@ public class RecipeController : ControllerBase
         return BadRequest(ModelState);
     }
     
-    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/uploadImage")]
-    public async Task<IActionResult> UploadImage([FromRoute] Guid recipeId, IFormFile? image, [FromHeader] string? authorizationHeader)
+    public async Task<IActionResult> UploadImage([FromRoute] Guid recipeId, IFormFile? image, [FromHeader] string authorizationHeader)
     {
-        if (image == null || image.Length == 0)
+        (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
+        if (recipeExists)
         {
-            return BadRequest("No image uploaded");
-        }
+            if (await IsUserAuthorizedToModifyRecipe(recipe!, authorizationHeader))
+            {
+                if (image == null || image.Length == 0)
+                {
+                    return BadRequest("No image uploaded");
+                }
 
-        var imageData = ImageConverter.ConvertImageToByteArray(image);
+                var imageData = ImageConverter.ConvertImageToByteArray(image);
 
-        if (imageData == null) return BadRequest("Image data is empty");
+                if (imageData == null) return BadRequest("Image data is empty");
 
-        var updatedRecipe = await _repository.AddImage(recipeId, imageData);
+                var updatedRecipe = await _repository.AddImage(recipe!, imageData);
         
-        if (updatedRecipe == null)
-        {
-            return NotFound("Recipe not found");
-        }
+                if (updatedRecipe == null)
+                {
+                    return BadRequest("Failed to add image");
+                }
 
-        return Ok(updatedRecipe.ToRecipeDto(null));
+                return Ok(updatedRecipe.ToRecipeDto(null));
+            }
+            return Unauthorized("You can't update this recipe");
+        }
+        return NotFound("Recipe not found");
     }
     
     //TODO Check if requesting user is a creator of a recipe
@@ -399,7 +407,7 @@ public class RecipeController : ControllerBase
         return (recipe != null, recipe);
     }
     
-    private async Task<bool> IsUserAuthorizedToModifyRecipe(Recipe recipe, string authorizationHeader)
+    private async Task<bool> IsUserAuthorizedToModifyRecipe(Recipe recipe, string? authorizationHeader)
     {
         var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
         return user != null && user.Id == recipe.CreatorId;
