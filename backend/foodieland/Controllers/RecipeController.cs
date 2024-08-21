@@ -150,7 +150,7 @@ public class RecipeController : ControllerBase
     
     [Authorize]
     [HttpPost("/recipes/{recipeId}/uploadImage")]
-    public async Task<IActionResult> UploadImage([FromRoute] Guid recipeId, IFormFile? image, [FromHeader] string authorizationHeader)
+    public async Task<IActionResult> UploadImage([FromRoute] Guid recipeId, IFormFile? image, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
         (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
         if (recipeExists)
@@ -182,7 +182,7 @@ public class RecipeController : ControllerBase
     
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addNutrition")]
-    public async Task<IActionResult> AddNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto addNutritionDto, [FromHeader] string authorizationHeader)
+    public async Task<IActionResult> AddNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto addNutritionDto, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -208,7 +208,7 @@ public class RecipeController : ControllerBase
     
     [Authorize]
     [HttpPut("/recipes/{recipeId}/changeNutrition")]
-    public async Task<IActionResult> ChangeNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto updateNutritionDto, [FromHeader] string authorizationHeader)
+    public async Task<IActionResult> ChangeNutrition([FromRoute] Guid recipeId, [FromBody] AddOrUpdateNutritionDto updateNutritionDto, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -236,7 +236,7 @@ public class RecipeController : ControllerBase
     
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addDirections")]
-    public async Task<IActionResult> AddCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> cookingDirections, [FromHeader] string? authorizationHeader)
+    public async Task<IActionResult> AddCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> cookingDirections, [FromHeader(Name = "Authorization")] string? authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -265,7 +265,7 @@ public class RecipeController : ControllerBase
     
     [Authorize]
     [HttpPut("/recipes/{recipeId}/changeDirections")]
-    public async Task<IActionResult> ChangeCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> changedCookingDirections, [FromHeader] string authorizationHeader)
+    public async Task<IActionResult> ChangeCookingDirections([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateCookingDirectionDto> changedCookingDirections, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -294,7 +294,7 @@ public class RecipeController : ControllerBase
     
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addIngredients")]
-    public async Task<IActionResult> AddIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> ingredientDtos, [FromHeader] string authorizationHeader)
+    public async Task<IActionResult> AddIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> ingredientDtos, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -322,7 +322,7 @@ public class RecipeController : ControllerBase
     
     [Authorize]
     [HttpPut("recipes/{recipeId}/changeIngredients")]
-    public async Task<IActionResult> ChangeIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> changedIngredients, [FromHeader] string? authorizationHeader)
+    public async Task<IActionResult> ChangeIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> changedIngredients, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
         if (ModelState.IsValid)
         {
@@ -408,7 +408,7 @@ public class RecipeController : ControllerBase
     
     [Authorize]
     [HttpPatch("/recipes/{recipeId}/hide")]
-    public async Task<IActionResult> Hide([FromRoute] Guid recipeId, [FromHeader] string authorizationHeader)
+    public async Task<IActionResult> Hide([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
         (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
         if (recipeExists)
@@ -455,7 +455,7 @@ public class RecipeController : ControllerBase
     
     [Authorize]
     [HttpDelete("/recipes/{recipeId}")]
-    public async Task<IActionResult> Delete([FromRoute] Guid recipeId, [FromHeader] string authorizationHeader)
+    public async Task<IActionResult> Delete([FromRoute] Guid recipeId, [FromHeader(Name = "Authorization")] string authorizationHeader)
     {
         (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
         if (recipeExists)
