@@ -20,7 +20,8 @@ public class UserController : ControllerBase
         _repository = repository;
         _userManager = userManager;
     }
-
+    
+    [Authorize(Roles = "Admin")]
     [HttpGet("/users")]
     public async Task<IActionResult> GetAll()
     {
