@@ -19,17 +19,11 @@ public partial class RecipeRepository
     }
 
 
-    public async Task<List<CookingDirection>> AddCookingDirections(Guid recipeId, List<CookingDirection> directions)
+    public async Task<List<CookingDirection>> AddCookingDirections(Recipe recipe, List<CookingDirection> directions)
     {
         await using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            var recipe = await _context.Recipes.Include(r => r.Directions).FirstOrDefaultAsync(r => r.Id == recipeId);
-            if (recipe == null)
-            {
-                throw new Exception("Recipe not found");
-            }
-            
             foreach (var direction in directions)
             {
                 await _context.CookingDirections.AddAsync(direction);
