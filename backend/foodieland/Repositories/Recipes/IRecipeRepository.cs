@@ -38,7 +38,7 @@ public interface IRecipeRepository
     
     public Task<List<IngredientQuantity>> AddIngredients(Recipe recipe, List<AddOrUpdateIngredientDto> ingredients);
 
-    public Task<List<IngredientQuantity>> ChangeIngredients(Guid recipeId, List<AddOrUpdateIngredientDto> changedIngredients);
+    public Task<List<IngredientQuantity>> ChangeIngredients(Recipe recipe, List<AddOrUpdateIngredientDto> changedIngredients);
 
     public Task<bool> AddLike(Guid recipeId, Guid userId);
 
