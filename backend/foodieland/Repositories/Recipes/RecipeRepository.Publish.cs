@@ -4,20 +4,12 @@ namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {
-    public async Task<(bool isPublished, string[]? errors)> Publish(Guid recipeId)
+    public async Task<(bool isPublished, string[]? errors)> Publish(Recipe recipe)
     {
-        List<string> errors = new ();
-        var recipe = await _context.Recipes.FindAsync(recipeId);
-        if (recipe == null)
-        {
-            errors.Add("Recipe not found");
-            return (false, errors.ToArray());
-        }
         (bool isReadyToPublish, string[]? verificationErrors) = await VerifyRecipe(recipe);
         if (!isReadyToPublish)
         {
-            errors.AddRange(verificationErrors!);
-            return (false, errors.ToArray());
+            return (false, verificationErrors!.ToArray());
         }
         
         recipe.IsPublished = true;

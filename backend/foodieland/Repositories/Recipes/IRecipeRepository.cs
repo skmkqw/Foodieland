@@ -48,7 +48,7 @@ public interface IRecipeRepository
 
     public Task<List<LikedRecipe>> GetLikedRecipesByUser(Guid userId);
 
-    public Task<(bool isPublished, string[]? errors)> Publish(Guid recipeId);
+    public Task<(bool isPublished, string[]? errors)> Publish(Recipe recipe);
     
     public Task<(bool isHidden, string? error)> Hide(Recipe recipe);
 
