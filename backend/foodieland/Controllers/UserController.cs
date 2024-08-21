@@ -1,3 +1,4 @@
+using foodieland.DTO.Users;
 using foodieland.Mappers;
 using foodieland.Models;
 using foodieland.Repositories.Users;
@@ -19,22 +20,32 @@ public class UserController : ControllerBase
         _repository = repository;
         _userManager = userManager;
     }
-
+    
+    [Authorize(Roles = "Admin")]
     [HttpGet("/users")]
     public async Task<IActionResult> GetAll()
     {
         var users = await _repository.GetAll();
-        return Ok(users.Select(u => u.ToDto()));
+
+        List<UserDto> responseData = [];
+        foreach (var user in users)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            responseData.Add(user.ToDto(roles));
+        }
+        return Ok(responseData);
     }
 
     [HttpGet("/users/{userId}")]
     public async Task<IActionResult> GetById([FromRoute] Guid userId)
     {
         var user = await _repository.GetById(userId);
-
+        
         if (user == null) return NotFound("User not found");
+        
+        var roles = await _userManager.GetRolesAsync(user);
 
-        return Ok(user.ToDto());
+        return Ok(user.ToDto(roles));
     }
     
     
@@ -62,6 +73,8 @@ public class UserController : ControllerBase
 
         if (updatedUser == null) return StatusCode(500, "An internal server error occurred while adding user image.");
         
-        return Ok(updatedUser.ToDto());
+        var roles = await _userManager.GetRolesAsync(updatedUser);
+        
+        return Ok(updatedUser.ToDto(roles));
     }
 }

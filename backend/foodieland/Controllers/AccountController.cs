@@ -43,7 +43,8 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
 
         if (result.Succeeded)
         {
-            var token = TokenGenerator.GenerateToken(user, configuration);
+            await userManager.AddToRoleAsync(user, "User");
+            var token = TokenGenerator.GenerateToken(user, ["User"], configuration);
             return Ok(new { token });
         }
 
@@ -61,7 +62,8 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
             { 
                 if (await userManager.CheckPasswordAsync(user, loginDto.Password)) 
                 { 
-                    var token = TokenGenerator.GenerateToken(user, configuration); 
+                    var roles = await userManager.GetRolesAsync(user);
+                    var token = TokenGenerator.GenerateToken(user, roles, configuration); 
                     return Ok(new { token }); 
                 } 
             }
@@ -73,7 +75,7 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
 
 public class TokenGenerator
 {
-    public static string? GenerateToken(AppUser userData, IConfiguration configuration)
+    public static string? GenerateToken(AppUser user, IList<string> roles, IConfiguration configuration)
     {
         var secret = configuration["JwtConfig:Secret"];
         var issuer = configuration["JwtConfig:ValidIssuer"];
@@ -86,19 +88,25 @@ public class TokenGenerator
 
         var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
         var tokenHandler = new JwtSecurityTokenHandler();
+        
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+        };
+
+        claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.Name, $"{userData.FirstName} {userData.LastName}"),
-                new Claim(ClaimTypes.Email, userData.Email!),
-                new Claim(ClaimTypes.NameIdentifier, userData.Id.ToString())
-            }),
+            Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddDays(1),
-            Issuer = issuer,
-            Audience = audience,
+            Issuer = configuration["JwtConfig:ValidIssuer"],
+            Audience = configuration["JwtConfig:ValidAudiences"],
             SigningCredentials = new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256Signature)
         };
+       
         var securityToken = tokenHandler.CreateToken(tokenDescriptor);
         var token = tokenHandler.WriteToken(securityToken);
         return token;
