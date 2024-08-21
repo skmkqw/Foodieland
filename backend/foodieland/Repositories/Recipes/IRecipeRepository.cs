@@ -20,7 +20,7 @@ public interface IRecipeRepository
 
     public Task<Recipe?> Update(Recipe recipe, AddOrUpdateRecipeDto recipeDto);
 
-    public Task<Recipe?> AddImage(Guid recipeId, byte[] imageData);
+    public Task<Recipe?> AddImage(Recipe recipe, byte[] imageData);
 
     public Task<NutritionInformation?> GetNutritionInformation(Guid recipeId);
 

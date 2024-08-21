@@ -51,14 +51,8 @@ public partial class RecipeRepository : IRecipeRepository
         return recipe;
     }
 
-    public async Task<Recipe?> AddImage(Guid recipeId, byte[] imageData)
+    public async Task<Recipe?> AddImage(Recipe recipe, byte[] imageData)
     {
-        var recipe = await _context.Recipes.FindAsync(recipeId);
-        if (recipe == null)
-        {
-            return null;
-        }
-
         recipe.ImageData = imageData;
         await _context.SaveChangesAsync();
         return recipe;
