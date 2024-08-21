@@ -9,9 +9,9 @@ public partial class RecipeRepository
 {
     public async Task<List<CookingDirection>?> GetCookingDirections(Guid recipeId)
     {
-        var directions = await _context.CookingDirections.Where(d => d.RecipeId == recipeId).ToListAsync();
-
-        return directions;
+        return await _context.CookingDirections
+            .Where(d => d.RecipeId == recipeId)
+            .ToListAsync();
     }
 
 

@@ -7,18 +7,12 @@ namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {
-    //TODO PASS RECIPE INSTEAD OF ID
     public async Task<List<IngredientQuantity>?> GetIngredients(Guid recipeId)
-    {
-        var recipe = await _context.Recipes.Include(r => r.Ingredients)
-            .ThenInclude(iq => iq.Ingredient)
-            .FirstOrDefaultAsync(r => r.Id == recipeId);
-        if (recipe == null)
-        {
-            return null;
-        }
-
-        return recipe.Ingredients;
+    { 
+        return await _context.IngredientQuantities
+            .Include(i => i.Ingredient)
+            .Where(i => i.RecipeId == recipeId)
+            .ToListAsync();
     }
     
     public async Task<List<IngredientQuantity>> AddIngredients(Recipe recipe, List<AddOrUpdateIngredientDto> ingredients)
