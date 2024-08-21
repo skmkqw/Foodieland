@@ -438,16 +438,23 @@ public class RecipeController : ControllerBase
         return NotFound("Recipe not found");
     }
     
-    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpDelete("/recipes/{recipeId}")]
-    public async Task<IActionResult> Delete([FromRoute] Guid recipeId, [FromHeader] string? authorizationHeader)
+    public async Task<IActionResult> Delete([FromRoute] Guid recipeId, [FromHeader] string authorizationHeader)
     {
-        bool isDeleted = await _repository.Delete(recipeId);
-        if (isDeleted)
+        (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
+        if (recipeExists)
         {
-            return NoContent();
-        } 
+            if (await IsUserAuthorizedToModifyRecipe(recipe!, authorizationHeader))
+            {
+                bool isDeleted = await _repository.Delete(recipe!);
+                if (isDeleted)
+                {
+                    return NoContent();
+                } 
+            }
+            return Unauthorized("You can't update this recipe");
+        }
         return NotFound("Recipe not found");
     }
     
