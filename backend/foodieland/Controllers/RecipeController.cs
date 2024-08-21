@@ -392,13 +392,18 @@ public class RecipeController : ControllerBase
     [HttpPatch("/recipes/{recipeId}/publish")]
     public async Task<IActionResult> Publish([FromRoute] Guid recipeId)
     {
-        (bool isPublished, string[]? errors) = await _repository.Publish(recipeId);
-        if (!isPublished)
+        (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
+        if (recipeExists)
         {
-            return BadRequest(errors);
-        }
+            (bool isPublished, string[]? errors) = await _repository.Publish(recipe!);
+            if (!isPublished)
+            {
+                return BadRequest(errors);
+            }
 
-        return NoContent();
+            return NoContent();
+        }
+        return NotFound("Recipe not found");
     }
     
     [Authorize]
