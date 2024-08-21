@@ -320,7 +320,6 @@ public class RecipeController : ControllerBase
         return BadRequest(ModelState);
     }
     
-    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPut("recipes/{recipeId}/changeIngredients")]
     public async Task<IActionResult> ChangeIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> changedIngredients, [FromHeader] string? authorizationHeader)
@@ -392,18 +391,26 @@ public class RecipeController : ControllerBase
         return NoContent();
     }
     
-    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPatch("/recipes/{recipeId}/hide")]
-    public async Task<IActionResult> Hide([FromRoute] Guid recipeId, [FromHeader] string? authorizationHeader)
+    public async Task<IActionResult> Hide([FromRoute] Guid recipeId, [FromHeader] string authorizationHeader)
     {
-        (bool isHidden, string? error) = await _repository.Hide(recipeId);
-        if (!isHidden)
+        (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
+        if (recipeExists)
         {
-            return BadRequest(error);
-        }
+            if (await IsUserAuthorizedToModifyRecipe(recipe!, authorizationHeader))
+            {
+                (bool isHidden, string? error) = await _repository.Hide(recipe!);
+                if (!isHidden)
+                {
+                    return BadRequest(error);
+                }
 
-        return NoContent();
+                return NoContent();
+            }
+            return Unauthorized("You can't update this recipe");
+        }
+        return NotFound("Recipe not found");
     }
 
     [Authorize(Roles = "Admin")]
