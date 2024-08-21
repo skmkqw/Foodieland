@@ -56,5 +56,5 @@ public interface IRecipeRepository
 
     public Task<bool> RemoveFeatured(Guid recipeId);
 
-    public Task<bool> Delete(Guid recipeId);
+    public Task<bool> Delete(Recipe recipe);
 }

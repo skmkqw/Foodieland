@@ -58,14 +58,8 @@ public partial class RecipeRepository : IRecipeRepository
         return recipe;
     }
 
-    public async Task<bool> Delete(Guid recipeId)
+    public async Task<bool> Delete(Recipe recipe)
     {
-        var recipe = await _context.Recipes.FindAsync(recipeId);
-        if (recipe == null)
-        {
-            return false;
-        }
-
         _context.Recipes.Remove(recipe);
         await _context.SaveChangesAsync();
         return true;
