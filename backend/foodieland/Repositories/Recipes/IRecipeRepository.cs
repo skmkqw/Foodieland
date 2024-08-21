@@ -26,7 +26,7 @@ public interface IRecipeRepository
 
     public Task<(NutritionInformation? nutritionInformation, string? error)> AddNutritionInformation(Recipe recipe, AddOrUpdateNutritionDto addNutritionInfoDto);
 
-    public Task<NutritionInformation> ChangeNutritionInformation(Guid nutritionId, AddOrUpdateNutritionDto addNutritionInfoDto);
+    public Task<NutritionInformation> ChangeNutritionInformation(NutritionInformation nutritionInformation, AddOrUpdateNutritionDto addNutritionInfoDto);
 
     public Task<List<CookingDirection>?> GetCookingDirections(Guid recipeId);
 

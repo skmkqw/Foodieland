@@ -34,9 +34,8 @@ public partial class RecipeRepository
         return (createdInfo.Entity, null);
     }
 
-    public async Task<NutritionInformation> ChangeNutritionInformation(Guid nutritionId, AddOrUpdateNutritionDto updateNutritionInfoDto)
+    public async Task<NutritionInformation> ChangeNutritionInformation(NutritionInformation nutritionInformation, AddOrUpdateNutritionDto updateNutritionInfoDto)
     {
-        NutritionInformation nutritionInformation = (await _context.NutritionInformation.FindAsync(nutritionId))!;
         _context.Entry(nutritionInformation).CurrentValues.SetValues(updateNutritionInfoDto);
         await _context.SaveChangesAsync();
         return nutritionInformation;
