@@ -292,24 +292,31 @@ public class RecipeController : ControllerBase
         return BadRequest(ModelState);
     }
     
-    //TODO Check if requesting user is a creator of a recipe
     [Authorize]
     [HttpPost("/recipes/{recipeId}/addIngredients")]
-    public async Task<IActionResult> AddIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> ingredientDtos, [FromHeader] string? authorizationHeader)
+    public async Task<IActionResult> AddIngredients([FromRoute] Guid recipeId, [FromBody] List<AddOrUpdateIngredientDto> ingredientDtos, [FromHeader] string authorizationHeader)
     {
         if (ModelState.IsValid)
         {
-            try
+            (bool recipeExists, Recipe? recipe) = await TryGetRecipeAsync(recipeId);
+            if (recipeExists)
             {
-                var ingredients = await _repository.AddIngredients(recipeId, ingredientDtos);
-                return Ok(ingredients.Select(i => i.ToIngredientDto()));
+                if (await IsUserAuthorizedToModifyRecipe(recipe!, authorizationHeader))
+                {
+                    try
+                    {
+                        var ingredients = await _repository.AddIngredients(recipe!, ingredientDtos);
+                        return Ok(ingredients.Select(i => i.ToIngredientDto()));
+                    }
+                    catch (Exception e)
+                    {
+                        return BadRequest(e.Message);
+                    }
+                }
+                return Unauthorized("You can't update this recipe");
             }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            return NotFound("Recipe not found");
         }
-
         return BadRequest(ModelState);
     }
     
