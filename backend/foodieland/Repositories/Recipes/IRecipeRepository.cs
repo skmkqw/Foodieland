@@ -32,7 +32,7 @@ public interface IRecipeRepository
 
     public Task<List<CookingDirection>> AddCookingDirections(Recipe recipe, List<CookingDirection> cookingDirections);
 
-    public Task<List<CookingDirection>> ChangeCookingDirections(Guid recipeId, List<AddOrUpdateCookingDirectionDto> changedCookingDirections);
+    public Task<List<CookingDirection>> ChangeCookingDirections(Recipe recipe, List<AddOrUpdateCookingDirectionDto> changedCookingDirections);
 
     public Task<List<IngredientQuantity>?> GetIngredients(Guid recipeId);
     

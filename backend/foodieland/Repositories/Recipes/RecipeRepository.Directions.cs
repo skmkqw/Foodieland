@@ -41,7 +41,7 @@ public partial class RecipeRepository
         }
     }
 
-    public async Task<List<CookingDirection>> ChangeCookingDirections(Guid recipeId, List<AddOrUpdateCookingDirectionDto> changedCookingDirections)
+    public async Task<List<CookingDirection>> ChangeCookingDirections(Recipe recipe, List<AddOrUpdateCookingDirectionDto> changedCookingDirections)
     {
         await using var transaction = await _context.Database.BeginTransactionAsync();
         try
@@ -50,15 +50,10 @@ public partial class RecipeRepository
             {
                 throw new ArgumentException("New directions list must contain at least 1 direction");
             }
-            var recipe = await _context.Recipes.Include(r => r.Directions).FirstOrDefaultAsync(r => r.Id == recipeId);
-            if (recipe == null)
-            {
-                throw new Exception("Recipe not found");
-            }
 
-            var directions = recipe.Directions;
-
-            if (directions.Count == 0)
+            var directions = await GetCookingDirections(recipe.Id);
+            
+            if (directions == null || directions.Count == 0)
             {
                 throw new Exception("Recipe has no cooking directions");
             }
@@ -72,7 +67,7 @@ public partial class RecipeRepository
                 }
                 else
                 {
-                    var newDirection = changedCookingDirections[i].ToCookingDirection(recipeId);
+                    var newDirection = changedCookingDirections[i].ToCookingDirection(recipe.Id);
                     directions.Add(newDirection);
                     await _context.CookingDirections.AddAsync(newDirection);
                 }
