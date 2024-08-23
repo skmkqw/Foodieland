@@ -27,6 +27,8 @@ export async function login(prevState: PrevStateErrors | undefined, formData: Fo
         };
     }
 
+    let roles: Array<string> | string;
+
     try {
         const response = await axiosInstance.post("/account/login", parsedData.data);
 
@@ -34,11 +36,7 @@ export async function login(prevState: PrevStateErrors | undefined, formData: Fo
 
         const userData = decodeToken(response.data.token);
 
-        if (userData.roles.includes("admin")) {
-            redirect("/admin");
-        } else {
-            redirect("/");
-        }
+        roles = userData.roles;
 
     } catch (error: any) {
         if (error.response && error.response.status === 400) {
@@ -48,12 +46,19 @@ export async function login(prevState: PrevStateErrors | undefined, formData: Fo
                 }
             };
         } else {
+            console.error(error);
             return {
                 errors: {
                     general: "An unexpected error occurred. Please try again later."
                 }
             };
         }
+    }
+
+    if (Array.isArray(roles) && roles.includes("Admin")) {
+        redirect("/admin");
+    } else {
+        redirect("/");
     }
 }
 

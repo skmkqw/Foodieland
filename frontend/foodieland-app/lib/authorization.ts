@@ -1,15 +1,13 @@
 import { jwtDecode } from "jwt-decode";
 import { getSession } from "@/lib/session";
 
-export function decodeToken(token: string): { unique_name: string; email: string; roles: string[] } {
-    const decoded: { unique_name: string; email: string; roles: string | string[] } = jwtDecode(token);
-
-    const roles = Array.isArray(decoded.roles) ? decoded.roles : [decoded.roles];
+export function decodeToken(token: string): { unique_name: string; email: string; roles: string[] | string } {
+    const decoded: { unique_name: string; email: string; role: string | string[] } = jwtDecode(token);
 
     return {
         unique_name: decoded.unique_name,
         email: decoded.email,
-        roles: roles
+        roles: decoded.role
     };
 }
 export async function getUserData() {
