@@ -73,7 +73,7 @@ public class AccountController(UserManager<AppUser> userManager, IConfiguration 
     }
 }
 
-public class TokenGenerator
+public static class TokenGenerator
 {
     public static string? GenerateToken(AppUser user, IList<string> roles, IConfiguration configuration)
     {
@@ -91,9 +91,9 @@ public class TokenGenerator
         
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            new (ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+            new (ClaimTypes.Email, user.Email!),
+            new (ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
