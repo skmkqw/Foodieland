@@ -66,7 +66,7 @@ public class RecipeController : ControllerBase
 
         _logger.LogInformation("User {UserId} found. Fetching liked recipes", user.Id);
 
-        var likedRecipes = await _repository.GetLikedRecipesByUser(user.Id);
+        var likedRecipes = await _repository.GetLikesByUser(user.Id);
         var likedRecipeIds = new HashSet<Guid>(likedRecipes.Select(lr => lr.RecipeId));
         var responseData = recipes
             .Select(recipe => recipe.ToShortRecipeDto(isLiked: likedRecipeIds.Contains(recipe.Id)))
@@ -87,6 +87,30 @@ public class RecipeController : ControllerBase
         var responseData = featuredRecipes.Select(r => r.ToFeaturedDto()).ToList();
         _logger.LogInformation("Returning {ResponseDataCount} featured recipe summaries", responseData.Count);
 
+        return Ok(responseData);
+    }
+
+    [Authorize]
+    [HttpGet("recipes/liked")]
+    public async Task<IActionResult> GetLiked([FromHeader(Name = "Authorization")] string authorizationHeader, 
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
+    {
+        _logger.LogInformation("Fetching liked recipes");
+        
+        var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
+        if (user == null)
+        {
+            _logger.LogWarning("No user found in authorization header");
+            return Unauthorized("Failed to determine users identity");
+        }
+        
+        var likedRecipes = await _repository.GetLikedRecipes(user.Id, page, pageSize);
+        _logger.LogInformation("Fetched {RecipeCount} liked recipes", likedRecipes.Count);
+        
+        var responseData = likedRecipes.Select(r => r.ToShortRecipeDto(true)).ToList();
+        _logger.LogInformation("Returning {ResponseDataCount} liked recipe summaries", responseData.Count);
+        
         return Ok(responseData);
     }
 
