@@ -10,6 +10,10 @@ export default async function RecipesSection() {
         <Error errorMessage="Oops! An unexpected error occurred while fetching recipes. Please try again later." />
     );
 
+    if (recipes.length === 0) return (
+        <Error errorMessage="Oops! There are no recipes available for now. Please try again later." />
+    );
+
     return (
         <Container className="w-full flex flex-col items-center gap-10 text-center">
             <Title text="Simple and tasty recipes" />
