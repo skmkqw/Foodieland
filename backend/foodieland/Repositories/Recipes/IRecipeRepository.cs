@@ -13,6 +13,8 @@ public interface IRecipeRepository
     public Task<List<Recipe>> GetAllPublished(int page, int pageSize);
 
     public Task<List<Recipe>> GetFeatured();
+    
+    public Task<List<Recipe>> GetLikedRecipes(Guid userId, int page, int pageSize);
 
     public Task<Recipe?> GetById(Guid id);
 
@@ -46,7 +48,7 @@ public interface IRecipeRepository
     
     public Task<bool> IsLikedByUser(Guid recipeId, Guid userId);
 
-    public Task<List<LikedRecipe>> GetLikedRecipesByUser(Guid userId);
+    public Task<List<LikedRecipe>> GetLikesByUser(Guid userId);
 
     public Task<(bool isPublished, string[]? errors)> Publish(Recipe recipe);
     
