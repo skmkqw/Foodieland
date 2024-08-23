@@ -13,6 +13,8 @@ public interface IRecipeRepository
     public Task<List<Recipe>> GetAllPublished(int page, int pageSize);
 
     public Task<List<Recipe>> GetFeatured();
+    
+    public Task<List<Recipe>> GetLiked(Guid userId, int page, int pageSize);
 
     public Task<Recipe?> GetById(Guid id);
 
