@@ -5,7 +5,7 @@ namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {
-    public async Task<List<Recipe>> GetLiked(Guid userId, int page, int pageSize)
+    public async Task<List<Recipe>> GetLikedRecipes(Guid userId, int page, int pageSize)
     {
         return await _context.LikedRecipes
             .Include(l => l.Recipe)
@@ -44,7 +44,7 @@ public partial class RecipeRepository
             .AnyAsync(l => l.UserId == userId && l.RecipeId == recipeId);
     }
     
-    public async Task<List<LikedRecipe>> GetLikedRecipesByUser(Guid userId)
+    public async Task<List<LikedRecipe>> GetLikesByUser(Guid userId)
     {
         return await _context.LikedRecipes.Where(lr => lr.UserId == userId).ToListAsync();
     }
