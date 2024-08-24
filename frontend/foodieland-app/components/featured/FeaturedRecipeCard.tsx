@@ -38,7 +38,7 @@ export default function FeaturedRecipeCard({ featuredRecipe }: { featuredRecipe:
                     <div className="flex flex-col gap-6 base:flex-row base:justify-between items-center w-full">
                         <CreatorInfo creationDate={featuredRecipe.recipe.creationDate} creator={featuredRecipe.creator} />
                         <LinkButton
-                            url={`/recipe/${featuredRecipe.recipe.id}`}
+                            url={`/recipes/${featuredRecipe.recipe.id}`}
                             buttonText="View Recipe"
                             children={<CircleArrowRight color="#f8f1f1" size={20} />}
                         />
