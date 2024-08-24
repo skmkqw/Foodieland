@@ -29,6 +29,7 @@ import IngredientList from "@/components/ingredients/IngredientList";
 import IngredientItem from "@/components/ingredients/IngredientItem";
 import RegisterForm from "@/components/forms/RegisterForm";
 import CategoryCard from "@/components/categories/CategoryCard";
+import FilterItem from "@/components/layout/filters/FilterItem";
 import CategoriesSection from "@/components/categories/CategoriesSection";
 import DirectionsSection from "@/components/directions/DirectionsSection";
 import IngredientsSection from "@/components/ingredients/IngredientsSection";
@@ -65,6 +66,7 @@ export {
     NutritionInformationCard,
     RecipesSection,
     Footer,
+    FilterItem,
     Inbox,
     DirectionItem,
     CheckButton,
