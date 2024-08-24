@@ -74,15 +74,23 @@ public static class RecipeMapper
     {
         return new FeaturedRecipeDto()
         {
-            Id = recipe.Id.ToString(),
-            Name = recipe.Name,
-            Description = recipe.Description,
-            TimeToCook = recipe.TimeToCook,
-            Category = recipe.Category.ToString(),
-            CreatorName = $"{recipe.Creator.FirstName} {recipe.Creator.LastName}",
-            CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy"),
-            ImageData = ImageConverter.ConvertByteArrayToBase64String(recipe.ImageData),
-            UserImage = ImageConverter.ConvertByteArrayToBase64String(recipe.Creator.ProfileImage)
+            Recipe = new RecipeDetailsDto()
+            {
+                Id = recipe.Id,
+                Name = recipe.Name,
+                Description = recipe.Description,
+                Category = recipe.Category,
+                TimeToCook = recipe.TimeToCook,
+                CreationDate = recipe.CreationDate.ToString("dd MMM, yyyy"),
+                ImageData = ImageConverter.ConvertByteArrayToBase64String(recipe.ImageData),
+                IsLiked = false,
+            },
+            Creator = new RecipeCreatorDto()
+            {
+                CreatorId = recipe.CreatorId,
+                CreatorName = recipe.Creator.FirstName + " " + recipe.Creator.LastName,
+                UserImage = ImageConverter.ConvertByteArrayToBase64String(recipe.Creator.ProfileImage),
+            }
         };
     }
 }
