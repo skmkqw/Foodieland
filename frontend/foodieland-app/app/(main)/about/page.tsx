@@ -1,4 +1,5 @@
-import { Container, Description, Inbox, Title } from "@/components";
+import { Container, Description, Error, Inbox, RecipeCard, Title } from "@/components";
+import { fetchRecipes } from "@/actions/recipes";
 
 const articleContent = [
     {
@@ -24,9 +25,9 @@ export default async function AboutPage() {
     return (
         <Container className="w-full flex flex-col items-center gap-20 py-10 text-center">
             <div className="flex flex-col items-center gap-10">
-                <Title text="What is Foodieland?" className="text-6xl" />
+                <Title text="What is Foodieland?" className="text-5xl md:text-6xl" />
                 {articleContent.map((item, idx) => (
-                    <div className="flex flex-col items-center gap-6 max-w-6xl bg-primary rounded-3xl p-10" key={idx}>
+                    <div className="flex flex-col items-center gap-6 max-w-6xl border-primary border-4 rounded-3xl p-10 shadow-[0_3px_10px_rgb(0,0,0,0.2)]" key={idx}>
                         <Title text={item.title} className="text-3xl" />
                         <Description text={item.description} className="text-xl" />
                     </div>
