@@ -55,3 +55,8 @@ export const shortRecipeSchema = z.object({
     isLiked: z.boolean(),
     imageData: z.string().nullable()
 });
+
+export const featuredRecipeSchema = z.object({
+    recipe: recipeSchema,
+    creator: recipeCreatorSchema
+})
