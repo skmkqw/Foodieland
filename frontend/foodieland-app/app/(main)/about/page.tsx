@@ -19,7 +19,8 @@ const articleContent = [
     },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+    const recipes = await fetchRecipes(3);
     return (
         <Container className="w-full flex flex-col items-center gap-20 py-10 text-center">
             <div className="flex flex-col items-center gap-10">
@@ -30,6 +31,17 @@ export default function AboutPage() {
                         <Description text={item.description} className="text-xl" />
                     </div>
                 ))}
+            </div>
+            <div>
+                <Title text="Check out some delicious recipes" className="text-4xl" />
+                {recipes && recipes.length != 0 ?
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
+                        {recipes.map((recipe, idx) => (
+                            <RecipeCard recipe={recipe} key={idx} />
+                        ))}
+                    </div>
+                    : <Error errorMessage="Oops! An unexpected error occurred while fetching recipes. Please try again later." className="mt-10"/>
+                }
             </div>
             <Inbox />
         </Container>
