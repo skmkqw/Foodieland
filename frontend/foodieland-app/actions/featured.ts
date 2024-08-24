@@ -2,8 +2,8 @@
 
 import { z } from "zod";
 import { axiosInstance } from "@/lib/axios";
-import { featuredRecipeSchema } from "@/schemas/featuredRecipe";
 import { FeaturedRecipe } from "@/types";
+import { featuredRecipeSchema } from "@/schemas/recipes";
 
 const featuredRecipesSchema = z.array(featuredRecipeSchema);
 

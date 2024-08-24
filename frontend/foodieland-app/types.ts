@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { shortRecipeSchema } from "@/schemas/shortRecipe";
+import { shortRecipeSchema } from "@/schemas/recipes";
 
 export type RecipeShort = z.infer<typeof shortRecipeSchema>;
 
