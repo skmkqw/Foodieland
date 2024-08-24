@@ -38,6 +38,7 @@ import FeaturedSlider from "@/components/featured/FeaturedSlider";
 import FilterGroup from "@/components/layout/filters/FilterGroup";
 import FeaturedSection from "@/components/featured/FeaturedSection";
 import RecipeSectionSkeleton from "@/components/recipes/RecipeSectionSkeleton";
+import FilterSidebar from "@/components/layout/filters/FilterSidebar";
 import FeaturedRecipeCard from "@/components/featured/FeaturedRecipeCard";
 import { NutritionInformationCard } from "@/components/recipes/NutritionInformationCard";
 import FeaturedRecipeSkeleton from "@/components/featured/FeaturedRecipeSkeleton";
@@ -63,6 +64,7 @@ export {
     FeaturedSlider,
     FeaturedSection,
     FeaturedRecipeSkeleton,
+    FilterSidebar,
     CategoriesSection,
     CategoryCard,
     NutritionInformationCard,
