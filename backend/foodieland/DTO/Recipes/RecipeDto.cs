@@ -5,35 +5,6 @@ using foodieland.Models;
 
 namespace foodieland.DTO.Recipes;
 
-public class RecipeCreatorDto
-{
-    public Guid CreatorId { get; set; }
-
-    public string CreatorName { get; set; }
-
-    public string? UserImage { get; set; }
-}
-
-public class RecipeDetailsDto
-{
-    public Guid Id { get; set; }
-    
-    public string Name { get; set; } = string.Empty;
-    
-    public string Description { get; set; } = string.Empty;
-    
-    public uint TimeToCook { get; set; }
-
-    public RecipeCategories Category { get; set; }
-    
-    public string CreationDate { get; set; } 
-    
-    public string? ImageData { get; set; }
-    
-    public bool IsLiked { get; set; }
-}
-
-
 public class RecipeDto
 {
     public RecipeDetailsDto Recipe { get; set; }
