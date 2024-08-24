@@ -3,11 +3,7 @@ import Image from "next/image";
 import { CircleArrowRight } from "lucide-react";
 import { FeaturedRecipe } from "@/types";
 
-export default function FeaturedRecipeCard({ recipe }: { recipe: FeaturedRecipe }) {
-    const creator = {
-        creatorName: recipe.creatorName,
-        userImage: recipe.userImage
-    }
+export default function FeaturedRecipeCard({ featuredRecipe }: { featuredRecipe: FeaturedRecipe }) {
     return (
         <Container className="h-full">
             <div
@@ -23,26 +19,26 @@ export default function FeaturedRecipeCard({ recipe }: { recipe: FeaturedRecipe 
                         </div>
                         <div className="flex flex-col gap-6 md:gap-10">
                             <div
-                                className="font-semibold text-4xl base:text-5xl md:text-[64px] leading-none">{recipe.name}</div>
-                            <div className="leading-7 text-lg">{recipe.description}</div>
+                                className="font-semibold text-4xl base:text-5xl md:text-[64px] leading-none">{featuredRecipe.recipe.name}</div>
+                            <div className="leading-7 text-lg">{featuredRecipe.recipe.description}</div>
                             <div className="flex flex-col xs:flex-row justify-center base:justify-start gap-4">
                                 <div
                                     className="bg-black bg-opacity-5 py-3 px-5 rounded-full flex gap-4 items-center justify-center xs:justify-start">
                                     <Image src="/timer.svg" alt="Timer" width={24} height={24} />
-                                    {recipe.timeToCook} Minutes
+                                    {featuredRecipe.recipe.timeToCook} Minutes
                                 </div>
                                 <div
                                     className="bg-black bg-opacity-5 p-3 rounded-full flex gap-4 items-center justify-center xs:justify-start">
                                     <Image src="/fork-knife.svg" alt="Fork & Knife" width={24} height={24} />
-                                    {recipe.category}
+                                    {featuredRecipe.recipe.category}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="flex flex-col gap-6 base:flex-row base:justify-between items-center w-full">
-                        <CreatorInfo creationDate={recipe.creationDate} creator={creator} />
+                        <CreatorInfo creationDate={featuredRecipe.recipe.creationDate} creator={featuredRecipe.creator} />
                         <LinkButton
-                            url={`/recipe/${recipe.id}`}
+                            url={`/recipe/${featuredRecipe.recipe.id}`}
                             buttonText="View Recipe"
                             children={<CircleArrowRight color="#f8f1f1" size={20} />}
                         />
@@ -51,7 +47,7 @@ export default function FeaturedRecipeCard({ recipe }: { recipe: FeaturedRecipe 
                 </div>
                 <div className="h-full p-4 sm:p-6 base:p-8 md:p-10 lg:p-0 lg:flex-1/2">
                     <Image
-                        src={recipe.imageData ? `data:image/jpeg;base64,${recipe.imageData}` : "/recipe-placeholder.avif"}
+                        src={featuredRecipe.recipe.imageData ? `data:image/jpeg;base64,${featuredRecipe.recipe.imageData}` : "/recipe-placeholder.avif"}
                         alt="Featured Recipe"
                         height={1500}
                         width={1500}

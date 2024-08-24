@@ -78,7 +78,7 @@ export default function FeaturedSlider({ recipes }: { recipes: Array<FeaturedRec
             >
                 {recipes.map((recipe, idx) => (
                     <div key={idx} className="flex-shrink-0 w-full">
-                        <FeaturedRecipeCard recipe={recipe} />
+                        <FeaturedRecipeCard featuredRecipe={recipe} />
                     </div>
                 ))}
             </div>

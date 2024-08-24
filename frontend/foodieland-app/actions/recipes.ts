@@ -4,8 +4,7 @@ import { getSession } from "@/lib/session";
 import { RecipeExtended, RecipeShort } from "@/types";
 import { z } from "zod";
 import { axiosInstance } from "@/lib/axios";
-import { shortRecipeSchema } from "@/schemas/shortRecipe";
-import { recipeExtendedSchema } from "@/schemas/extendedRecipe";
+import { recipeExtendedSchema, shortRecipeSchema } from "@/schemas/recipes";
 
 const recipeSchemaArray = z.array(shortRecipeSchema);
 
