@@ -1,10 +1,12 @@
 import { z } from "zod";
-import { featuredRecipeSchema } from "@/schemas/featuredRecipe";
 import { shortRecipeSchema } from "@/schemas/shortRecipe";
 
-export type FeaturedRecipe = z.infer<typeof featuredRecipeSchema>;
-
 export type RecipeShort = z.infer<typeof shortRecipeSchema>;
+
+export type FeaturedRecipe = {
+    recipe: Recipe,
+    creator: RecipeCreator
+}
 
 export type Recipe = {
     id: string,
