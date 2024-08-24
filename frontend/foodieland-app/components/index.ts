@@ -35,6 +35,7 @@ import DirectionsSection from "@/components/directions/DirectionsSection";
 import IngredientsSection from "@/components/ingredients/IngredientsSection";
 import RecipeCardSkeleton from "@/components/recipes/RecipeCardSkeleton";
 import FeaturedSlider from "@/components/featured/FeaturedSlider";
+import FilterGroup from "@/components/layout/filters/FilterGroup";
 import FeaturedSection from "@/components/featured/FeaturedSection";
 import RecipeSectionSkeleton from "@/components/recipes/RecipeSectionSkeleton";
 import FeaturedRecipeCard from "@/components/featured/FeaturedRecipeCard";
@@ -52,6 +53,7 @@ export {
     InputGroup,
     NavLinks,
     NavBar,
+    FilterGroup,
     Header,
     Title,
     MenuButton,
