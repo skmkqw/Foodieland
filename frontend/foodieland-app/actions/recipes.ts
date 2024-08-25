@@ -5,6 +5,7 @@ import { RecipeExtended, RecipeShort } from "@/types";
 import { z } from "zod";
 import { axiosInstance } from "@/lib/axios";
 import { recipeExtendedSchema, shortRecipeSchema } from "@/schemas/recipes";
+import { revalidatePath } from "next/cache";
 
 const recipeSchemaArray = z.array(shortRecipeSchema);
 
@@ -44,6 +45,8 @@ export const likeRecipe = async (recipeId: string): Promise<boolean> => {
             }
         });
 
+        revalidatePath("/favourite");
+
         return true;
     } catch (error) {
         console.error("Error liking recipe:", error);
@@ -65,6 +68,8 @@ export const unlikeRecipe = async (recipeId: string): Promise<boolean> => {
                 Authorization: `Bearer ${session}`
             }
         });
+
+        revalidatePath("/favourite");
 
         return true;
     } catch (error) {
@@ -106,8 +111,6 @@ export const fetchLikedRecipes = async (amount: number): Promise<RecipeShort[] |
             console.error("Invalid data structure:", parsedData.error);
             return;
         }
-
-        console.log(parsedData.data);
 
         return parsedData.data;
     } catch (error) {
