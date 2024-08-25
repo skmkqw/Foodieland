@@ -49,6 +49,15 @@ export default function FilterSidebar({ categories, className }: { categories: A
         }));
     };
 
+    const clearFilters = () => {
+        setTimeRangeFilterActive(false);
+        setCategoryFilterActive(false);
+        Object.keys(selectedCategories).forEach(category => {
+            setSelectedCategories(prev => ({ ...prev, [category]: false }));
+        });
+        router.push("/recipes/favourite");
+    }
+
     return (
         <div
             className={`${className} flex flex-col border-primary border-4 rounded-3xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-4 lg:p-6`}>
@@ -107,6 +116,7 @@ export default function FilterSidebar({ categories, className }: { categories: A
                         </div>
                     </div>
                 </div>
+                <Button type="button" text="Clear Filters" handleClick={clearFilters}/>
             </div>
         </div>);
 }
