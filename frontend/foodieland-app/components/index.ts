@@ -34,6 +34,7 @@ import DirectionsSection from "@/components/directions/DirectionsSection";
 import IngredientsSection from "@/components/ingredients/IngredientsSection";
 import RecipeCardSkeleton from "@/components/recipes/RecipeCardSkeleton";
 import FeaturedSlider from "@/components/featured/FeaturedSlider";
+import RecipeGrid from "@/components/recipes/RecipeGrid";
 import FeaturedSection from "@/components/featured/FeaturedSection";
 import RecipeSectionSkeleton from "@/components/recipes/RecipeSectionSkeleton";
 import FilterSidebar from "@/components/layout/FilterSidebar";
@@ -70,6 +71,7 @@ export {
     Inbox,
     DirectionItem,
     CheckButton,
+    RecipeGrid,
     IngredientItem,
     CreatorInfo,
     Description,
