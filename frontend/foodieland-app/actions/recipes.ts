@@ -92,3 +92,25 @@ export const fetchRecipe = async (recipeId: string): Promise<RecipeExtended | un
         console.error("Error fetching recipes:", error);
     }
 }
+
+export const fetchLikedRecipes = async (amount: number): Promise<RecipeShort[] | undefined> => {
+    const session = await getSession();
+    try {
+        const response = await axiosInstance.get("/recipes/liked", {
+            headers: session ? { Authorization: `Bearer ${session}` } : undefined
+        });
+
+        const parsedData = recipeSchemaArray.safeParse(response.data);
+
+        if (!parsedData.success) {
+            console.error("Invalid data structure:", parsedData.error);
+            return;
+        }
+
+        console.log(parsedData.data);
+
+        return parsedData.data;
+    } catch (error) {
+        console.error("Error fetching recipes:", error);
+    }
+}
