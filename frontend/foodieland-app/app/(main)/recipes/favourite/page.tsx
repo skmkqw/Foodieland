@@ -17,11 +17,10 @@ export default async function FavouritePage() {
 
     const recipes = await fetchLikedRecipes(4);
 
-    //TODO responsive design
     return (
         <Container className="w-full py-10">
-            <Title text="Recipes that bring happiness to your table ❤️" className="text-4xl" />
-            <div className="grid grid-cols-5 mt-10 gap-6">
+            <Title text="Recipes that bring happiness to your table ❤️" className="text-4xl lg:text-start text-center" />
+            <div className="flex flex-col lg:grid lg:grid-cols-5 mt-10 gap-6">
                 <FilterSidebar className="col-span-1" groups={filterGroups} />
                 <div className="col-span-4">
                     {recipes && recipes.length != 0 ?
