@@ -1,5 +1,5 @@
 import { Container, Error, FilterSidebar, RecipeCard, Title } from "@/components";
-import { fetchRecipes } from "@/actions/recipes";
+import { fetchLikedRecipes } from "@/actions/recipes";
 
 const filterGroups = [
     {
@@ -15,8 +15,7 @@ const filterGroups = [
 export default async function FavouritePage() {
     //TODO protect route
 
-    //TODO fetch liked recipes instead of all recipes
-    const recipes = await fetchRecipes(6);
+    const recipes = await fetchLikedRecipes(4);
 
     //TODO responsive design
     return (
