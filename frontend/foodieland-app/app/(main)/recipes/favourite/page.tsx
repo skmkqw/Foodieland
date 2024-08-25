@@ -1,21 +1,23 @@
 import { Container, Error, FilterSidebar, RecipeCard, Title } from "@/components";
 import { fetchLikedRecipes } from "@/actions/recipes";
 
-const filterGroups = [
-    {
-        groupName: "Categories",
-        filterNames: ["Luch", "Dinner", "Vegan", "Seafood"]
-    },
-    {
-        groupName: "Cooking time",
-        filterNames: ["< 5 min", "5-15 min", "15-30 min", "45+ min"]
-    }
-];
-
 export default async function FavouritePage() {
     //TODO protect route
 
     const recipes = await fetchLikedRecipes(4);
+
+    const categories = recipes ? Array.from(new Set(recipes.map(recipe => recipe.category))) : [];
+
+    const filterGroups = [
+        {
+            groupName: "Categories",
+            filterNames: categories, 
+        },
+        {
+            groupName: "Cooking time",
+            filterNames: ["< 5 min", "5-15 min", "15-30 min", "45+ min"]
+        }
+    ];
 
     return (
         <Container className="w-full py-10">
