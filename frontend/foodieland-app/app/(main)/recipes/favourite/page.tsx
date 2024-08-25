@@ -2,8 +2,6 @@ import { Container, Error, FilterSidebar, RecipeCard, Title } from "@/components
 import { fetchLikedRecipes } from "@/actions/recipes";
 
 export default async function FavouritePage() {
-    //TODO protect route
-
     const recipes = await fetchLikedRecipes(4);
 
     const categories = recipes ? Array.from(new Set(recipes.map(recipe => recipe.category))) : [];
@@ -11,7 +9,7 @@ export default async function FavouritePage() {
     const filterGroups = [
         {
             groupName: "Categories",
-            filterNames: categories, 
+            filterNames: categories,
         },
         {
             groupName: "Cooking time",
