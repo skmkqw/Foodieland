@@ -29,16 +29,14 @@ import IngredientList from "@/components/ingredients/IngredientList";
 import IngredientItem from "@/components/ingredients/IngredientItem";
 import RegisterForm from "@/components/forms/RegisterForm";
 import CategoryCard from "@/components/categories/CategoryCard";
-import FilterItem from "@/components/layout/filters/FilterItem";
 import CategoriesSection from "@/components/categories/CategoriesSection";
 import DirectionsSection from "@/components/directions/DirectionsSection";
 import IngredientsSection from "@/components/ingredients/IngredientsSection";
 import RecipeCardSkeleton from "@/components/recipes/RecipeCardSkeleton";
 import FeaturedSlider from "@/components/featured/FeaturedSlider";
-import FilterGroup from "@/components/layout/filters/FilterGroup";
 import FeaturedSection from "@/components/featured/FeaturedSection";
 import RecipeSectionSkeleton from "@/components/recipes/RecipeSectionSkeleton";
-import FilterSidebar from "@/components/layout/filters/FilterSidebar";
+import FilterSidebar from "@/components/layout/FilterSidebar";
 import FeaturedRecipeCard from "@/components/featured/FeaturedRecipeCard";
 import { NutritionInformationCard } from "@/components/recipes/NutritionInformationCard";
 import FeaturedRecipeSkeleton from "@/components/featured/FeaturedRecipeSkeleton";
@@ -54,7 +52,6 @@ export {
     InputGroup,
     NavLinks,
     NavBar,
-    FilterGroup,
     Header,
     Title,
     MenuButton,
@@ -70,7 +67,6 @@ export {
     NutritionInformationCard,
     RecipesSection,
     Footer,
-    FilterItem,
     Inbox,
     DirectionItem,
     CheckButton,
