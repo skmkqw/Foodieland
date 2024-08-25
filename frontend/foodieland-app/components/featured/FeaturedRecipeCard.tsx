@@ -7,7 +7,7 @@ export default function FeaturedRecipeCard({ featuredRecipe }: { featuredRecipe:
     return (
         <Container className="h-full">
             <div
-                className="flex flex-col-reverse lg:flex-row rounded-3xl bg-primary lg:max-h-[640px] h-full cursor-pointer">
+                className="flex flex-col-reverse lg:flex-row rounded-3xl bg-primary h-full cursor-pointer">
                 <div
                     className="flex-1/2 flex flex-col justify-between gap-12 md:gap-24 py-6 md:py-12 px-4 sm:px-10">
                     <div
