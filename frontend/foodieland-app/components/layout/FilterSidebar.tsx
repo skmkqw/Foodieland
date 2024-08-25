@@ -2,21 +2,43 @@
 
 import { ChevronDown, Filter } from "lucide-react";
 import { CheckButton } from "@/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function FilterSidebar({ categories, className }: { categories: Array<string>, className?: string }) {
     const [isExpanded, setIsExpanded] = useState(true);
-    const [timeRange, setTimeRange] = useState({ from: '', to: '' });
+    const [timeRange, setTimeRange] = useState({ from: 1, to: 60 });
     const [selectedCategories, setSelectedCategories] = useState<Record<string, boolean>>({});
+    const [hasUserInteracted, setHasUserInteracted] = useState(false);
+    
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!hasUserInteracted) return;
+        const query = new URLSearchParams();
+
+        Object.keys(selectedCategories).forEach(category => {
+            if (selectedCategories[category]) {
+                query.append("categories", category);
+            }
+        });
+
+        if (timeRange.from) query.set("from", timeRange.from.toString());
+        if (timeRange.to) query.set("to", timeRange.to.toString());
+
+        router.push(`?${query.toString()}`);
+    }, [selectedCategories, timeRange, router]);
 
     const handleExpandToggle = () => setIsExpanded(prev => !prev);
 
     const handleTimeRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setHasUserInteracted(true);
         const { name, value } = e.target;
         setTimeRange(prev => ({ ...prev, [name]: value }));
     };
 
     const handleCategoryToggle = (category: string) => {
+        setHasUserInteracted(true);
         setSelectedCategories(prev => ({
             ...prev,
             [category]: !prev[category]
@@ -37,7 +59,8 @@ export default function FilterSidebar({ categories, className }: { categories: A
                     onClick={handleExpandToggle}
                 />
             </div>
-            <div className={`transition-[max-height] duration-500 ease-in-out overflow-hidden ${isExpanded ? "max-h-[1000px]" : "max-h-0"} lg:max-h-none`}>
+            <div
+                className={`transition-[max-height] duration-500 ease-in-out overflow-hidden ${isExpanded ? "max-h-[1000px]" : "max-h-0"} lg:max-h-none`}>
                 {/* Categories Group */}
                 <div className="flex flex-col py-6 border-t-2 border-t-gray-200">
                     <p className="text-xl font-semibold">Categories</p>
@@ -65,7 +88,7 @@ export default function FilterSidebar({ categories, className }: { categories: A
                                 value={timeRange.from}
                                 onChange={handleTimeRangeChange}
                                 placeholder="0"
-                                className="border rounded-md p-2"
+                                className="border rounded-xl p-2"
                             />
                         </div>
                         <div className="flex flex-col">
@@ -77,11 +100,11 @@ export default function FilterSidebar({ categories, className }: { categories: A
                                 value={timeRange.to}
                                 onChange={handleTimeRangeChange}
                                 placeholder="100"
-                                className="border rounded-md p-2"
+                                className="border rounded-xl p-2"
                             />
                         </div>
                     </div>
                 </div>
-        </div>
-    </div>);
+            </div>
+        </div>);
 }
