@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown, Filter } from "lucide-react";
-import { CheckButton } from "@/components";
+import { Button, CheckButton } from "@/components";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -9,22 +9,26 @@ export default function FilterSidebar({ categories, className }: { categories: A
     const [isExpanded, setIsExpanded] = useState(true);
     const [timeRange, setTimeRange] = useState({ from: 1, to: 60 });
     const [selectedCategories, setSelectedCategories] = useState<Record<string, boolean>>({});
-    const [hasUserInteracted, setHasUserInteracted] = useState(false);
-    
+
+    const [categoryFilterActive, setCategoryFilterActive] = useState(false);
+    const [timeRangeFilterActive, setTimeRangeFilterActive] = useState(false);
+
     const router = useRouter();
 
     useEffect(() => {
-        if (!hasUserInteracted) return;
+        if (!categoryFilterActive && !timeRangeFilterActive) return;
         const query = new URLSearchParams();
 
-        Object.keys(selectedCategories).forEach(category => {
+        categoryFilterActive && Object.keys(selectedCategories).forEach(category => {
             if (selectedCategories[category]) {
                 query.append("categories", category);
             }
         });
 
-        if (timeRange.from) query.set("from", timeRange.from.toString());
-        if (timeRange.to) query.set("to", timeRange.to.toString());
+        if (timeRangeFilterActive) {
+            if (timeRange.from) query.set("from", timeRange.from.toString());
+            if (timeRange.to) query.set("to", timeRange.to.toString());
+        }
 
         router.push(`?${query.toString()}`);
     }, [selectedCategories, timeRange, router]);
@@ -32,13 +36,13 @@ export default function FilterSidebar({ categories, className }: { categories: A
     const handleExpandToggle = () => setIsExpanded(prev => !prev);
 
     const handleTimeRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setHasUserInteracted(true);
+        setTimeRangeFilterActive(true);
         const { name, value } = e.target;
         setTimeRange(prev => ({ ...prev, [name]: value }));
     };
 
     const handleCategoryToggle = (category: string) => {
-        setHasUserInteracted(true);
+        setCategoryFilterActive(true);
         setSelectedCategories(prev => ({
             ...prev,
             [category]: !prev[category]
@@ -48,8 +52,7 @@ export default function FilterSidebar({ categories, className }: { categories: A
     return (
         <div
             className={`${className} flex flex-col border-primary border-4 rounded-3xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] p-4 lg:p-6`}>
-            <div
-                className={`flex items-center justify-between ${isExpanded ? "pb-4" : "pb-0"} lg:pb-4 transition-all duration-500`}>
+            <div className={`flex items-center justify-between ${isExpanded ? "pb-4" : "pb-0"} lg:pb-4 transition-all duration-500`}>
                 <div className="flex items-center gap-8">
                     <Filter />
                     <p className="text-2xl font-semibold">Filters</p>
@@ -59,8 +62,7 @@ export default function FilterSidebar({ categories, className }: { categories: A
                     onClick={handleExpandToggle}
                 />
             </div>
-            <div
-                className={`transition-[max-height] duration-500 ease-in-out overflow-hidden ${isExpanded ? "max-h-[1000px]" : "max-h-0"} lg:max-h-none`}>
+            <div className={`transition-[max-height] duration-500 ease-in-out overflow-hidden ${isExpanded ? "max-h-[1000px]" : "max-h-0"} lg:max-h-none`}>
                 {/* Categories Group */}
                 <div className="flex flex-col py-6 border-t-2 border-t-gray-200">
                     <p className="text-xl font-semibold">Categories</p>
@@ -70,7 +72,7 @@ export default function FilterSidebar({ categories, className }: { categories: A
                                 isChecked={selectedCategories[category]}
                                 onToggle={() => handleCategoryToggle(category)}
                             />
-                            <p className="text-lg font-medium mt-1">{category}</p>
+                            <p className={`${categoryFilterActive ? "text-black" : "text-gray-400"} text-lg font-medium mt-1 transition-all duration-500`}>{category}</p>
                         </div>
                     ))}
                 </div>
@@ -78,7 +80,7 @@ export default function FilterSidebar({ categories, className }: { categories: A
                 {/* Time Group */}
                 <div className="flex flex-col py-6 border-t-2 border-t-gray-200">
                     <p className="text-xl font-semibold">Cooking Time</p>
-                    <div className="flex flex-col gap-4 mt-4">
+                    <div className={`${timeRangeFilterActive ? "text-black" : "text-gray-400"} flex flex-col gap-4 mt-4 transition-all duration-500`}>
                         <div className="flex flex-col">
                             <label htmlFor="from" className="text-lg font-medium">From (min)</label>
                             <input
