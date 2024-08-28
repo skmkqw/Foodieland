@@ -15,6 +15,7 @@ import Description from "@/components/shared/Description";
 import CheckButton from "@/components/ui/CheckButton";
 import NavBar from "@/components/layout/header/NavBar";
 import Header from "@/components/layout/header/Header";
+import FavouriteSection from "@/components/recipes/FavouriteSection";
 import RecipeInfo from "@/components/recipes/RecipeInfo";
 import CreatorInfo from "@/components/shared/CreatorInfo";
 import NavLinks from "@/components/layout/header/NavLinks";
