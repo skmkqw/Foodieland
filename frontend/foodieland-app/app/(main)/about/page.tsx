@@ -33,10 +33,10 @@ export default async function AboutPage() {
                     </div>
                 ))}
             </div>
-            <div>
+            <div className="w-full">
                 <Title text="Check out some delicious recipes" className="text-4xl" />
                 {recipes && recipes.length != 0 ?
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
+                    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
                         {recipes.map((recipe, idx) => (
                             <RecipeCard recipe={recipe} key={idx} />
                         ))}
