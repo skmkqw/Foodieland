@@ -40,7 +40,7 @@ import FeaturedSlider from "@/components/featured/FeaturedSlider";
 import RecipeGrid from "@/components/recipes/RecipeGrid";
 import FeaturedSection from "@/components/featured/FeaturedSection";
 import RecipeSectionSkeleton from "@/components/recipes/RecipeSectionSkeleton";
-import FilterSidebar from "@/components/layout/FilterSidebar";
+import FilterSidebar from "@/components/shared/FilterSidebar";
 import FeaturedRecipeCard from "@/components/featured/FeaturedRecipeCard";
 import { NutritionInformationCard } from "@/components/recipes/NutritionInformationCard";
 import FeaturedRecipeSkeleton from "@/components/featured/FeaturedRecipeSkeleton";
