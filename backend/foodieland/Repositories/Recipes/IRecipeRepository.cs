@@ -14,7 +14,7 @@ public interface IRecipeRepository
 
     public Task<List<Recipe>> GetFeatured();
     
-    public Task<List<Recipe>> GetLikedRecipes(Guid userId, int page, int pageSize);
+    public Task<(int totalAmount, List<Recipe> likedRecipes)> GetLikedRecipes(Guid userId, int page, int pageSize);
 
     public Task<Recipe?> GetById(Guid id);
 

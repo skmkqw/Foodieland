@@ -104,14 +104,18 @@ public class RecipeController : ControllerBase
             _logger.LogWarning("No user found in authorization header");
             return Unauthorized("Failed to determine users identity");
         }
-        
-        var likedRecipes = await _repository.GetLikedRecipes(user.Id, page, pageSize);
-        _logger.LogInformation("Fetched {RecipeCount} liked recipes", likedRecipes.Count);
+
+        (int totalAmount, List<Recipe> likedRecipes) = await _repository.GetLikedRecipes(user.Id, page, pageSize);
+        _logger.LogInformation("Fetched {RecipeCount} liked recipes. Total amount of likes: {TotalAmountOfLikes}", likedRecipes.Count, totalAmount);
         
         var responseData = likedRecipes.Select(r => r.ToShortRecipeDto(true)).ToList();
         _logger.LogInformation("Returning {ResponseDataCount} liked recipe summaries", responseData.Count);
         
-        return Ok(responseData);
+        return Ok(new
+        {
+            TotalAmount = totalAmount,
+            LikedRecipes = responseData
+        });
     }
 
     [HttpGet("/recipes/{recipeId}")]

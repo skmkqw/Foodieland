@@ -5,15 +5,17 @@ namespace foodieland.Repositories.Recipes;
 
 public partial class RecipeRepository
 {
-    public async Task<List<Recipe>> GetLikedRecipes(Guid userId, int page, int pageSize)
+    public async Task<(int totalAmount, List<Recipe> likedRecipes)> GetLikedRecipes(Guid userId, int page, int pageSize)
     {
-        return await _context.LikedRecipes
+        var totalLikes = _context.LikedRecipes.Count(l => l.UserId == userId);
+        var likedRecipes = await _context.LikedRecipes
             .Include(l => l.Recipe)
             .Where(l => l.UserId == userId)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .Select(l => l.Recipe)
             .ToListAsync();
+        return (totalLikes, likedRecipes);
     }
     public async Task<bool> AddLike(Recipe recipe, Guid userId)
     {
