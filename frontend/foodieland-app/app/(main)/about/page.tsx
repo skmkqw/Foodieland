@@ -21,7 +21,7 @@ const articleContent = [
 ];
 
 export default async function AboutPage() {
-    const recipes = await fetchRecipes(3);
+    const recipes = await fetchRecipes(1, 3);
     return (
         <Container className="w-full flex flex-col items-center gap-20 py-10 text-center">
             <div className="flex flex-col items-center gap-10">

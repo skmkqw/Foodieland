@@ -4,7 +4,7 @@ import { RecipeShort } from "@/types";
 
 
 export default async function RecipesSection() {
-    const recipes: Array<RecipeShort> | undefined = await fetchRecipes(6);
+    const recipes: Array<RecipeShort> | undefined = await fetchRecipes(1, 6);
 
     if (!recipes) return (
         <Error errorMessage="Oops! An unexpected error occurred while fetching recipes. Please try again later." />

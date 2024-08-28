@@ -8,7 +8,7 @@ export default async function RecipesPageSection({ searchParams }) {
     const nextPage = page + 1;
     const prevPage = page - 1 > 0 ? page - 1 : 1;
 
-    const recipes = await fetchRecipes(page);
+    const recipes = await fetchRecipes(page, 4);
 
     // const data = await fetchLikedRecipes(page);
     // if (!data) {

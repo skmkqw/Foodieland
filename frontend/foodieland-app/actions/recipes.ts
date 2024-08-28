@@ -10,10 +10,10 @@ import { revalidatePath } from "next/cache";
 const recipeSchemaArray = z.array(shortRecipeSchema);
 
 
-export const fetchRecipes = async (recipeAmount: number): Promise<RecipeShort[] | undefined> => {
+export const fetchRecipes = async (page: number, pageSize: number): Promise<RecipeShort[] | undefined> => {
     const session = await getSession();
     try {
-        const response = await axiosInstance.get(`/recipes/published?page=1&pageSize=${recipeAmount}`, {
+        const response = await axiosInstance.get(`/recipes/published?page=${page}&pageSize=${pageSize}`, {
             headers: session ? { Authorization: `Bearer ${session}` } : undefined
         });
 
