@@ -3,9 +3,11 @@ import Logo from "@/components/shared/Logo";
 import Button from "@/components/ui/Button";
 import Inbox from "@/components/shared/Inbox";
 import Footer from "@/components/layout/Footer";
+import Pagination from "@/components/shared/Pagination";
 import LikeButton from "@/components/ui/LikeButton";
 import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
+import RecipeGridSkeleton from "@/components/recipes/RecipeGridSkeleton";
 import RecipeContainer from "@/components/recipes/RecipeContainer";
 import UserInfo from "@/components/shared/UserInfo";
 import Container from "@/components/shared/Container";
@@ -14,6 +16,7 @@ import Description from "@/components/shared/Description";
 import CheckButton from "@/components/ui/CheckButton";
 import NavBar from "@/components/layout/header/NavBar";
 import Header from "@/components/layout/header/Header";
+import FavouriteSection from "@/components/recipes/FavouriteSection";
 import RecipeInfo from "@/components/recipes/RecipeInfo";
 import CreatorInfo from "@/components/shared/CreatorInfo";
 import NavLinks from "@/components/layout/header/NavLinks";
@@ -61,6 +64,8 @@ export {
     FeaturedRecipeCard,
     FeaturedSlider,
     FeaturedSection,
+    Pagination,
+    FavouriteSection,
     FeaturedRecipeSkeleton,
     FilterSidebar,
     CategoriesSection,
@@ -78,6 +83,7 @@ export {
     RecipeCard,
     Error,
     DirectionList,
+    RecipeGridSkeleton,
     RecipeCardSkeleton,
     RecipeInfoBar,
     RecipeSectionSkeleton,

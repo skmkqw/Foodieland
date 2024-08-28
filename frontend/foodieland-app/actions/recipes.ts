@@ -45,7 +45,7 @@ export const likeRecipe = async (recipeId: string): Promise<boolean> => {
             }
         });
 
-        revalidatePath("/favourite");
+        revalidatePath("/recipes/favourite");
 
         return true;
     } catch (error) {
@@ -69,7 +69,7 @@ export const unlikeRecipe = async (recipeId: string): Promise<boolean> => {
             }
         });
 
-        revalidatePath("/favourite");
+        revalidatePath("/recipes/favourite");
 
         return true;
     } catch (error) {
@@ -98,10 +98,10 @@ export const fetchRecipe = async (recipeId: string): Promise<RecipeExtended | un
     }
 }
 
-export const fetchLikedRecipes = async (amount: number): Promise<RecipeShort[] | undefined> => {
+export const fetchLikedRecipes = async (page: number): Promise<RecipeShort[] | undefined> => {
     const session = await getSession();
     try {
-        const response = await axiosInstance.get("/recipes/liked", {
+        const response = await axiosInstance.get(`/recipes/liked?page=${page}&pageSize=4`, {
             headers: session ? { Authorization: `Bearer ${session}` } : undefined
         });
 

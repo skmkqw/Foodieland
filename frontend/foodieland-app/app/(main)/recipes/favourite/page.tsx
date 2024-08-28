@@ -1,26 +1,16 @@
-import { Container, Error, FilterSidebar, RecipeGrid, Title } from "@/components";
-import { fetchLikedRecipes } from "@/actions/recipes";
+import { Container, FavouriteSection, RecipeGridSkeleton, Title } from "@/components";
 import { Suspense } from "react";
 
-export default async function FavouritePage() {
-    const recipes = await fetchLikedRecipes(4);
-    const categories = recipes ? Array.from(new Set(recipes.map(recipe => recipe.category))) : [];
-
+export default async function FavouritePage({ searchParams }) {
     return (
-        <Container className="w-full py-10">
+        <Container className="w-full py-10 flex flex-col items-center">
             <Title
                 text="Recipes that bring happiness to your table ❤️"
                 className="text-4xl lg:text-start text-center"
             />
-            <div className="flex flex-col lg:grid lg:grid-cols-5 mt-10 gap-6">
-                <FilterSidebar className="col-span-1" categories={categories} />
-                {recipes && recipes.length != 0 ?
-                    <Suspense fallback={<p>A</p>}>
-                        <RecipeGrid recipes={recipes} />
-                    </Suspense>
-                    : <Error errorMessage="No recipes found." />
-                }
-            </div>
+            <Suspense fallback={<RecipeGridSkeleton />}>
+                <FavouriteSection searchParams={searchParams} />
+            </Suspense>
         </Container>
     );
 }
