@@ -3,7 +3,7 @@
 import { ChevronDown, Filter } from "lucide-react";
 import { Button, CheckButton } from "@/components";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function FilterSidebar({ categories, className }: { categories: Array<string>, className?: string }) {
     const [isExpanded, setIsExpanded] = useState(true);
@@ -14,10 +14,13 @@ export default function FilterSidebar({ categories, className }: { categories: A
     const [timeRangeFilterActive, setTimeRangeFilterActive] = useState(false);
 
     const router = useRouter();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
         if (!categoryFilterActive && !timeRangeFilterActive) return;
-        const query = new URLSearchParams();
+        const query = new URLSearchParams(searchParams.toString());
+
+        query.set("page", "1");
 
         categoryFilterActive && Object.keys(selectedCategories).forEach(category => {
             if (selectedCategories[category]) {
