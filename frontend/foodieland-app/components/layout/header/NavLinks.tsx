@@ -4,7 +4,6 @@ const MENU_ITEMS = [
     { title: "Home", href: "/" },
     { title: "Recipes", href: "/recipes" },
     { title: "Favourite", href: "/recipes/favourite" },
-    { title: "Contact", href: "/contact" },
     { title: "About us", href: "/about" }
 ];
 
