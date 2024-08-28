@@ -9,8 +9,12 @@ import { revalidatePath } from "next/cache";
 
 const recipeSchemaArray = z.array(shortRecipeSchema);
 
+interface FetchRecipesResponse {
+    totalAmount: number;
+    recipes: RecipeShort[];
+}
 
-export const fetchRecipes = async (page: number, pageSize: number): Promise<RecipeShort[] | undefined> => {
+export const fetchRecipes = async (page: number, pageSize: number): Promise<FetchRecipesResponse | undefined> => {
     const session = await getSession();
     try {
         const response = await axiosInstance.get(`/recipes/published?page=${page}&pageSize=${pageSize}`, {
