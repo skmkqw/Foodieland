@@ -110,7 +110,9 @@ export const fetchLikedRecipes = async (page: number): Promise<FetchLikedRecipes
             headers: session ? { Authorization: `Bearer ${session}` } : undefined
         });
 
-        const parsedData = recipeSchemaArray.safeParse(response.data);
+        const totalAmount:number = response.data.totalAmount;
+
+        const parsedData = recipeSchemaArray.safeParse(response.data.likedRecipes);
 
         if (!parsedData.success) {
             console.error("Invalid data structure:", parsedData.error);
