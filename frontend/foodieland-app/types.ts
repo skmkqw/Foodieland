@@ -52,3 +52,8 @@ export type Direction = {
     name: string,
     description: string
 }
+
+export type FilterGroupProps = {
+    groupName: string,
+    filterNames: Array<string>
+}
