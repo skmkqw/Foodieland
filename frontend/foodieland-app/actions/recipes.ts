@@ -105,8 +105,6 @@ export const fetchLikedRecipes = async (page: number): Promise<RecipeShort[] | u
             headers: session ? { Authorization: `Bearer ${session}` } : undefined
         });
 
-        console.log(response.request)
-
         const parsedData = recipeSchemaArray.safeParse(response.data);
 
         if (!parsedData.success) {
