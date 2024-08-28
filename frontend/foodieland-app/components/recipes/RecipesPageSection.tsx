@@ -8,16 +8,14 @@ export default async function RecipesPageSection({ searchParams }) {
     const nextPage = page + 1;
     const prevPage = page - 1 > 0 ? page - 1 : 1;
 
-    const recipes = await fetchRecipes(page, 4);
+    const data = await fetchRecipes(page, 4);
+    if (!data) {
+        return <Error errorMessage="Failed to fetch recipes." />;
+    }
 
-    // const data = await fetchLikedRecipes(page);
-    // if (!data) {
-    //     return <Error errorMessage="Failed to fetch recipes." />;
-    // }
-    //
-    // const { totalAmount, likedRecipes } = data;
-    //
-    // const totalPages = Math.ceil(totalAmount / 4);
+    const { totalAmount, recipes } = data;
+
+    const totalPages = Math.ceil(totalAmount / 4);
 
     const categories = recipes ? Array.from(new Set(recipes.map(recipe => recipe.category))) : [];
 
@@ -34,7 +32,7 @@ export default async function RecipesPageSection({ searchParams }) {
                 activePage={page}
                 prevPage={prevPage}
                 nextPage={nextPage}
-                totalPages={3}
+                totalPages={totalPages}
                 className="mt-10"
             />
         </div>

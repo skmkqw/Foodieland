@@ -1,10 +1,14 @@
 import { Container, Description, Error, RecipeCard, Title } from "@/components";
 import { fetchRecipes } from "@/actions/recipes";
-import { RecipeShort } from "@/types";
 
 
 export default async function RecipesSection() {
-    const recipes: Array<RecipeShort> | undefined = await fetchRecipes(1, 6);
+    const data = await fetchRecipes(1, 6);
+    if (!data) {
+        return <Error errorMessage="Failed to fetch recipes." />;
+    }
+
+    const { totalAmount, recipes } = data;
 
     if (!recipes) return (
         <Error errorMessage="Oops! An unexpected error occurred while fetching recipes. Please try again later." />
