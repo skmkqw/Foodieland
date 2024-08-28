@@ -21,14 +21,21 @@ export const fetchRecipes = async (page: number, pageSize: number): Promise<Fetc
             headers: session ? { Authorization: `Bearer ${session}` } : undefined
         });
 
-        const parsedData = recipeSchemaArray.safeParse(response.data);
+        const totalAmount = response.data.totalRecipes;
+
+        const parsedData = recipeSchemaArray.safeParse(response.data.recipes);
 
         if (!parsedData.success) {
             console.error("Invalid data structure:", parsedData.error);
             return;
         }
 
-        return parsedData.data;
+        const recipes = parsedData.data as RecipeShort[];
+
+        return {
+            totalAmount,
+            recipes
+        };
     } catch (error) {
         console.error("Error fetching recipes:", error);
     }
