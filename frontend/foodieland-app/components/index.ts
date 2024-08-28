@@ -7,6 +7,7 @@ import Pagination from "@/components/shared/Pagination";
 import LikeButton from "@/components/ui/LikeButton";
 import LinkButton from "@/components/ui/LinkButton";
 import InputGroup from "@/components/ui/InputGroup";
+import RecipeGridSkeleton from "@/components/recipes/RecipeGridSkeleton";
 import RecipeContainer from "@/components/recipes/RecipeContainer";
 import UserInfo from "@/components/shared/UserInfo";
 import Container from "@/components/shared/Container";
@@ -64,6 +65,7 @@ export {
     FeaturedSlider,
     FeaturedSection,
     Pagination,
+    FavouriteSection,
     FeaturedRecipeSkeleton,
     FilterSidebar,
     CategoriesSection,
@@ -81,6 +83,7 @@ export {
     RecipeCard,
     Error,
     DirectionList,
+    RecipeGridSkeleton,
     RecipeCardSkeleton,
     RecipeInfoBar,
     RecipeSectionSkeleton,
