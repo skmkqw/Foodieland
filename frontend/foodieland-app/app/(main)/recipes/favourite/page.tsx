@@ -3,7 +3,7 @@ import { fetchLikedRecipes } from "@/actions/recipes";
 import { Suspense } from "react";
 
 export default async function FavouritePage() {
-    const recipes = await fetchLikedRecipes(4);
+    const recipes = await fetchLikedRecipes(1);
     const categories = recipes ? Array.from(new Set(recipes.map(recipe => recipe.category))) : [];
 
     return (
