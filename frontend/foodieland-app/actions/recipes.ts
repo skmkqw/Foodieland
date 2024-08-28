@@ -45,7 +45,7 @@ export const likeRecipe = async (recipeId: string): Promise<boolean> => {
             }
         });
 
-        revalidatePath("/favourite");
+        revalidatePath("/recipes/favourite");
 
         return true;
     } catch (error) {
@@ -69,7 +69,7 @@ export const unlikeRecipe = async (recipeId: string): Promise<boolean> => {
             }
         });
 
-        revalidatePath("/favourite");
+        revalidatePath("/recipes/favourite");
 
         return true;
     } catch (error) {
