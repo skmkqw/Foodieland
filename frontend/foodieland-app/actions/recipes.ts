@@ -5,6 +5,7 @@ import { RecipeExtended, RecipeShort } from "@/types";
 import { z } from "zod";
 import { axiosInstance } from "@/lib/axios";
 import { recipeExtendedSchema, shortRecipeSchema } from "@/schemas/recipes";
+import { revalidatePath } from "next/cache";
 
 const recipeSchemaArray = z.array(shortRecipeSchema);
 
@@ -44,6 +45,8 @@ export const likeRecipe = async (recipeId: string): Promise<boolean> => {
             }
         });
 
+        revalidatePath("/favourite");
+
         return true;
     } catch (error) {
         console.error("Error liking recipe:", error);
@@ -66,6 +69,8 @@ export const unlikeRecipe = async (recipeId: string): Promise<boolean> => {
             }
         });
 
+        revalidatePath("/favourite");
+
         return true;
     } catch (error) {
         console.error("Error unliking recipe:", error);
@@ -81,6 +86,26 @@ export const fetchRecipe = async (recipeId: string): Promise<RecipeExtended | un
         });
 
         const parsedData = recipeExtendedSchema.safeParse(response.data);
+
+        if (!parsedData.success) {
+            console.error("Invalid data structure:", parsedData.error);
+            return;
+        }
+
+        return parsedData.data;
+    } catch (error) {
+        console.error("Error fetching recipes:", error);
+    }
+}
+
+export const fetchLikedRecipes = async (amount: number): Promise<RecipeShort[] | undefined> => {
+    const session = await getSession();
+    try {
+        const response = await axiosInstance.get("/recipes/liked", {
+            headers: session ? { Authorization: `Bearer ${session}` } : undefined
+        });
+
+        const parsedData = recipeSchemaArray.safeParse(response.data);
 
         if (!parsedData.success) {
             console.error("Invalid data structure:", parsedData.error);

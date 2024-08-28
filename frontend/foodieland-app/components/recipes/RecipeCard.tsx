@@ -22,7 +22,7 @@ export default function RecipeCard({ recipe }: { recipe: RecipeShort }) {
     };
 
     return (
-        <Link href={`/recipe/${recipe.id}`} passHref>
+        <Link href={`/recipes/${recipe.id}`} passHref>
             <div className="relative p-4 flex flex-col gap-7 bg-gradient-to-b from-white to-primary rounded-3xl cursor-pointer">
                 <LikeButton
                     isLiked={likeButtonActive}
