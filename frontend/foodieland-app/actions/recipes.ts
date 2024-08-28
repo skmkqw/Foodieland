@@ -98,7 +98,12 @@ export const fetchRecipe = async (recipeId: string): Promise<RecipeExtended | un
     }
 }
 
-export const fetchLikedRecipes = async (page: number): Promise<RecipeShort[] | undefined> => {
+interface FetchLikedRecipesResponse {
+    totalAmount: number;
+    likedRecipes: RecipeShort[];
+}
+
+export const fetchLikedRecipes = async (page: number): Promise<FetchLikedRecipesResponse | undefined> => {
     const session = await getSession();
     try {
         const response = await axiosInstance.get(`/recipes/liked?page=${page}&pageSize=4`, {
@@ -112,7 +117,12 @@ export const fetchLikedRecipes = async (page: number): Promise<RecipeShort[] | u
             return;
         }
 
-        return parsedData.data;
+        const likedRecipes = parsedData.data as RecipeShort[];
+
+        return {
+            totalAmount,
+            likedRecipes
+        };
     } catch (error) {
         console.error("Error fetching recipes:", error);
     }
