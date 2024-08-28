@@ -53,15 +53,19 @@ public class RecipeController : ControllerBase
     {
         _logger.LogInformation("Fetching all published recipes. Page: {Page}, PageSize: {PageSize}", page, pageSize);
 
-        var recipes = await _repository.GetAllPublished(page, pageSize);
-        _logger.LogInformation("Fetched {RecipeCount} published recipes", recipes.Count);
+        (int totalRecipes, List<Recipe> recipes) = await _repository.GetAllPublished(page, pageSize);
+        _logger.LogInformation("Fetched {RecipeCount} published recipes with {TotalRecipes} published recipes in total", recipes.Count, totalRecipes);
 
         var user = await IdentityVerifier.TryDetermineUser(_userManager, authorizationHeader);
 
         if (user == null)
         {
             _logger.LogInformation("No user found in authorization header. Returning recipes without like information.");
-            return Ok(recipes.Select(r => r.ToShortRecipeDto(false)));
+            return Ok(new
+            {
+                TotalRecipes = totalRecipes,
+                Recipes = recipes.Select(r => r.ToShortRecipeDto(false))
+            });
         }
 
         _logger.LogInformation("User {UserId} found. Fetching liked recipes", user.Id);
@@ -73,7 +77,11 @@ public class RecipeController : ControllerBase
             .ToList();
 
         _logger.LogInformation("Returning {ResponseDataCount} recipe summaries with like information", responseData.Count);
-        return Ok(responseData);
+        return Ok(new
+        {
+            TotalRecipes = totalRecipes,
+            Recipes = responseData
+        });
     }
 
     [HttpGet("recipes/featured")]

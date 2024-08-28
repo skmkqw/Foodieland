@@ -10,7 +10,7 @@ public interface IRecipeRepository
 {
     public Task<List<Recipe>> GetAll(int page, int pageSize);
     
-    public Task<List<Recipe>> GetAllPublished(int page, int pageSize);
+    public Task<(int totalAmount, List<Recipe> publishedRecipes)> GetAllPublished(int page, int pageSize);
 
     public Task<List<Recipe>> GetFeatured();
     

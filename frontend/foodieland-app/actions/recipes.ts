@@ -9,22 +9,33 @@ import { revalidatePath } from "next/cache";
 
 const recipeSchemaArray = z.array(shortRecipeSchema);
 
+interface FetchRecipesResponse {
+    totalAmount: number;
+    recipes: RecipeShort[];
+}
 
-export const fetchRecipes = async (recipeAmount: number): Promise<RecipeShort[] | undefined> => {
+export const fetchRecipes = async (page: number, pageSize: number): Promise<FetchRecipesResponse | undefined> => {
     const session = await getSession();
     try {
-        const response = await axiosInstance.get(`/recipes/published?page=1&pageSize=${recipeAmount}`, {
+        const response = await axiosInstance.get(`/recipes/published?page=${page}&pageSize=${pageSize}`, {
             headers: session ? { Authorization: `Bearer ${session}` } : undefined
         });
 
-        const parsedData = recipeSchemaArray.safeParse(response.data);
+        const totalAmount = response.data.totalRecipes;
+
+        const parsedData = recipeSchemaArray.safeParse(response.data.recipes);
 
         if (!parsedData.success) {
             console.error("Invalid data structure:", parsedData.error);
             return;
         }
 
-        return parsedData.data;
+        const recipes = parsedData.data as RecipeShort[];
+
+        return {
+            totalAmount,
+            recipes
+        };
     } catch (error) {
         console.error("Error fetching recipes:", error);
     }
