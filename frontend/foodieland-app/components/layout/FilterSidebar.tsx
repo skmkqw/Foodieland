@@ -22,11 +22,14 @@ export default function FilterSidebar({ categories, className }: { categories: A
 
         query.set("page", "1");
 
-        categoryFilterActive && Object.keys(selectedCategories).forEach(category => {
-            if (selectedCategories[category]) {
-                query.append("categories", category);
-            }
-        });
+        if (categoryFilterActive) {
+            query.delete("categories");
+            Object.keys(selectedCategories).forEach(category => {
+                if (selectedCategories[category]) {
+                    query.append("categories", category);
+                }
+            });
+        }
 
         if (timeRangeFilterActive) {
             if (timeRange.from) query.set("from", timeRange.from.toString());

@@ -101,9 +101,11 @@ export const fetchRecipe = async (recipeId: string): Promise<RecipeExtended | un
 export const fetchLikedRecipes = async (page: number): Promise<RecipeShort[] | undefined> => {
     const session = await getSession();
     try {
-        const response = await axiosInstance.get(`/recipes/liked?page=${page}/&pageSize=4`, {
+        const response = await axiosInstance.get(`/recipes/liked?page=${page}&pageSize=4`, {
             headers: session ? { Authorization: `Bearer ${session}` } : undefined
         });
+
+        console.log(response.request)
 
         const parsedData = recipeSchemaArray.safeParse(response.data);
 
