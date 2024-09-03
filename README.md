@@ -6,10 +6,10 @@ Welcome to **FoodieLand**, your ultimate destination for discovering recipes fro
 FoodieLand is a web application designed to help users find and share high-quality recipes. Whether you're a professional chef or a home cook, you'll find a variety of recipes to suit your tastes and skill level. The platform also allows chefs to upload their own recipes, share cooking tips, and connect with a community of food lovers.
 
 ## Features
-- **Recipe Search**: Find recipes by ingredients, cuisine, chef, or popularity.
-- **Chef Profiles**: Discover recipes from renowned chefs and follow their latest creations.
-- **User Accounts**: Create an account to save favorite recipes, post reviews, and upload your own recipes.
-- **Ratings and Reviews**: Rate recipes and read reviews from other users to find the best dishes.
+- **Recipe Search**: Find recipes by ingredients, cuisine or cooking time.
+- **Cooking instructions**: Discover recipes with detailed cooking directions to achieve the best results.
+- **User Accounts**: Create an account to save favorite recipes.
+- **Well designed UI**: Explore recipes using beautiful and user-friendly web UI.
   
 ## Tech Stack
 - **Frontend**: Next.js
